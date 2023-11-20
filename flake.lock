@@ -1,0 +1,43 @@
+{
+  "nodes": {
+    "deploy-sh": {
+      "locked": {
+        "lastModified": 1693063263,
+        "narHash": "sha256-M4hipQwzFxtLl7V2vqydeLx1ECrbBCMbMBqvltQfJzI=",
+        "owner": "Defelo",
+        "repo": "deploy-sh",
+        "rev": "afac393ba7cb3ba8c0eb300bd7f679f80e11e469",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Defelo",
+        "repo": "deploy-sh",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1700390070,
+        "narHash": "sha256-de9KYi8rSJpqvBfNwscWdalIJXPo8NjdIZcEJum1mH0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e4ad989506ec7d71f7302cc3067abd82730a4beb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "deploy-sh": "deploy-sh",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
