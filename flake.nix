@@ -2,12 +2,16 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     deploy-sh.url = "github:Defelo/deploy-sh";
+    sops-nix.url = "github:Mic92/sops-nix";
+    nfnix.url = "github:Defelo/nfnix";
   };
 
   outputs = {
     self,
     nixpkgs,
     deploy-sh,
+    sops-nix,
+    ...
   } @ inputs: let
     defaultSystems = [
       "x86_64-linux"
@@ -28,6 +32,7 @@
         specialArgs = inputs;
         modules = [
           deploy-sh.nixosModules.default
+          sops-nix.nixosModules.default
           ./hosts/academy
           ./modules
         ];
