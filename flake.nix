@@ -37,6 +37,16 @@
           ./modules
         ];
       };
+      sandkasten = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = inputs;
+        modules = [
+          deploy-sh.nixosModules.default
+          sops-nix.nixosModules.default
+          ./hosts/sandkasten
+          ./modules
+        ];
+      };
     };
     devShells = eachDefaultSystem (system: let
       pkgs = import nixpkgs {inherit system;};
