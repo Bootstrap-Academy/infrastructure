@@ -1,6 +1,7 @@
 {
   nfnix,
   env,
+  server,
   ...
 }: {
   networking.firewall.enable = false;
@@ -18,8 +19,8 @@
             default_input
             "iif lo accept"
             "iifname ${vmap {
-              ${env.servers.prod.dev.public} = "jump input_public";
-              ${env.servers.prod.dev.wireguard} = "jump input_wireguard";
+              ${server.dev.public} = "jump input_public";
+              ${server.dev.wireguard} = "jump input_wireguard";
             }}"
           ];
         };
@@ -30,7 +31,7 @@
           policy = "drop";
           rules = [
             default_forward
-            "iifname ${env.servers.prod.dev.wireguard} oifname ${env.servers.prod.dev.private} accept"
+            "iifname ${server.dev.wireguard} oifname ${server.dev.private} accept"
           ];
         };
 
@@ -40,7 +41,7 @@
             allow_icmp_pings
 
             # allow wireguard
-            "udp dport ${toString env.servers.prod.wireguard.port} accept"
+            "udp dport ${toString server.wireguard.port} accept"
           ];
         };
 
@@ -57,7 +58,7 @@
           type = "nat";
           hook = "postrouting";
           rules = [
-            "ip saddr ${env.net.internal.wireguard.net4} oifname ${env.servers.prod.dev.private} masquerade"
+            "ip saddr ${env.net.internal.wireguard.net4} oifname ${server.dev.private} masquerade"
           ];
         };
       };
