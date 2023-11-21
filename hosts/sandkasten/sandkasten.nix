@@ -1,6 +1,4 @@
-{sandkasten, ...}: let
-  port = 8000;
-in {
+{sandkasten, ...}: {
   imports = [sandkasten.nixosModules.sandkasten];
 
   services.sandkasten = {
@@ -9,10 +7,8 @@ in {
     environments = p: with p; [all];
 
     settings = {
-      inherit port;
       host = "0.0.0.0";
+      port = 8000;
     };
   };
-
-  networking.firewall.allowedTCPPorts = [port];
 }
