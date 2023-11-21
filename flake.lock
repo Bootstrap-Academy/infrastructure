@@ -2,11 +2,11 @@
   "nodes": {
     "deploy-sh": {
       "locked": {
-        "lastModified": 1693063263,
-        "narHash": "sha256-M4hipQwzFxtLl7V2vqydeLx1ECrbBCMbMBqvltQfJzI=",
+        "lastModified": 1700564925,
+        "narHash": "sha256-OuZG/QNlIMXmkVhL+h8IBjlF5wqite/99lktXol8FkA=",
         "owner": "Defelo",
         "repo": "deploy-sh",
-        "rev": "afac393ba7cb3ba8c0eb300bd7f679f80e11e469",
+        "rev": "f3bf483d310a1dfd8fb10619ce58e697555c6071",
         "type": "github"
       },
       "original": {
