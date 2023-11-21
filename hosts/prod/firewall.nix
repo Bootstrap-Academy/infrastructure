@@ -1,6 +1,5 @@
 {
   nfnix,
-  env,
   server,
   ...
 }: {
@@ -48,18 +47,6 @@
         chains.input_wireguard = {
           policy = "accept";
           rules = [];
-        };
-      };
-
-      tables.nat = {
-        family = "inet";
-
-        chains.postrouting = {
-          type = "nat";
-          hook = "postrouting";
-          rules = [
-            "ip saddr ${env.net.internal.wireguard.net4} oifname ${server.dev.private} masquerade"
-          ];
         };
       };
     };
