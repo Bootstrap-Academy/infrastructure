@@ -1,5 +1,2 @@
 {
-  networking = {
-    hostName = "sandkasten";
-  };
 }

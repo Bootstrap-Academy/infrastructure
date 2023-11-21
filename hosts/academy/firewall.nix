@@ -1,6 +1,6 @@
 {
-  config,
   nfnix,
+  env,
   ...
 }: {
   networking.firewall.enable = false;
@@ -18,8 +18,8 @@
             default_input
             "iif lo accept"
             "iifname ${vmap {
-              "enp1s0" = "jump input_public";
-              "wg0" = "jump input_wireguard";
+              ${env.servers.academy.dev.public} = "jump input_public";
+              ${env.servers.academy.dev.wireguard} = "jump input_wireguard";
             }}"
           ];
         };
@@ -30,7 +30,7 @@
           policy = "drop";
           rules = [
             default_forward
-            "iifname wg0 oifname enp7s0 accept"
+            "iifname ${env.servers.academy.dev.wireguard} oifname ${env.servers.academy.dev.private} accept"
           ];
         };
 
@@ -40,7 +40,7 @@
             allow_icmp_pings
 
             # allow wireguard
-            "udp dport ${toString config.networking.wireguard.interfaces.wg0.listenPort} accept"
+            "udp dport ${toString env.servers.academy.wireguard.port} accept"
           ];
         };
 
@@ -57,7 +57,7 @@
           type = "nat";
           hook = "postrouting";
           rules = [
-            "ip saddr 10.23.1.0/24 oifname enp7s0 masquerade"
+            "ip saddr ${env.net.internal.wireguard.net4} oifname ${env.servers.academy.dev.private} masquerade"
           ];
         };
       };

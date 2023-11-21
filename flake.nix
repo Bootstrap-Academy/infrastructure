@@ -25,29 +25,25 @@
           value = f system;
         })
         defaultSystems);
+    env = import ./env.nix;
   in {
-    nixosConfigurations = {
-      academy = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        specialArgs = inputs;
+    nixosConfigurations = builtins.mapAttrs (name: server:
+      nixpkgs.lib.nixosSystem {
+        inherit (server) system;
+        specialArgs = inputs // {inherit env;};
         modules = [
           deploy-sh.nixosModules.default
           sops-nix.nixosModules.default
-          ./hosts/academy
+          ./hosts/${name}
           ./modules
+          {
+            networking.hostName = name;
+            deploy-sh.targetHost = nixpkgs.lib.mkDefault "root@${server.net.private.ip4}";
+            sops.defaultSopsFile = nixpkgs.lib.mkIf (builtins.readDir ./hosts/${name} ? "secrets.yml") ./hosts/${name}/secrets.yml;
+          }
         ];
-      };
-      sandkasten = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        specialArgs = inputs;
-        modules = [
-          deploy-sh.nixosModules.default
-          sops-nix.nixosModules.default
-          ./hosts/sandkasten
-          ./modules
-        ];
-      };
-    };
+      })
+    env.servers;
     devShells = eachDefaultSystem (system: let
       pkgs = import nixpkgs {inherit system;};
     in {
