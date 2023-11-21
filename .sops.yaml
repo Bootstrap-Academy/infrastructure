@@ -1,10 +1,10 @@
 keys:
   - &admin_defelo 61303bbad7d1bf74efa44e3be7fe2087e4380e64
   - &admin_nico 0797D2389769CA1E57B72ED92BA7811687C90DE4
-  - &host_academy age1gmp55vpd9dpmmsw6wpyd85rhgy8pp32sfg842lxl4a8tvy2agufqac3yqr
+  - &host_prod age1gmp55vpd9dpmmsw6wpyd85rhgy8pp32sfg842lxl4a8tvy2agufqac3yqr
 
 creation_rules:
-  - path_regex: hosts/academy/secrets\.yml$
+  - path_regex: hosts/prod/secrets\.yml$
     key_groups:
       - pgp: [ *admin_defelo, *admin_nico ]
-        age: [ *host_academy ]
+        age: [ *host_prod ]

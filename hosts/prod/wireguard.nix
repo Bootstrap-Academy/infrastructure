@@ -6,10 +6,10 @@
 }: {
   networking.wireguard = {
     enable = true;
-    interfaces.${env.servers.academy.dev.wireguard} = {
+    interfaces.${env.servers.prod.dev.wireguard} = {
       privateKeyFile = config.sops.secrets."wireguard/private-key".path;
-      listenPort = env.servers.academy.wireguard.port;
-      ips = ["${env.servers.academy.net.wireguard.ip4}/24"];
+      listenPort = env.servers.prod.wireguard.port;
+      ips = ["${env.servers.prod.net.wireguard.ip4}/24"];
       peers =
         lib.mapAttrsToList (name: {
           publicKey,
@@ -19,7 +19,7 @@
           presharedKeyFile = config.sops.secrets."wireguard/psk/${name}".path;
           allowedIPs = ["${ip4}/32"];
         })
-        env.servers.academy.wireguard.peers;
+        env.servers.prod.wireguard.peers;
     };
   };
 
@@ -32,5 +32,5 @@
     // (builtins.listToAttrs (map (name: {
       name = "wireguard/psk/${name}";
       value = {};
-    }) (builtins.attrNames env.servers.academy.wireguard.peers)));
+    }) (builtins.attrNames env.servers.prod.wireguard.peers)));
 }

@@ -18,8 +18,8 @@
             default_input
             "iif lo accept"
             "iifname ${vmap {
-              ${env.servers.academy.dev.public} = "jump input_public";
-              ${env.servers.academy.dev.wireguard} = "jump input_wireguard";
+              ${env.servers.prod.dev.public} = "jump input_public";
+              ${env.servers.prod.dev.wireguard} = "jump input_wireguard";
             }}"
           ];
         };
@@ -30,7 +30,7 @@
           policy = "drop";
           rules = [
             default_forward
-            "iifname ${env.servers.academy.dev.wireguard} oifname ${env.servers.academy.dev.private} accept"
+            "iifname ${env.servers.prod.dev.wireguard} oifname ${env.servers.prod.dev.private} accept"
           ];
         };
 
@@ -40,7 +40,7 @@
             allow_icmp_pings
 
             # allow wireguard
-            "udp dport ${toString env.servers.academy.wireguard.port} accept"
+            "udp dport ${toString env.servers.prod.wireguard.port} accept"
           ];
         };
 
@@ -57,7 +57,7 @@
           type = "nat";
           hook = "postrouting";
           rules = [
-            "ip saddr ${env.net.internal.wireguard.net4} oifname ${env.servers.academy.dev.private} masquerade"
+            "ip saddr ${env.net.internal.wireguard.net4} oifname ${env.servers.prod.dev.private} masquerade"
           ];
         };
       };

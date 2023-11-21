@@ -6,7 +6,7 @@
   };
 
   servers = {
-    academy = {
+    prod = {
       system = "aarch64-linux";
 
       net = {

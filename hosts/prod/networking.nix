@@ -1,8 +1,8 @@
 {env, ...}: {
-  networking.interfaces.${env.servers.academy.dev.public} = {
+  networking.interfaces.${env.servers.prod.dev.public} = {
     ipv6.addresses = [
       {
-        address = env.servers.academy.net.public.ip6;
+        address = env.servers.prod.net.public.ip6;
         prefixLength = 64;
       }
     ];

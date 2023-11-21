@@ -6,5 +6,5 @@
     ./ssh.nix
   ];
 
-  deploy-sh.buildHost = "root@${env.servers.academy.net.private.ip4}";
+  deploy-sh.buildHost = "root@${env.servers.prod.net.private.ip4}";
 }
