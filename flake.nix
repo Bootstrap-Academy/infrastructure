@@ -4,6 +4,7 @@
     deploy-sh.url = "github:Defelo/deploy-sh";
     sops-nix.url = "github:Mic92/sops-nix";
     nfnix.url = "github:Defelo/nfnix";
+    sandkasten.url = "github:Defelo/sandkasten";
   };
 
   outputs = {
