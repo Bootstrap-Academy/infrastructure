@@ -31,7 +31,7 @@
     nixosConfigurations = builtins.mapAttrs (name: server:
       nixpkgs.lib.nixosSystem {
         inherit (server) system;
-        specialArgs = inputs // {inherit env;};
+        specialArgs = inputs // {inherit env server;};
         modules = [
           deploy-sh.nixosModules.default
           sops-nix.nixosModules.default
