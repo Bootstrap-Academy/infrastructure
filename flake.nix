@@ -45,15 +45,13 @@
         ];
       })
     env.servers;
+    deploy-sh.hosts = self.nixosConfigurations;
     devShells = eachDefaultSystem (system: let
       pkgs = import nixpkgs {inherit system;};
     in {
       default = pkgs.mkShell {
         packages = [
-          (deploy-sh.lib.mkDeploy {
-            inherit pkgs;
-            hosts = self.nixosConfigurations;
-          })
+          deploy-sh.packages.${system}.default
         ];
       };
     });
