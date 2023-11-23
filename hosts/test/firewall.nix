@@ -1,5 +1,4 @@
 {
-  config,
   nfnix,
   env,
   server,
@@ -30,6 +29,9 @@
           policy = "drop";
           rules = [
             allow_icmp_pings
+
+            # allow nginx
+            "tcp dport { 80, 443 } accept"
           ];
         };
 
