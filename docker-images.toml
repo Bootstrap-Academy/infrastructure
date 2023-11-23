@@ -1,0 +1,5 @@
+"auth-ms:develop" = "ghcr.io/bootstrap-academy/auth-ms@sha256:47e53ff4982c6f6e600ced8c998ba25296c917b92d3417faf965807a4d403341"
+"skills-ms:develop" = "ghcr.io/bootstrap-academy/skills-ms@sha256:cc415ca7e586601b3bcffab0bb72b6379390c856610e2879b46cdfbc879a02e5"
+"shop-ms:develop" = "ghcr.io/bootstrap-academy/shop-ms@sha256:fb4278ddb910f0c2babbf53b17bd7945a3d372e047eba82d826d8d3bb4d4b831"
+"jobs-ms:develop" = "ghcr.io/bootstrap-academy/jobs-ms@sha256:0204ba3d88b420289284fd893819d1ee3de4cba4cd0afd3a91aa801fa2dd5bd2"
+"challenges-ms:develop" = "ghcr.io/bootstrap-academy/challenges-ms@sha256:9e132e215c4ef98cda84d088593e662aa78a434b42ad1008e3353c2c3a5b0edb"

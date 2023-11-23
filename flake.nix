@@ -31,7 +31,12 @@
     nixosConfigurations = builtins.mapAttrs (name: server:
       nixpkgs.lib.nixosSystem {
         inherit (server) system;
-        specialArgs = inputs // {inherit env server;};
+        specialArgs =
+          inputs
+          // {
+            inherit env server;
+            docker-images = fromTOML (builtins.readFile ./docker-images.toml);
+          };
         modules = [
           deploy-sh.nixosModules.default
           sops-nix.nixosModules.default
@@ -52,6 +57,7 @@
       default = pkgs.mkShell {
         packages = [
           deploy-sh.packages.${system}.default
+          (builtins.attrValues (import ./scripts pkgs))
         ];
       };
     });
