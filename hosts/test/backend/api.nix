@@ -10,8 +10,7 @@
   environment = {
     LOG_LEVEL = "DEBUG";
 
-    HOST = "0.0.0.0";
-    PORT = "8000";
+    HOST = "127.0.0.1";
 
     DEBUG = "True";
     RELOAD = "False";
@@ -42,12 +41,12 @@
     MAX_OVERFLOW = "100";
     SQL_SHOW_STATEMENTS = "False";
 
-    AUTH_REDIS_URL = "redis://172.20.0.1:6379/0";
-    SKILLS_REDIS_URL = "redis://172.20.0.1:6379/1";
-    SHOP_REDIS_URL = "redis://172.20.0.1:6379/2";
-    JOBS_REDIS_URL = "redis://172.20.0.1:6379/3";
-    EVENTS_REDIS_URL = "redis://172.20.0.1:6379/4";
-    CHALLENGES_REDIS_URL = "redis://172.20.0.1:6379/5";
+    AUTH_REDIS_URL = "redis://127.0.0.1:6379/0";
+    SKILLS_REDIS_URL = "redis://127.0.0.1:6379/1";
+    SHOP_REDIS_URL = "redis://127.0.0.1:6379/2";
+    JOBS_REDIS_URL = "redis://127.0.0.1:6379/3";
+    EVENTS_REDIS_URL = "redis://127.0.0.1:6379/4";
+    CHALLENGES_REDIS_URL = "redis://127.0.0.1:6379/5";
 
     SENTRY_ENVIRONMENT = "test";
   };
@@ -56,14 +55,13 @@ in {
     extraOptions = [
       "--rm=false"
       "--restart=always"
-      "--network=api"
+      "--network=host"
       "--no-healthcheck"
     ];
   in {
     auth = {
       inherit extraOptions;
       image = docker-images."auth-ms:develop";
-      ports = ["127.0.0.1:${toString ports.auth}:8000"];
       environmentFiles = [
         config.sops.secrets."backend/api/common".path
         config.sops.secrets."backend/api/auth-ms".path
@@ -71,6 +69,7 @@ in {
       environment =
         environment
         // {
+          PORT = toString ports.auth;
           ROOT_PATH = "/auth";
 
           ACCESS_TOKEN_TTL = "300";
@@ -117,12 +116,6 @@ in {
         };
     };
   };
-
-  system.activationScripts.mkApiContainerNetwork = let
-    containerBackend = config.virtualisation.oci-containers.backend;
-  in ''
-    ${pkgs.${containerBackend}}/bin/${containerBackend} network create --ignore --subnet 172.20.0.0/16 api
-  '';
 
   services.nginx.virtualHosts."api.test.new.bootstrap.academy" = {
     forceSSL = true;
