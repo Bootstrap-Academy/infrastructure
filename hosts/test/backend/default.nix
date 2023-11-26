@@ -9,6 +9,7 @@
     ./shop.nix
     ./jobs.nix
     ./events.nix
+    ./challenges.nix
   ];
 
   academy.backend = {

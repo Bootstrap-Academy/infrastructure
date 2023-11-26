@@ -5,6 +5,8 @@
     sops-nix.url = "github:Mic92/sops-nix";
     nfnix.url = "github:Defelo/nfnix";
     sandkasten.url = "github:Defelo/sandkasten";
+
+    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/develop";
   };
 
   outputs = {
