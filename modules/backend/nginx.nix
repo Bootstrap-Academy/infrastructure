@@ -23,6 +23,15 @@
               };
             })
             cfg.microservices
+            // (
+              lib.mapAttrs' (ms: {port, ...}: {
+                name = "= /${ms}/";
+                value = {
+                  return = "307 /${ms}/docs";
+                };
+              })
+              cfg.microservices
+            )
             // {
               "= /" = {
                 tryFiles = "/index.html =404";
