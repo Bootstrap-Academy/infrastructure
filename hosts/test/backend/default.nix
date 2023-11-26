@@ -2,6 +2,7 @@
   imports = [
     ./auth.nix
     ./skills.nix
+    ./shop.nix
   ];
 
   academy.backend = {
