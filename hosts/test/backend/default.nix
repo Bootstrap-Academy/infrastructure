@@ -7,6 +7,7 @@
     ./auth.nix
     ./skills.nix
     ./shop.nix
+    ./jobs.nix
   ];
 
   academy.backend = {
