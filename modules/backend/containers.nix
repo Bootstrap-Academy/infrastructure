@@ -20,6 +20,7 @@
               PORT = toString cfg.microservices.${ms}.port;
               ROOT_PATH = "/${ms}";
               REDIS_URL = cfg.common.environment."${lib.toUpper ms}_REDIS_URL";
+              PUBLIC_BASE_URL = "https://${cfg.domain}/${ms}";
             }
             // cfg.common.environment
             // environment;

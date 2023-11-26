@@ -14,6 +14,9 @@
     domain = mkOption {
       type = types.str;
     };
+    frontend = mkOption {
+      type = types.str;
+    };
 
     common = {
       environmentFiles = mkOption {

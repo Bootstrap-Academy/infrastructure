@@ -11,7 +11,6 @@ in {
       environment = {
         LECTURE_XP = "10";
 
-        PUBLIC_BASE_URL = "https://${config.academy.backend.domain}/skills";
         MP4_LECTURES = lecturesDir;
       };
     };

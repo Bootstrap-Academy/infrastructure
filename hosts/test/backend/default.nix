@@ -8,12 +8,14 @@
     ./skills.nix
     ./shop.nix
     ./jobs.nix
+    ./events.nix
   ];
 
   academy.backend = {
     enable = true;
     name = "Bootstrap Academy Test Instance";
     domain = "api.test.new.bootstrap.academy";
+    frontend = "https://bootstrap-academy-frontend.pages.dev";
 
     common = {
       environmentFiles = [config.sops.secrets."academy-backend/microservices/common".path];
