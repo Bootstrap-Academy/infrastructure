@@ -8,6 +8,9 @@
 
   options.academy.backend = with lib; {
     enable = mkEnableOption "Bootstrap Academy Backend";
+    name = mkOption {
+      type = types.str;
+    };
     domain = mkOption {
       type = types.str;
     };

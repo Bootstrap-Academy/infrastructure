@@ -7,6 +7,7 @@
 
   academy.backend = {
     enable = true;
+    name = "Bootstrap Academy Test Instance";
     domain = "api.test.new.bootstrap.academy";
 
     common = {
