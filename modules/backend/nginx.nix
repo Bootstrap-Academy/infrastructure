@@ -61,14 +61,14 @@
                         ${builtins.concatStringsSep "\n" (map (ms: ''
                     <tr>
                       <td>${ms}</td>
-                      <td><a href="auth">https://${cfg.domain}/${ms}</a></td>
+                      <td><a href="${ms}">https://${cfg.domain}/${ms}</a></td>
                       <td>
                         <a href="${ms}/docs">Swagger</a>
                         <a href="${ms}/redoc">Redoc</a>
                         <a href="${ms}/openapi.json">OpenAPI</a>
                       </td>
                     </tr>
-                  '') (builtins.attrNames cfg.microservices))}
+                  '') (builtins.sort (a: b: cfg.microservices.${a}.port < cfg.microservices.${b}.port) (builtins.attrNames cfg.microservices)))}
                       </table>
                     </body>
                   </html>

@@ -42,6 +42,10 @@
             });
           };
 
+          redis.database = mkOption {
+            type = types.ints.unsigned;
+          };
+
           container = mkOption {
             type = types.nullOr (types.submodule {
               options = {

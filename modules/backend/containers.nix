@@ -15,7 +15,14 @@
         value = {
           image = docker-images.${image};
           environmentFiles = cfg.common.environmentFiles ++ environmentFiles;
-          environment = cfg.common.environment // environment;
+          environment =
+            {
+              PORT = toString cfg.microservices.${ms}.port;
+              ROOT_PATH = "/${ms}";
+              REDIS_URL = cfg.common.environment."${lib.toUpper ms}_REDIS_URL";
+            }
+            // cfg.common.environment
+            // environment;
           extraOptions = [
             "--rm=false"
             "--restart=always"

@@ -1,16 +1,12 @@
-{config, ...}: let
-  port = 8000;
-in {
+{config, ...}: {
   academy.backend.microservices.auth = {
-    inherit port;
+    port = 8000;
     database.passwordFile = config.sops.secrets."academy-backend/database/passwords/academy-auth".path;
+    redis.database = 0;
     container = {
       image = "auth-ms:develop";
       environmentFiles = [config.sops.secrets."academy-backend/microservices/auth-ms".path];
       environment = {
-        PORT = toString port;
-        ROOT_PATH = "/auth";
-
         ACCESS_TOKEN_TTL = "300";
         REFRESH_TOKEN_TTL = "2592000";
         OAUTH_REGISTER_TOKEN_TTL = "600";
@@ -26,8 +22,6 @@ in {
 
         OPEN_REGISTRATION = "True";
         OPEN_OAUTH_REGISTRATION = "True";
-
-        REDIS_URL = config.academy.backend.common.environment.AUTH_REDIS_URL;
 
         OAUTH_PROVIDERS__GITHUB__NAME = "GitHub";
         OAUTH_PROVIDERS__GITHUB__AUTHORIZE_URL = "https://github.com/login/oauth/authorize";
