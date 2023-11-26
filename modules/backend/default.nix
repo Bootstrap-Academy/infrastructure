@@ -17,6 +17,10 @@
     frontend = mkOption {
       type = types.str;
     };
+    protectInternalEndpoints = mkOption {
+      type = types.bool;
+      default = true;
+    };
 
     common = {
       environmentFiles = mkOption {

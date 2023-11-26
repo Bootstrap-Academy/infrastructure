@@ -32,6 +32,9 @@
               })
               cfg.microservices
             )
+            // (lib.optionalAttrs (cfg.protectInternalEndpoints) {
+              "~* (:*/_internal/.*)".return = "403";
+            })
             // {
               "= /" = {
                 tryFiles = "/index.html =404";
