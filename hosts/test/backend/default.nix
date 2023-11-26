@@ -1,6 +1,7 @@
 {config, ...}: {
   imports = [
     ./auth.nix
+    ./skills.nix
   ];
 
   academy.backend = {
