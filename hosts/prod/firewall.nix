@@ -41,6 +41,9 @@
 
             # allow wireguard
             "udp dport ${toString server.wireguard.port} accept"
+
+            # allow nginx
+            "tcp dport { 80, 443 } accept"
           ];
         };
 
