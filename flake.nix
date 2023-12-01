@@ -55,11 +55,45 @@
     deploy-sh.hosts = self.nixosConfigurations;
     devShells = eachDefaultSystem (system: let
       pkgs = import nixpkgs {inherit system;};
+      scripts' = {
+        update = ''
+          if [[ $# -eq 0 ]]; then
+            nix flake update --commit-lock-file
+          else
+            args=""
+            for x in "$@"; do
+              args="$args --update-input $x"
+            done
+            nix flake lock $args --commit-lock-file
+          fi
+        '';
+        mkpw = ''
+          pw=$(${pkgs.xkcdpass}/bin/xkcdpass)
+          hashed=$(${pkgs.mkpasswd}/bin/mkpasswd -s -m sha512crypt <<< "$pw")
+          cat << EOF
+          users:
+              root:
+                  # $pw
+                  password: $hashed
+          EOF
+        '';
+        mkht = ''
+          pw=$(${pkgs.pwgen}/bin/pwgen -s 32 1)
+          echo "\`$1\` : \`$pw\`"
+          ${pkgs.apacheHttpd}/bin/htpasswd -nbB "$1" "$pw" | head -1
+        '';
+      };
+      scripts = pkgs.stdenv.mkDerivation {
+        name = "scripts";
+        unpackPhase = "true";
+        installPhase = builtins.foldl' (acc: x: acc + "ln -s ${pkgs.writeShellScript "${x}.sh" scripts'.${x}} $out/bin/${x}; ") "mkdir -p $out/bin; " (builtins.attrNames scripts');
+      };
     in {
       default = pkgs.mkShell {
         packages = [
           deploy-sh.packages.${system}.default
           (builtins.attrValues (import ./scripts pkgs))
+          scripts
         ];
       };
     });
