@@ -1,26 +1,4 @@
-let
-  wireguard = {
-    port = 51820;
-    peers = {
-      defelo = {
-        publicKey = "1g/V66LITNSzZD0DDIKt4l3u8/yOGYEOtcArAXMvHyQ=";
-        ip4 = "10.23.1.2";
-      };
-      nico-t480 = {
-        publicKey = "EtC01X70ExI7Kvrp5tzE8wWlcbKD/QHg6wIvUB5ewQI=";
-        ip4 = "10.23.1.3";
-      };
-      nico-ws1 = {
-        publicKey = "PrSCG2vuAiHKnB3AJm1ii6T2LHaB8ZRu8GinjPGfXEc=";
-        ip4 = "10.23.1.4";
-      };
-      nico-hm90 = {
-        publicKey = "aMKMkLo92dHyvbB3vDde4kF9DQLGnw0NqocLGK4KcBA=";
-        ip4 = "10.23.1.5";
-      };
-    };
-  };
-in {
+{
   net.internal = {
     net4 = "10.23.0.0/23";
     servers.net4 = "10.23.0.0/24";
@@ -44,7 +22,27 @@ in {
         wireguard = "wg0";
       };
 
-      inherit wireguard;
+      wireguard = {
+        port = 51820;
+        peers = {
+          defelo = {
+            publicKey = "1g/V66LITNSzZD0DDIKt4l3u8/yOGYEOtcArAXMvHyQ=";
+            ip4 = "10.23.1.2";
+          };
+          nico-t480 = {
+            publicKey = "EtC01X70ExI7Kvrp5tzE8wWlcbKD/QHg6wIvUB5ewQI=";
+            ip4 = "10.23.1.3";
+          };
+          nico-ws1 = {
+            publicKey = "PrSCG2vuAiHKnB3AJm1ii6T2LHaB8ZRu8GinjPGfXEc=";
+            ip4 = "10.23.1.4";
+          };
+          nico-hm90 = {
+            publicKey = "aMKMkLo92dHyvbB3vDde4kF9DQLGnw0NqocLGK4KcBA=";
+            ip4 = "10.23.1.5";
+          };
+        };
+      };
 
       ssh.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDICX5+RkzRMCwFqAbGrWOTPTsz53/7byvp6GGcvKQbV";
     };
@@ -66,16 +64,12 @@ in {
         public.ip4 = "49.13.80.22";
         public.ip6 = "2a01:4f8:c17:ad51::";
         private.ip4 = "10.23.0.4";
-        wireguard.ip4 = "10.23.1.4";
       };
 
       dev = {
         public = "enp1s0";
         private = "enp7s0";
-        wireguard = "wg0";
       };
-
-      inherit wireguard;
 
       ssh.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPqxUuWXNok1tN0epFzfsfRm7bcPs5G/ixzigCZRKLLb";
     };
