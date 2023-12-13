@@ -17,6 +17,11 @@
     name = "Bootstrap Academy Test Instance";
     domain = "api.test.new.bootstrap.academy";
     frontend = "https://bootstrap-academy-frontend.pages.dev";
+    corsOrigins = [
+      # "^https://bootstrap.academy$"
+      # "^https://admin.bootstrap.academy$"
+      ".*"
+    ];
 
     common = {
       environmentFiles = [config.sops.secrets."academy-backend/microservices/common".path];

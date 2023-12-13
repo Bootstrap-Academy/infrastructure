@@ -21,6 +21,10 @@
       type = types.bool;
       default = true;
     };
+    corsOrigins = mkOption {
+      type = types.listOf types.str;
+      default = [];
+    };
 
     common = {
       environmentFiles = mkOption {
@@ -73,6 +77,7 @@
           };
         };
       });
+      default = {};
     };
   };
 

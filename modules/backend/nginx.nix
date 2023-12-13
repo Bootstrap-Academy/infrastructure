@@ -11,9 +11,25 @@
       services.nginx = {
         enable = true;
 
+        appendHttpConfig = ''
+          map $http_origin $allow_origin {
+            ${builtins.concatStringsSep "\n  " (map (origin: "~${origin} $http_origin;") cfg.corsOrigins)}
+            default "";
+          }
+        '';
+
         virtualHosts.${cfg.domain} = {
           forceSSL = true;
           enableACME = true;
+          extraConfig = ''
+            more_set_headers "Access-Control-Allow-Origin: $allow_origin";
+            more_set_headers "Access-Control-Allow-Headers: *, Authorization";
+            more_set_headers "Access-Control-Allow-Methods: *";
+
+            if ($request_method = 'OPTIONS') {
+              return 200;
+            }
+          '';
           locations =
             lib.mapAttrs' (ms: {port, ...}: {
               name = "/${ms}/";
