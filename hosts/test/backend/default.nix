@@ -15,7 +15,7 @@
   academy.backend = {
     enable = true;
     name = "Bootstrap Academy Test Instance";
-    domain = "api.test.new.bootstrap.academy";
+    domain = "api.test.bootstrap.academy";
     frontend = "https://bootstrap-academy-frontend.pages.dev";
     corsOrigins = [
       # "^https://bootstrap.academy$"
