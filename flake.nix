@@ -94,8 +94,10 @@
           deploy-sh.packages.${system}.default
           (builtins.attrValues (import ./scripts pkgs))
           scripts
+          self.formatter.${system}
         ];
       };
     });
+    formatter = eachDefaultSystem (system: (import nixpkgs {inherit system;}).alejandra);
   };
 }
