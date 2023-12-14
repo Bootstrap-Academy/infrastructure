@@ -13,10 +13,12 @@
 
   users.users.root.openssh.authorizedKeys.keys = lib.flatten (builtins.attrValues env.sshKeys);
 
-  programs.ssh.knownHosts = builtins.listToAttrs (map (server: {
-    name = server.net.private.ip4;
-    value = {
-      publicKey = server.ssh.publicKey;
-    };
-  }) (builtins.attrValues env.servers));
+  programs.ssh.knownHosts =
+    builtins.listToAttrs (map (server: {
+      name = server.net.private.ip4;
+      value = {
+        publicKey = server.ssh.publicKey;
+      };
+    }) (builtins.attrValues env.servers))
+    // (builtins.mapAttrs (_: v: {publicKey = v;}) env.sshHostKeys);
 }

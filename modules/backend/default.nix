@@ -66,10 +66,17 @@
 
                 environmentFiles = mkOption {
                   type = types.listOf types.path;
+                  default = [];
                 };
 
                 environment = mkOption {
                   type = types.attrsOf types.str;
+                  default = {};
+                };
+
+                volumes = mkOption {
+                  type = types.listOf types.path;
+                  default = [];
                 };
               };
             });

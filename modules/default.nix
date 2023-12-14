@@ -11,6 +11,7 @@
     ./pkgs.nix
     ./qemu.nix
     ./ssh.nix
+    ./sshfs.nix
     ./users.nix
   ];
 }

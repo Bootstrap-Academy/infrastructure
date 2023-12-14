@@ -68,6 +68,15 @@
     };
   };
 
+  services.sshfs.mounts."/mnt/lectures" = {
+    host = "u381435.your-storagebox.de";
+    port = 23;
+    user = "u381435";
+    path = "lectures";
+    readOnly = true;
+    allowOther = true;
+  };
+
   sops.secrets = {
     "academy-backend/microservices/common" = {};
   };
