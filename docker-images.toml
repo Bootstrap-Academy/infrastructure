@@ -3,4 +3,4 @@
 "shop-ms:develop" = "ghcr.io/bootstrap-academy/shop-ms@sha256:3c4d5453b2bb9c2aaf759758f50b8bf1ce816918226934de523cfe39f42660fb"
 "jobs-ms:develop" = "ghcr.io/bootstrap-academy/jobs-ms@sha256:c04dca40abeabf7a5ef6ccd0661d788b2d2881dd451e39437398b51d2a91bde8"
 "events-ms:develop" = "ghcr.io/bootstrap-academy/events-ms@sha256:8ec1cf1ee63fb8f706cc5011dfb7b4d334634a62c9459cb41c36eb8c3620e172"
-"glitchtip" = "docker.io/glitchtip/glitchtip@sha256:6e2283be6fdff48afbacc5e2b19cf29312ee2a54fd81f7be15709268a87b6523"
+"glitchtip" = "docker.io/glitchtip/glitchtip@sha256:eeabf61b1c7a85461531f066dec72f3ec74cc8200d50a7576cd03b379c88af3e"
