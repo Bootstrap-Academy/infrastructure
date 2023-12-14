@@ -12,6 +12,8 @@ in {
         LECTURE_XP = "10";
 
         MP4_LECTURES = lecturesDir;
+        STREAM_CHUNK_SIZE = toString (4 * 1024 * 1024); # bytes
+        STREAM_TOKEN_TTL = toString (8 * 60 * 60); # seconds
       };
     };
   };
