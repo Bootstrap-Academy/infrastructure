@@ -1,6 +1,7 @@
 {
   imports = [
     ./backend
+    ./backup.nix
     ./boot.nix
     ./containers.nix
     ./filesystems.nix

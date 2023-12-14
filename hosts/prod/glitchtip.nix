@@ -101,6 +101,8 @@ in {
     mkdir -p /var/lib/glitchtip/uploads
   '';
 
+  backup.paths = ["/var/lib/glitchtip/uploads"];
+
   sops.secrets = {
     "glitchtip/database-password".owner = "postgres";
     "glitchtip/environment" = {};
