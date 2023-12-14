@@ -52,16 +52,12 @@ in {
 
   systemd.services.podman-glitchtip-migrate.serviceConfig.RemainAfterExit = true;
 
-  services.nginx = {
-    enable = true;
-
-    virtualHosts.${domain} = {
-      forceSSL = true;
-      enableACME = true;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString port}/";
-        proxyWebsockets = true;
-      };
+  services.nginx.virtualHosts.${domain} = {
+    forceSSL = true;
+    enableACME = true;
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${toString port}/";
+      proxyWebsockets = true;
     };
   };
 
