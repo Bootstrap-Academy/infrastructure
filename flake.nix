@@ -97,6 +97,9 @@
           self.formatter.${system}
         ];
       };
+      ci = pkgs.mkShell {
+        packages = [self.formatter.${system}];
+      };
     });
     formatter = eachDefaultSystem (system: (import nixpkgs {inherit system;}).alejandra);
   };
