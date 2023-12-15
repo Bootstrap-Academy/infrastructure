@@ -10,5 +10,13 @@ If you would like to submit a bug report or feature request, or are looking for 
 | [`sandkasten`](https://console.hetzner.cloud/projects/2654383/servers/39612529/overview) | *None*           | *None*                    | `10.23.0.3`  |
 | [`test`](https://console.hetzner.cloud/projects/2654383/servers/39644970/overview)       | `49.13.80.22`    | `2a01:4f8:c17:ad51::/64`  | `10.23.0.4`  |
 
-## Deployment
+## Administration
+
+### Deployment
 On a system with [Nix](https://nixos.org/) installed, enter a dev shell using `nix develop` (or use [direnv](https://github.com/direnv/direnv)) and run the `deploy` command. For more information, run `deploy --help` or refer to the [readme of deploy-sh](https://github.com/Defelo/deploy-sh).
+
+### PostgreSQL
+To connect to the database, run the postgres administration commands as the `postgres` user (e.g. `sudo -u postgres psql`).
+
+### Redis
+To connect to redis, run the `redis-cli` command.
