@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1702649724,
-        "narHash": "sha256-RkZFrhr1dWgFMLlA58vKI3Zo22MTK0KP/x46QkMUS5E=",
+        "lastModified": 1702755484,
+        "narHash": "sha256-qfrcojbF1ar4YTF966hW2mcyw5GXjerMpWPDaltDhak=",
         "owner": "Bootstrap-Academy",
         "repo": "challenges-ms",
-        "rev": "2c9b327694354675e3295b72cb1ffc280ab2722f",
+        "rev": "027a7b1de6554c388a27b3a95357452460436c56",
         "type": "github"
       },
       "original": {
