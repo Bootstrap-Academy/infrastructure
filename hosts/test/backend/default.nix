@@ -16,7 +16,7 @@
     enable = true;
     name = "Bootstrap Academy Test Instance";
     domain = "api.test.bootstrap.academy";
-    frontend = "https://bootstrap-academy-frontend.pages.dev";
+    frontend = "https://test.bootstrap.academy";
     corsOrigins = [".*"];
 
     common = {
