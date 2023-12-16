@@ -63,31 +63,9 @@ in {
 
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_16;
-    enableTCPIP = true;
     ensureDatabases = ["glitchtip"];
-    ensureUsers = [
-      {
-        name = "glitchtip";
-        ensureDBOwnership = true;
-      }
-    ];
-    authentication = lib.mkForce ''
-      local all all peer
-      host all all all scram-sha-256
-    '';
+    userPasswords.glitchtip = config.sops.secrets."glitchtip/database-password".path;
   };
-
-  systemd.services.postgresql.postStart = lib.mkAfter ''
-    $PSQL -tA <<'EOF'
-      DO $$
-      DECLARE password TEXT;
-      BEGIN
-        password := trim(both from replace(pg_read_file('${config.sops.secrets."glitchtip/database-password".path}'), E'\n', '''));
-        EXECUTE format('ALTER ROLE "glitchtip" WITH PASSWORD '''%s''';', password);
-      END $$;
-    EOF
-  '';
 
   services.redis.servers.glitchtip = {
     enable = true;

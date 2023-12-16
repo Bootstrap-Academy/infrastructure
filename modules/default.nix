@@ -10,6 +10,7 @@
     ./nginx.nix
     ./nix.nix
     ./pkgs.nix
+    ./postgres.nix
     ./qemu.nix
     ./ssh.nix
     ./sshfs.nix
