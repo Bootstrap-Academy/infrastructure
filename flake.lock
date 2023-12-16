@@ -1,8 +1,27 @@
 {
   "nodes": {
-    "challenges-ms-develop": {
+    "challenges-ms": {
       "inputs": {
         "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1702649724,
+        "narHash": "sha256-RkZFrhr1dWgFMLlA58vKI3Zo22MTK0KP/x46QkMUS5E=",
+        "owner": "Bootstrap-Academy",
+        "repo": "challenges-ms",
+        "rev": "2c9b327694354675e3295b72cb1ffc280ab2722f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Bootstrap-Academy",
+        "ref": "latest",
+        "repo": "challenges-ms",
+        "type": "github"
+      }
+    },
+    "challenges-ms-develop": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1702755484,
@@ -21,7 +40,7 @@
     },
     "deploy-sh": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1702476797,
@@ -117,6 +136,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1699725108,
+        "narHash": "sha256-NTiPW4jRC+9puakU4Vi8WpFEirhp92kTOSThuZke+FA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "911ad1e67f458b6bcf0278fa85e33bb9924fed7e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1702312524,
         "narHash": "sha256-gkZJRDBUCpTPBvQk25G0B7vfbpEYM5s5OZqghkjZsnE=",
         "owner": "NixOS",
@@ -131,7 +166,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1702346276,
         "narHash": "sha256-eAQgwIWApFQ40ipeOjVSoK4TEHVd6nbSd9fApiHIw5A=",
@@ -147,7 +182,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1702162613,
         "narHash": "sha256-C8LiSEbppgZK2lrgvziachUcBXrraZm1IAqgYBWZSYc=",
@@ -163,7 +198,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_6": {
       "locked": {
         "lastModified": 1702029940,
         "narHash": "sha256-qM3Du0perpLesh5hr87mVPZ79McMUKIWUH7EQMh2kWo=",
@@ -181,17 +216,18 @@
     },
     "root": {
       "inputs": {
+        "challenges-ms": "challenges-ms",
         "challenges-ms-develop": "challenges-ms-develop",
         "deploy-sh": "deploy-sh",
         "nfnix": "nfnix",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "sandkasten": "sandkasten",
         "sops-nix": "sops-nix"
       }
     },
     "sandkasten": {
       "inputs": {
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_5",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-old": "nixpkgs-old"
       },
@@ -211,7 +247,7 @@
     },
     "sops-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_5",
+        "nixpkgs": "nixpkgs_6",
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {

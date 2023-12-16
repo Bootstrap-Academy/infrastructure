@@ -6,6 +6,7 @@
     nfnix.url = "github:Defelo/nfnix";
     sandkasten.url = "github:Defelo/sandkasten";
 
+    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/latest";
     challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/develop";
   };
 

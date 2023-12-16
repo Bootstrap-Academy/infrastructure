@@ -62,7 +62,6 @@ in {
   };
 
   services.postgresql = {
-    enable = true;
     ensureDatabases = ["glitchtip"];
     userPasswords.glitchtip = config.sops.secrets."glitchtip/database-password".path;
   };
