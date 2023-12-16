@@ -4,7 +4,7 @@ exec &> >(tee docker-images.toml)
 
 fetch() { skopeo inspect --format "\"$1\" = \"{{.Name}}@{{.Digest}}\"" "docker://$2"; }
 
-for img in {auth,skills,shop,jobs,events}-ms:develop; do
+for img in {auth,skills,shop,jobs,events}-ms:{develop,latest}; do
   fetch "$img" "ghcr.io/bootstrap-academy/$img"
 done
 
