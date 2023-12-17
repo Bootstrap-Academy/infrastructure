@@ -6,6 +6,7 @@
     ./containers.nix
     ./filesystems.nix
     ./localisation.nix
+    ./monitoring.nix
     ./networking.nix
     ./nginx.nix
     ./nix.nix

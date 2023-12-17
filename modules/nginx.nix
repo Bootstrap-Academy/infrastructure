@@ -6,6 +6,7 @@
   config = lib.mkIf config.services.nginx.enable {
     services.nginx = {
       enableReload = true;
+      statusPage = true;
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
       recommendedOptimisation = true;
@@ -36,6 +37,10 @@
 
         # This might create errors
         # proxy_cookie_path / "/; secure; HttpOnly; SameSite=strict";
+
+        log_format prometheus '${config.monitoring.nginxLogFormat}';
+        access_log /var/log/nginx/prometheus.log prometheus;
+        access_log /var/log/nginx/access.log combined;
       '';
     };
 
