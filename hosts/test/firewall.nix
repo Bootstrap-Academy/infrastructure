@@ -40,9 +40,13 @@
           rules = [
             allow_icmp_pings
 
-            # allow ssh
-            "ip saddr ${env.net.internal.wireguard.net4} tcp dport 22 accept"
+            "ip saddr ${env.net.internal.wireguard.net4} jump input_wireguard"
           ];
+        };
+
+        chains.input_wireguard = {
+          policy = "accept";
+          rules = [];
         };
       };
     };
