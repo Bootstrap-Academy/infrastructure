@@ -36,6 +36,11 @@
             default = false;
           };
 
+          reconnect = mkOption {
+            type = types.bool;
+            default = true;
+          };
+
           options = mkOption {
             type = types.listOf types.str;
             default = [];
@@ -61,6 +66,7 @@
           options,
           readOnly,
           allowOther,
+          reconnect,
         }: {
           fsType = "fuse.sshfs";
           device = "${user}@${host}:${path}";
@@ -68,6 +74,7 @@
             ["_netdev" "port=${toString port}"]
             ++ (lib.optional readOnly "ro")
             ++ (lib.optional allowOther "allow_other")
+            ++ (lib.optional reconnect "reconnect")
             ++ options;
         })
         cfg.mounts;
