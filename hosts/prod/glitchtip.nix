@@ -1,8 +1,7 @@
 {
-  pkgs,
+  env,
   config,
   docker-images,
-  lib,
   ...
 }: let
   port = 8100;
@@ -55,6 +54,10 @@ in {
   services.nginx.virtualHosts.${domain} = {
     forceSSL = true;
     enableACME = true;
+    extraConfig = ''
+      allow ${env.net.internal.net4};
+      deny all;
+    '';
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString port}/";
       proxyWebsockets = true;

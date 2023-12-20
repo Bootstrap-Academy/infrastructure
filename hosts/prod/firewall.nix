@@ -56,6 +56,9 @@
             # allow dns
             "tcp dport 53 accept"
             "udp dport 53 accept"
+
+            # allow glitchtip
+            "tcp dport { 80, 443 } accept"
           ];
         };
 
