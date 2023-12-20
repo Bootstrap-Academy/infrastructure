@@ -22,6 +22,12 @@
         wireguard = "wg0";
       };
 
+      domains = [
+        "api.bootstrap.academy"
+        "glitchtip.bootstrap.academy"
+        "sandkasten.bootstrap.academy"
+      ];
+
       wireguard = {
         port = 51820;
         peers = {
@@ -70,6 +76,10 @@
         public = "enp1s0";
         private = "enp7s0";
       };
+
+      domains = [
+        "api.test.bootstrap.academy"
+      ];
 
       ssh.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPqxUuWXNok1tN0epFzfsfRm7bcPs5G/ixzigCZRKLLb";
     };

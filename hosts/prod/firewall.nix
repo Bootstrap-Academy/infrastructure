@@ -19,6 +19,7 @@
             "iif lo accept"
             "iifname ${vmap {
               ${server.dev.public} = "jump input_public";
+              ${server.dev.private} = "jump input_private";
               ${server.dev.wireguard} = "jump input_wireguard";
             }}"
           ];
@@ -44,6 +45,17 @@
 
             # allow nginx
             "tcp dport { 80, 443 } accept"
+          ];
+        };
+
+        chains.input_private = {
+          policy = "drop";
+          rules = [
+            allow_icmp_pings
+
+            # allow dns
+            "tcp dport 53 accept"
+            "udp dport 53 accept"
           ];
         };
 
