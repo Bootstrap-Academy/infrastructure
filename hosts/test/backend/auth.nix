@@ -1,12 +1,32 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  auth-ms-develop,
+  ...
+}: let
+  ms = "auth";
+in {
+  imports = [auth-ms-develop.nixosModules.default];
+
   academy.backend.microservices.auth = {
     port = 8000;
     database.passwordFile = config.sops.secrets."academy-backend/database/passwords/academy-auth".path;
     redis.database = 0;
-    container = {
-      image = "auth-ms:develop";
-      environmentFiles = [config.sops.secrets."academy-backend/microservices/auth-ms".path];
-      environment = {
+  };
+
+  academy.backend.auth = {
+    enable = true;
+    environmentFiles =
+      config.academy.backend.common.environmentFiles
+      ++ [config.sops.secrets."academy-backend/microservices/auth-ms".path];
+    settings =
+      config.academy.backend.common.environment
+      // {
+        PORT = toString config.academy.backend.microservices.${ms}.port;
+        ROOT_PATH = "/${ms}";
+        REDIS_URL = config.academy.backend.common.environment."${lib.toUpper ms}_REDIS_URL";
+        PUBLIC_BASE_URL = "https://${config.academy.backend.domain}/${ms}";
+
         ACCESS_TOKEN_TTL = "300";
         REFRESH_TOKEN_TTL = "2592000";
         OAUTH_REGISTER_TOKEN_TTL = "600";
@@ -47,7 +67,6 @@
         OAUTH_PROVIDERS__GOOGLE__USERINFO_ID_PATH = ".sub";
         OAUTH_PROVIDERS__GOOGLE__USERINFO_NAME_PATH = ".given_name";
       };
-    };
   };
 
   sops.secrets = {
