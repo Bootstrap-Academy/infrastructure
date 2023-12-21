@@ -13,6 +13,12 @@
     settings = {
       auto-optimise-store = true;
       experimental-features = ["nix-command" "flakes" "repl-flake"];
+      substituters = [
+        "https://bootstrap-academy.cachix.org"
+      ];
+      trusted-public-keys = [
+        "bootstrap-academy.cachix.org-1:QoTxaO9Xw868/oefU7MrrkzrbFH9sUCJwWbIqsLCjxs="
+      ];
     };
     registry = {
       nixpkgs = {
