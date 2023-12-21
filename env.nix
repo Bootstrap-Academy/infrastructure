@@ -81,7 +81,7 @@
         "api.test.bootstrap.academy"
       ];
 
-      ssh.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPqxUuWXNok1tN0epFzfsfRm7bcPs5G/ixzigCZRKLLb";
+      ssh.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMJ4GqpRivlCvIh/acCZlQHzeT9MEUMcFyG9MsskEgJb";
     };
   };
 
