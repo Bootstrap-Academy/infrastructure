@@ -41,6 +41,9 @@
             allow_icmp_pings
 
             "ip saddr ${env.net.internal.wireguard.net4} jump input_wireguard"
+
+            # allow ssh from prod
+            "ip saddr ${env.servers.prod.net.private.ip4} tcp dport 22 accept"
           ];
         };
 
