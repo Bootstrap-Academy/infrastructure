@@ -44,6 +44,9 @@
 
             # allow ssh from prod
             "ip saddr ${env.servers.prod.net.private.ip4} tcp dport 22 accept"
+
+            # allow nginx
+            "tcp dport { 80, 443 } accept"
           ];
         };
 
