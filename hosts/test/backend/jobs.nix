@@ -10,7 +10,7 @@ in {
 
   academy.backend.microservices.jobs = {
     port = 8003;
-    database.passwordFile = config.sops.secrets."academy-backend/database/passwords/academy-jobs".path;
+    database = {};
     redis.database = 3;
   };
 
@@ -26,11 +26,11 @@ in {
         ROOT_PATH = "/${ms}";
         REDIS_URL = config.academy.backend.common.environment."${lib.toUpper ms}_REDIS_URL";
         PUBLIC_BASE_URL = "https://${config.academy.backend.domain}/${ms}";
+        DATABASE_URL = "postgresql+asyncpg://academy-${ms}@/academy-${ms}?host=/run/postgresql";
       };
   };
 
   sops.secrets = {
-    "academy-backend/database/passwords/academy-jobs".owner = "postgres";
     "academy-backend/microservices/jobs-ms" = {};
   };
 }

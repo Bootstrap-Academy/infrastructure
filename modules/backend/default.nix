@@ -47,7 +47,8 @@
             type = types.nullOr (types.submodule {
               options = {
                 passwordFile = mkOption {
-                  type = types.path;
+                  type = types.nullOr types.path;
+                  default = null;
                 };
               };
             });

@@ -10,7 +10,7 @@ in {
 
   academy.backend.microservices.events = {
     port = 8004;
-    database.passwordFile = config.sops.secrets."academy-backend/database/passwords/academy-events".path;
+    database = {};
     redis.database = 4;
   };
 
@@ -26,6 +26,7 @@ in {
         ROOT_PATH = "/${ms}";
         REDIS_URL = config.academy.backend.common.environment."${lib.toUpper ms}_REDIS_URL";
         PUBLIC_BASE_URL = "https://${config.academy.backend.domain}/${ms}";
+        DATABASE_URL = "postgresql+asyncpg://academy-${ms}@/academy-${ms}?host=/run/postgresql";
 
         EVENT_FEE = "0.3";
 
@@ -37,7 +38,6 @@ in {
   };
 
   sops.secrets = {
-    "academy-backend/database/passwords/academy-events".owner = "postgres";
     "academy-backend/microservices/events-ms" = {};
   };
 }

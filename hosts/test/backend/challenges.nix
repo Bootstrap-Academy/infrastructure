@@ -8,7 +8,7 @@
 
   academy.backend.microservices.challenges = {
     port = 8005;
-    database.passwordFile = config.sops.secrets."academy-backend/database/passwords/academy-challenges".path;
+    database = {};
     redis.database = 5;
   };
 
@@ -23,7 +23,10 @@
       internal_jwt_ttl = 10; # seconds
       cache_ttl = 10; # seconds
 
-      database.connect_timeout = 5; # seconds
+      database = {
+        url = "postgres://academy-challenges@localhost/academy-challenges?host=/run/postgresql";
+        connect_timeout = 5; # seconds
+      };
 
       redis = builtins.mapAttrs (ms: {redis, ...}: "redis://127.0.0.1:6379/${toString redis.database}") config.academy.backend.microservices;
 
@@ -78,7 +81,6 @@
   };
 
   sops.secrets = {
-    "academy-backend/database/passwords/academy-challenges".owner = "postgres";
     "academy-backend/microservices/challenges-ms" = {};
   };
 }

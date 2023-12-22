@@ -11,7 +11,7 @@ in {
 
   academy.backend.microservices.skills = {
     port = 8001;
-    database.passwordFile = config.sops.secrets."academy-backend/database/passwords/academy-skills".path;
+    database = {};
     redis.database = 1;
   };
 
@@ -27,6 +27,7 @@ in {
         ROOT_PATH = "/${ms}";
         REDIS_URL = config.academy.backend.common.environment."${lib.toUpper ms}_REDIS_URL";
         PUBLIC_BASE_URL = "https://${config.academy.backend.domain}/${ms}";
+        DATABASE_URL = "postgresql+asyncpg://academy-${ms}@/academy-${ms}?host=/run/postgresql";
 
         COURSES = toString skills-ms-develop.packages.${pkgs.system}.courses;
 
@@ -38,7 +39,6 @@ in {
   };
 
   sops.secrets = {
-    "academy-backend/database/passwords/academy-skills".owner = "postgres";
     "academy-backend/microservices/skills-ms" = {};
   };
 }

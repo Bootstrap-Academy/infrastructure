@@ -10,7 +10,7 @@ in {
 
   academy.backend.microservices.shop = {
     port = 8002;
-    database.passwordFile = config.sops.secrets."academy-backend/database/passwords/academy-shop".path;
+    database = {};
     redis.database = 2;
   };
 
@@ -26,6 +26,7 @@ in {
         ROOT_PATH = "/${ms}";
         REDIS_URL = config.academy.backend.common.environment."${lib.toUpper ms}_REDIS_URL";
         PUBLIC_BASE_URL = "https://${config.academy.backend.domain}/${ms}";
+        DATABASE_URL = "postgresql+asyncpg://academy-${ms}@/academy-${ms}?host=/run/postgresql";
 
         PAYPAL_BASE_URL = "https://api.sandbox.paypal.com";
         PAYPAL_CLIENT_ID = "AY8tdE7PPpUOVbURYdFvrqsisOiJpggHWnNYphRQjbDPCoPcD3z7XUU067hZ6kf4cH82GwQrAkJnhcqn";
@@ -35,7 +36,6 @@ in {
   };
 
   sops.secrets = {
-    "academy-backend/database/passwords/academy-shop".owner = "postgres";
     "academy-backend/microservices/shop-ms" = {};
   };
 }

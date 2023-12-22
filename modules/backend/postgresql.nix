@@ -16,7 +16,7 @@
             name = dbName ms;
             value = cfg.microservices.${ms}.database.passwordFile;
           })
-          microservices);
+          (builtins.filter (ms: cfg.microservices.${ms}.database.passwordFile != null) microservices));
       };
     };
 }

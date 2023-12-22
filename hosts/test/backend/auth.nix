@@ -10,7 +10,7 @@ in {
 
   academy.backend.microservices.auth = {
     port = 8000;
-    database.passwordFile = config.sops.secrets."academy-backend/database/passwords/academy-auth".path;
+    database = {};
     redis.database = 0;
   };
 
@@ -26,6 +26,7 @@ in {
         ROOT_PATH = "/${ms}";
         REDIS_URL = config.academy.backend.common.environment."${lib.toUpper ms}_REDIS_URL";
         PUBLIC_BASE_URL = "https://${config.academy.backend.domain}/${ms}";
+        DATABASE_URL = "postgresql+asyncpg://academy-${ms}@/academy-${ms}?host=/run/postgresql";
 
         ACCESS_TOKEN_TTL = "300";
         REFRESH_TOKEN_TTL = "2592000";
@@ -70,7 +71,6 @@ in {
   };
 
   sops.secrets = {
-    "academy-backend/database/passwords/academy-auth".owner = "postgres";
     "academy-backend/microservices/auth-ms" = {};
   };
 }
