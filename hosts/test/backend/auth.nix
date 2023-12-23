@@ -35,6 +35,9 @@ in {
         HASH_MEMORY_COST = "102400";
         MFA_VALID_WINDOW = "1";
         LOGIN_FAILS_BEFORE_CAPTCHA = "3";
+        MIN_NAME_CHANGE_INTERVAL = "1"; # days
+
+        FRONTEND_BASE_URL = config.academy.backend.frontend;
 
         CONTACT_EMAIL = "defelo@the-morpheus.de";
 

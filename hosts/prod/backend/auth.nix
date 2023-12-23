@@ -14,6 +14,9 @@
         HASH_MEMORY_COST = "102400";
         MFA_VALID_WINDOW = "1";
         LOGIN_FAILS_BEFORE_CAPTCHA = "3";
+        MIN_NAME_CHANGE_INTERVAL = "30"; # days
+
+        FRONTEND_BASE_URL = config.academy.backend.frontend;
 
         CONTACT_EMAIL = "hallo@bootstrap.academy";
 
