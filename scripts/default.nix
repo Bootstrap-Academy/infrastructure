@@ -11,11 +11,26 @@ pkgs: let
         wrapProgram $out/bin/${name} --set PATH ${pkgs.lib.makeBinPath deps}
       '';
     });
-  scripts = mkScripts {
-    update-docker = with pkgs; [
-      coreutils
-      skopeo
-    ];
-  };
+  scripts = with pkgs;
+    mkScripts {
+      update = [
+        nix
+        git
+      ];
+      mkpw = [
+        coreutils
+        xkcdpass
+        mkpasswd
+      ];
+      mkht = [
+        coreutils
+        pwgen
+        apacheHttpd
+      ];
+      update-docker = [
+        coreutils
+        skopeo
+      ];
+    };
 in
   scripts
