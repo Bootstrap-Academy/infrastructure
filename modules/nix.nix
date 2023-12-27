@@ -15,9 +15,11 @@
       experimental-features = ["nix-command" "flakes" "repl-flake"];
       substituters = [
         "https://bootstrap-academy.cachix.org"
+        "https://sandkasten.cachix.org"
       ];
       trusted-public-keys = [
         "bootstrap-academy.cachix.org-1:QoTxaO9Xw868/oefU7MrrkzrbFH9sUCJwWbIqsLCjxs="
+        "sandkasten.cachix.org-1:Pa7qfdlx7bZkko+ojaaEG9pyziZkaru9v4TfcioqNZw="
       ];
     };
     registry = {
