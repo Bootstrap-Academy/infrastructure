@@ -16,8 +16,8 @@
     enable = true;
     RUST_LOG = "info,poem_ext,lib,entity,migration,challenges=trace";
     environmentFiles = [
-      config.sops.secrets."academy-backend/microservices/common".path
-      config.sops.secrets."academy-backend/microservices/challenges-ms".path
+      config.sops.templates."academy-backend/common".path
+      config.sops.templates."academy-backend/challenges-ms".path
     ];
     settings = {
       internal_jwt_ttl = 10; # seconds
@@ -80,7 +80,12 @@
     serviceConfig.Restart = "always";
   };
 
-  sops.secrets = {
-    "academy-backend/microservices/challenges-ms" = {};
+  sops = {
+    secrets = {
+      "academy-backend/challenges-ms/sentry-dsn" = {};
+    };
+    templates."academy-backend/challenges-ms".content = ''
+      CHALLENGES__SENTRY__DSN=${config.sops.placeholder."academy-backend/challenges-ms/sentry-dsn"}
+    '';
   };
 }

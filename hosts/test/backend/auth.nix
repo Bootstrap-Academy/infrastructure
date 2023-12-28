@@ -18,7 +18,7 @@ in {
     enable = true;
     environmentFiles =
       config.academy.backend.common.environmentFiles
-      ++ [config.sops.secrets."academy-backend/microservices/auth-ms".path];
+      ++ [config.sops.templates."academy-backend/auth-ms".path];
     settings =
       config.academy.backend.common.environment
       // {
@@ -36,6 +36,9 @@ in {
         MFA_VALID_WINDOW = "1";
         LOGIN_FAILS_BEFORE_CAPTCHA = "3";
         MIN_NAME_CHANGE_INTERVAL = "1"; # days
+
+        ADMIN_USERNAME = "admin";
+        ADMIN_EMAIL = "admin@bootstrap.academy";
 
         FRONTEND_BASE_URL = config.academy.backend.frontend;
 
@@ -73,7 +76,20 @@ in {
       };
   };
 
-  sops.secrets = {
-    "academy-backend/microservices/auth-ms" = {};
+  sops = {
+    secrets = {
+      "academy-backend/auth-ms/sentry-dsn" = {};
+      "academy-backend/auth-ms/admin-password" = {};
+      "academy-backend/auth-ms/oauth/github-secret" = {};
+      "academy-backend/auth-ms/oauth/discord-secret" = {};
+      "academy-backend/auth-ms/oauth/google-secret" = {};
+    };
+    templates."academy-backend/auth-ms".content = ''
+      SENTRY_DSN=${config.sops.placeholder."academy-backend/auth-ms/sentry-dsn"}
+      ADMIN_PASSWORD=${config.sops.placeholder."academy-backend/auth-ms/admin-password"}
+      OAUTH_PROVIDERS__GITHUB__CLIENT_SECRET=${config.sops.placeholder."academy-backend/auth-ms/oauth/github-secret"}
+      OAUTH_PROVIDERS__DISCORD__CLIENT_SECRET=${config.sops.placeholder."academy-backend/auth-ms/oauth/discord-secret"}
+      OAUTH_PROVIDERS__GOOGLE__CLIENT_SECRET=${config.sops.placeholder."academy-backend/auth-ms/oauth/google-secret"}
+    '';
   };
 }

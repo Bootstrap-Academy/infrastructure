@@ -20,7 +20,7 @@
     corsOrigins = [".*"];
 
     common = {
-      environmentFiles = [config.sops.secrets."academy-backend/microservices/common".path];
+      environmentFiles = [config.sops.templates."academy-backend/common".path];
       environment =
         {
           LOG_LEVEL = "DEBUG";
@@ -73,7 +73,16 @@
     allowOther = true;
   };
 
-  sops.secrets = {
-    "academy-backend/microservices/common" = {};
+  sops = {
+    secrets = {
+      "academy-backend/jwt-secret" = {};
+      "academy-backend/recaptcha-secret" = {};
+      "academy-backend/smtp-password" = {};
+    };
+    templates."academy-backend/common".content = ''
+      JWT_SECRET=${config.sops.placeholder."academy-backend/jwt-secret"}
+      # RECAPTCHA_SECRET=${config.sops.placeholder."academy-backend/recaptcha-secret"}
+      SMTP_PASSWORD=${config.sops.placeholder."academy-backend/smtp-password"}
+    '';
   };
 }

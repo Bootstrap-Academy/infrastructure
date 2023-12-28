@@ -18,7 +18,7 @@ in {
     enable = true;
     environmentFiles =
       config.academy.backend.common.environmentFiles
-      ++ [config.sops.secrets."academy-backend/microservices/jobs-ms".path];
+      ++ [config.sops.templates."academy-backend/jobs-ms".path];
     settings =
       config.academy.backend.common.environment
       // {
@@ -30,7 +30,12 @@ in {
       };
   };
 
-  sops.secrets = {
-    "academy-backend/microservices/jobs-ms" = {};
+  sops = {
+    secrets = {
+      "academy-backend/jobs-ms/sentry-dsn" = {};
+    };
+    templates."academy-backend/jobs-ms".content = ''
+      SENTRY_DSN=${config.sops.placeholder."academy-backend/jobs-ms/sentry-dsn"}
+    '';
   };
 }

@@ -18,7 +18,7 @@ in {
     enable = true;
     environmentFiles =
       config.academy.backend.common.environmentFiles
-      ++ [config.sops.secrets."academy-backend/microservices/shop-ms".path];
+      ++ [config.sops.templates."academy-backend/shop-ms".path];
     settings =
       config.academy.backend.common.environment
       // {
@@ -35,7 +35,16 @@ in {
       };
   };
 
-  sops.secrets = {
-    "academy-backend/microservices/shop-ms" = {};
+  sops = {
+    secrets = {
+      "academy-backend/shop-ms/sentry-dsn" = {};
+      "academy-backend/shop-ms/paypal-secret" = {};
+      "academy-backend/shop-ms/invoice-secret" = {};
+    };
+    templates."academy-backend/shop-ms".content = ''
+      SENTRY_DSN=${config.sops.placeholder."academy-backend/shop-ms/sentry-dsn"}
+      PAYPAL_SECRET=${config.sops.placeholder."academy-backend/shop-ms/paypal-secret"}
+      INVOICE_SECRET=${config.sops.placeholder."academy-backend/shop-ms/invoice-secret"}
+    '';
   };
 }
