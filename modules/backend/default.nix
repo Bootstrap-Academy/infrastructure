@@ -1,6 +1,5 @@
 {lib, ...}: {
   imports = [
-    ./containers.nix
     ./nginx.nix
     ./postgresql.nix
     ./redis.nix
@@ -56,32 +55,6 @@
 
           redis.database = mkOption {
             type = types.ints.unsigned;
-          };
-
-          container = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                image = mkOption {
-                  type = types.str;
-                };
-
-                environmentFiles = mkOption {
-                  type = types.listOf types.path;
-                  default = [];
-                };
-
-                environment = mkOption {
-                  type = types.attrsOf types.str;
-                  default = {};
-                };
-
-                volumes = mkOption {
-                  type = types.listOf types.path;
-                  default = [];
-                };
-              };
-            });
-            default = null;
           };
         };
       });
