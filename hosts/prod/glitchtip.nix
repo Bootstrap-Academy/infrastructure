@@ -16,7 +16,7 @@
       "--network=host"
       "--no-healthcheck"
     ];
-    environmentFiles = [config.sops.secrets."glitchtip/environment".path];
+    environmentFiles = [config.sops.templates."glitchtip/environment".path];
     environment = {
       PORT = toString port;
       REDIS_URL = "redis://127.0.0.1:${toString redisPort}/0";
@@ -83,8 +83,16 @@ in {
 
   backup.paths = ["/var/lib/glitchtip/uploads"];
 
-  sops.secrets = {
-    "glitchtip/database-password".owner = "postgres";
-    "glitchtip/environment" = {};
+  sops = {
+    secrets = {
+      "glitchtip/database-password".owner = "postgres";
+      "glitchtip/secret-key" = {};
+      "glitchtip/smtp-password" = {};
+    };
+    templates."glitchtip/environment".content = ''
+      DATABASE_URL=postgres://glitchtip:${config.sops.placeholder."glitchtip/database-password"}@127.0.0.1:5432/glitchtip
+      SECRET_KEY=${config.sops.placeholder."glitchtip/secret-key"}
+      EMAIL_URL=smtp+tls://glitchtip@the-morpheus.de:${config.sops.placeholder."glitchtip/smtp-password"}@mail.your-server.de:587
+    '';
   };
 }
