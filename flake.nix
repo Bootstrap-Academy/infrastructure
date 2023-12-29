@@ -6,12 +6,18 @@
     nfnix.url = "github:Defelo/nfnix";
     sandkasten.url = "github:Defelo/sandkasten";
 
+    auth-ms.url = "github:Bootstrap-Academy/auth-ms/latest";
+    skills-ms.url = "github:Bootstrap-Academy/skills-ms/latest";
+    shop-ms.url = "github:Bootstrap-Academy/shop-ms/latest";
+    jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/latest";
+    events-ms.url = "github:Bootstrap-Academy/events-ms/latest";
+    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/latest";
+
     auth-ms-develop.url = "github:Bootstrap-Academy/auth-ms/develop";
     skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/develop";
     shop-ms-develop.url = "github:Bootstrap-Academy/shop-ms/develop";
     jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/develop";
     events-ms-develop.url = "github:Bootstrap-Academy/events-ms/develop";
-    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/latest";
     challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/develop";
   };
 

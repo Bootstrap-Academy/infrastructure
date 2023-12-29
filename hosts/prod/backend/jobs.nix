@@ -1,17 +1,41 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  jobs-ms,
+  ...
+}: let
+  ms = "jobs";
+in {
+  imports = [jobs-ms.nixosModules.default];
+
   academy.backend.microservices.jobs = {
     port = 8003;
-    database.passwordFile = config.sops.secrets."academy-backend/database/passwords/academy-jobs".path;
+    database = {};
     redis.database = 3;
-    container = {
-      image = "jobs-ms:latest";
-      environmentFiles = [config.sops.secrets."academy-backend/microservices/jobs-ms".path];
-      environment = {};
-    };
   };
 
-  sops.secrets = {
-    "academy-backend/database/passwords/academy-jobs".owner = "postgres";
-    "academy-backend/microservices/jobs-ms" = {};
+  academy.backend.jobs = {
+    enable = true;
+    environmentFiles =
+      config.academy.backend.common.environmentFiles
+      ++ [config.sops.templates."academy-backend/jobs-ms".path];
+    settings =
+      config.academy.backend.common.environment
+      // {
+        PORT = toString config.academy.backend.microservices.${ms}.port;
+        ROOT_PATH = "/${ms}";
+        REDIS_URL = config.academy.backend.common.environment."${lib.toUpper ms}_REDIS_URL";
+        PUBLIC_BASE_URL = "https://${config.academy.backend.domain}/${ms}";
+        DATABASE_URL = "postgresql+asyncpg://academy-${ms}@/academy-${ms}?host=/run/postgresql";
+      };
+  };
+
+  sops = {
+    secrets = {
+      "academy-backend/jobs-ms/sentry-dsn" = {};
+    };
+    templates."academy-backend/jobs-ms".content = ''
+      SENTRY_DSN=${config.sops.placeholder."academy-backend/jobs-ms/sentry-dsn"}
+    '';
   };
 }

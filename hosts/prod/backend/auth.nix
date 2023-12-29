@@ -1,12 +1,33 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  auth-ms,
+  ...
+}: let
+  ms = "auth";
+in {
+  imports = [auth-ms.nixosModules.default];
+
   academy.backend.microservices.auth = {
     port = 8000;
-    database.passwordFile = config.sops.secrets."academy-backend/database/passwords/academy-auth".path;
+    database = {};
     redis.database = 0;
-    container = {
-      image = "auth-ms:latest";
-      environmentFiles = [config.sops.secrets."academy-backend/microservices/auth-ms".path];
-      environment = {
+  };
+
+  academy.backend.auth = {
+    enable = true;
+    environmentFiles =
+      config.academy.backend.common.environmentFiles
+      ++ [config.sops.templates."academy-backend/auth-ms".path];
+    settings =
+      config.academy.backend.common.environment
+      // {
+        PORT = toString config.academy.backend.microservices.${ms}.port;
+        ROOT_PATH = "/${ms}";
+        REDIS_URL = config.academy.backend.common.environment."${lib.toUpper ms}_REDIS_URL";
+        PUBLIC_BASE_URL = "https://${config.academy.backend.domain}/${ms}";
+        DATABASE_URL = "postgresql+asyncpg://academy-${ms}@/academy-${ms}?host=/run/postgresql";
+
         ACCESS_TOKEN_TTL = "300";
         REFRESH_TOKEN_TTL = "2592000";
         OAUTH_REGISTER_TOKEN_TTL = "600";
@@ -15,6 +36,9 @@
         MFA_VALID_WINDOW = "1";
         LOGIN_FAILS_BEFORE_CAPTCHA = "3";
         MIN_NAME_CHANGE_INTERVAL = "30"; # days
+
+        ADMIN_USERNAME = "admin";
+        ADMIN_EMAIL = "admin@bootstrap.academy";
 
         FRONTEND_BASE_URL = config.academy.backend.frontend;
 
@@ -50,11 +74,22 @@
         OAUTH_PROVIDERS__GOOGLE__USERINFO_ID_PATH = ".sub";
         OAUTH_PROVIDERS__GOOGLE__USERINFO_NAME_PATH = ".given_name";
       };
-    };
   };
 
-  sops.secrets = {
-    "academy-backend/database/passwords/academy-auth".owner = "postgres";
-    "academy-backend/microservices/auth-ms" = {};
+  sops = {
+    secrets = {
+      "academy-backend/auth-ms/sentry-dsn" = {};
+      "academy-backend/auth-ms/admin-password" = {};
+      "academy-backend/auth-ms/oauth/github-secret" = {};
+      "academy-backend/auth-ms/oauth/discord-secret" = {};
+      "academy-backend/auth-ms/oauth/google-secret" = {};
+    };
+    templates."academy-backend/auth-ms".content = ''
+      SENTRY_DSN=${config.sops.placeholder."academy-backend/auth-ms/sentry-dsn"}
+      ADMIN_PASSWORD=${config.sops.placeholder."academy-backend/auth-ms/admin-password"}
+      OAUTH_PROVIDERS__GITHUB__CLIENT_SECRET=${config.sops.placeholder."academy-backend/auth-ms/oauth/github-secret"}
+      OAUTH_PROVIDERS__DISCORD__CLIENT_SECRET=${config.sops.placeholder."academy-backend/auth-ms/oauth/discord-secret"}
+      OAUTH_PROVIDERS__GOOGLE__CLIENT_SECRET=${config.sops.placeholder."academy-backend/auth-ms/oauth/google-secret"}
+    '';
   };
 }

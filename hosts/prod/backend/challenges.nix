@@ -8,7 +8,7 @@
 
   academy.backend.microservices.challenges = {
     port = 8005;
-    database.passwordFile = config.sops.secrets."academy-backend/database/passwords/academy-challenges".path;
+    database = {};
     redis.database = 5;
   };
 
@@ -16,14 +16,17 @@
     enable = true;
     RUST_LOG = "info";
     environmentFiles = [
-      config.sops.secrets."academy-backend/microservices/common".path
-      config.sops.secrets."academy-backend/microservices/challenges-ms".path
+      config.sops.templates."academy-backend/common".path
+      config.sops.templates."academy-backend/challenges-ms".path
     ];
     settings = {
       internal_jwt_ttl = 10; # seconds
       cache_ttl = 300; # seconds
 
-      database.connect_timeout = 5; # seconds
+      database = {
+        url = "postgres://academy-challenges@localhost/academy-challenges?host=/run/postgresql";
+        connect_timeout = 5; # seconds
+      };
 
       redis = builtins.mapAttrs (ms: {redis, ...}: "redis://127.0.0.1:6379/${toString redis.database}") config.academy.backend.microservices;
 
@@ -77,8 +80,12 @@
     serviceConfig.Restart = "always";
   };
 
-  sops.secrets = {
-    "academy-backend/database/passwords/academy-challenges".owner = "postgres";
-    "academy-backend/microservices/challenges-ms" = {};
+  sops = {
+    secrets = {
+      "academy-backend/challenges-ms/sentry-dsn" = {};
+    };
+    templates."academy-backend/challenges-ms".content = ''
+      CHALLENGES__SENTRY__DSN=${config.sops.placeholder."academy-backend/challenges-ms/sentry-dsn"}
+    '';
   };
 }
