@@ -1,7 +1,6 @@
 {env, ...}: {
   imports = [
     ./firewall.nix
-    ./hardware-configuration.nix
     ./sandkasten.nix
     ./ssh.nix
   ];

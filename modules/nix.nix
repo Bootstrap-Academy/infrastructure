@@ -43,17 +43,7 @@
     fi
   '';
 
-  environment.shellAliases = {
-    needrestart = "diff <(readlink /run/booted-system/{initrd,kernel,kernel-modules}) <(readlink /run/current-system/{initrd,kernel,kernel-modules})";
-    findport = pkgs.writeShellScript "findport.sh" ''
-      port=''${1:-8000}
-      proto=''${2:-tcp}
-      while ss -Hlnp --$proto sport $port | grep .; do
-        port=$((port+1))
-      done
-      echo "Port $port/$proto is not in use."
-    '';
-  };
+  environment.shellAliases.needrestart = "diff <(readlink /run/booted-system/{initrd,kernel,kernel-modules}) <(readlink /run/current-system/{initrd,kernel,kernel-modules})";
 
   system.stateVersion = "23.11";
 }
