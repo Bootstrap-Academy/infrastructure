@@ -85,7 +85,7 @@ in {
 
   sops = {
     secrets = {
-      "glitchtip/database-password".owner = "postgres";
+      "glitchtip/database-password" = {};
       "glitchtip/secret-key" = {};
       "glitchtip/smtp-password" = {};
     };

@@ -30,20 +30,26 @@
         '';
       };
 
-      systemd.services.postgresql.postStart = lib.mkAfter ''
-        $PSQL -tA <<'EOF'
-          DO $$
-          DECLARE password TEXT;
-          BEGIN
-            ${builtins.concatStringsSep "\n" (lib.mapAttrsToList (
-            name: passwordFile: ''
-              password := trim(both from replace(pg_read_file('${passwordFile}'), E'\n', '''));
-              EXECUTE format('ALTER ROLE "${name}" WITH PASSWORD '''%s''';', password);
-            ''
-          )
-          cfg.userPasswords)}
-          END $$;
-        EOF
-      '';
+      systemd.services.postgresql = let
+        escape = builtins.replaceStrings [":"] ["-"];
+        passwordFileName = name: "user-password-${escape name}";
+      in {
+        serviceConfig.LoadCredential = lib.mapAttrsToList (name: passwordFile: "${passwordFileName name}:${passwordFile}") cfg.userPasswords;
+        postStart = lib.mkIf (cfg.userPasswords != {}) (lib.mkAfter ''
+          $PSQL -tA <<'EOF'
+            DO $$
+            DECLARE password TEXT;
+            BEGIN
+              ${builtins.concatStringsSep "\n" (lib.mapAttrsToList (
+              name: _: ''
+                password := trim(both from replace(pg_read_file('/run/credentials/postgresql.service/${passwordFileName name}'), E'\n', '''));
+                EXECUTE format('ALTER ROLE "${name}" WITH PASSWORD '''%s''';', password);
+              ''
+            )
+            cfg.userPasswords)}
+            END $$;
+          EOF
+        '');
+      };
     };
 }
