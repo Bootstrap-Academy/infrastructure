@@ -83,11 +83,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1702476797,
-        "narHash": "sha256-e7FD/gdbwSbmNLfuVPxCCCCJvxJ4pHmVE2mOs/I8VZM=",
+        "lastModified": 1704801330,
+        "narHash": "sha256-CO2EWPILLZfZWDg5ZhNPaVuLXP/eihd89wJ83tM/Opk=",
         "owner": "Defelo",
         "repo": "deploy-sh",
-        "rev": "1dc68838ee67ccba2a8f84730f5e95598f65ed1d",
+        "rev": "7080bf9d9dcd1fb551f81885951f8c4a4fdbed27",
         "type": "github"
       },
       "original": {
