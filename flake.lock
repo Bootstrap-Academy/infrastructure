@@ -26,11 +26,11 @@
         "poetry2nix": "poetry2nix_2"
       },
       "locked": {
-        "lastModified": 1704742920,
-        "narHash": "sha256-KLQVaqmD4gn/9dGqBl1O/CkUOHlkklqDEOf6lQ/uG0Q=",
+        "lastModified": 1704978764,
+        "narHash": "sha256-1M5N3bEkHcqGJFyLULOWc24K2WnJLymRQ0jXhhIME9k=",
         "owner": "Bootstrap-Academy",
         "repo": "auth-ms",
-        "rev": "cdcf339b23303508f685ecd97f4fd2f1754c8f87",
+        "rev": "322bb8411a9955a9fe14d372dd20c4647b2d606d",
         "type": "github"
       },
       "original": {
@@ -65,11 +65,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1704804291,
-        "narHash": "sha256-oy/jjJ5QceGAipk9XKZ+Vb2KKfDJMDDZCTSiqeyPXYk=",
+        "lastModified": 1704976364,
+        "narHash": "sha256-a6D86WFV3XK6fVrrVtUYmr818m8oVNUcaw1HkXVMfwk=",
         "owner": "Bootstrap-Academy",
         "repo": "challenges-ms",
-        "rev": "076c13beeade15bc65c7d68720e0fdf70bf2e324",
+        "rev": "b8272c1e87394487bc4b4fa6d0318a88ffd76acf",
         "type": "github"
       },
       "original": {
@@ -123,11 +123,11 @@
         "poetry2nix": "poetry2nix_4"
       },
       "locked": {
-        "lastModified": 1704471332,
-        "narHash": "sha256-3gLCr/nR5XuDiCDdhGrmLYZnWcYq/9M1LmfYW8WlPMw=",
+        "lastModified": 1704979697,
+        "narHash": "sha256-TAMPEE3YNm9Kfe5MQ0PafVxLt+U2mNABTMxLTbg+ePg=",
         "owner": "Bootstrap-Academy",
         "repo": "events-ms",
-        "rev": "8a8abb9cfe3208d65464cc741f22e5601d5666c4",
+        "rev": "6ef95dc01e70dea9533d338a912d091e99785c2e",
         "type": "github"
       },
       "original": {
@@ -381,11 +381,11 @@
         "poetry2nix": "poetry2nix_6"
       },
       "locked": {
-        "lastModified": 1704500282,
-        "narHash": "sha256-nM+Prlb3qNNn0SntcbBb4m+PEttrsTHjYSE8EoOVxxs=",
+        "lastModified": 1704979556,
+        "narHash": "sha256-XiEKD+F9ZiVCYk8DB9qxLU8Gsy9ZFUwCjmJJIA8Z3As=",
         "owner": "Bootstrap-Academy",
         "repo": "jobs-ms",
-        "rev": "d15f97242836b58c9700cab67087a1c68c7d3ff1",
+        "rev": "e254449293eead09abbc4280ed08206f69f6ee6e",
         "type": "github"
       },
       "original": {
@@ -807,11 +807,11 @@
     },
     "nixpkgs_17": {
       "locked": {
-        "lastModified": 1704420045,
-        "narHash": "sha256-C36QmoJd5tdQ5R9MC1jM7fBkZW9zBUqbUCsgwS6j4QU=",
+        "lastModified": 1704874635,
+        "narHash": "sha256-YWuCrtsty5vVZvu+7BchAxmcYzTMfolSPP5io8+WYCg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c1be43e8e837b8dbee2b3665a007e761680f0c3d",
+        "rev": "3dc440faeee9e889fe2d1b4d25ad0f430d449356",
         "type": "github"
       },
       "original": {
@@ -1447,11 +1447,11 @@
         "poetry2nix": "poetry2nix_8"
       },
       "locked": {
-        "lastModified": 1704457433,
-        "narHash": "sha256-vFuOimnP2KPiz7Xnq01kNm1NzP/1vAiHEfhS1L0SZes=",
+        "lastModified": 1704979610,
+        "narHash": "sha256-AElv9FCMVN1WdQAqWS7Wmz0UYDZCnYxH5UD805uSYAE=",
         "owner": "Bootstrap-Academy",
         "repo": "shop-ms",
-        "rev": "e2b5c929f377c7b9110b6a435ba50b19f03f0079",
+        "rev": "ad3068a6d3022b93386157bf5b69c1c630c0e314",
         "type": "github"
       },
       "original": {
@@ -1487,11 +1487,11 @@
         "poetry2nix": "poetry2nix_10"
       },
       "locked": {
-        "lastModified": 1704481481,
-        "narHash": "sha256-g075K6sd7GOs4mnS2ZBTRRnxomynm0o3+QLKoXSccCw=",
+        "lastModified": 1704979899,
+        "narHash": "sha256-8llAWIzBFj09Ge6ZtX34LO9WIKlrXM76rC0xvw4Epd4=",
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "2db1122e9b88c6ba4d7b8324e81df68a72c12f1f",
+        "rev": "55170ea261eafb4027bf6971ead7ac2cde99bdee",
         "type": "github"
       },
       "original": {
@@ -1507,11 +1507,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1704753304,
-        "narHash": "sha256-9shh5fYLfLJrxr4NnIoWcO9T3bTFuO5QW9v/wDpq9Xg=",
+        "lastModified": 1704908274,
+        "narHash": "sha256-74W9Yyomv3COGRmKi8zvyA5tL2KLiVkBeaYmYLjXyOw=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "0ded57412079011f1210c2fcc10e112427d4c0e6",
+        "rev": "c0b3a5af90fae3ba95645bbf85d2b64880addd76",
         "type": "github"
       },
       "original": {
