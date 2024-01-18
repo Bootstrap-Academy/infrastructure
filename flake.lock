@@ -1500,11 +1500,11 @@
         "poetry2nix": "poetry2nix_8"
       },
       "locked": {
-        "lastModified": 1705089015,
-        "narHash": "sha256-fZ0ZEFY6HsLF1Jgkv3mUzkqiA1//wHinMl6/xceSqZU=",
+        "lastModified": 1705621014,
+        "narHash": "sha256-aj+DjApDj42FDoD5FEkrSBXM9Fa1Vnq7YtX4tVWwd18=",
         "owner": "Bootstrap-Academy",
         "repo": "shop-ms",
-        "rev": "f5f398c68bcdf76224ce7cc9aa11b238a5658b3d",
+        "rev": "17c429111cf53fa783343fc76aeb4227c6869dcd",
         "type": "github"
       },
       "original": {
