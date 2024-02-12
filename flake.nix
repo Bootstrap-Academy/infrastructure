@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs-staging.url = "github:NixOS/nixpkgs/staging-next-23.11";
     deploy-sh.url = "github:Defelo/deploy-sh";
     sops-nix.url = "github:Mic92/sops-nix";
     nfnix.url = "github:Defelo/nfnix";
@@ -43,6 +44,10 @@
         inherit (server) system;
         specialArgs =
           inputs
+          // (lib.mapAttrs' (name: value: {
+            name = lib.removePrefix "nix" name;
+            value = import value {inherit (server) system;};
+          }) (lib.filterAttrs (name: _: lib.hasPrefix "nixpkgs-" name) inputs))
           // {
             inherit env server;
             docker-images = fromTOML (builtins.readFile ./docker-images.toml);

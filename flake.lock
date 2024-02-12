@@ -713,6 +713,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-staging": {
+      "locked": {
+        "lastModified": 1707696800,
+        "narHash": "sha256-9kR4BE6OSq0kpOcojBZ81bRcp/fZeybiOfmSdlo0dbA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5a4f3fa09223c2ab009889dfad29ba67dfacf36e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "staging-next-23.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_10": {
       "locked": {
         "lastModified": 1699725108,
@@ -1394,6 +1410,7 @@
         "jobs-ms-develop": "jobs-ms-develop",
         "nfnix": "nfnix",
         "nixpkgs": "nixpkgs_18",
+        "nixpkgs-staging": "nixpkgs-staging",
         "sandkasten": "sandkasten",
         "shop-ms": "shop-ms",
         "shop-ms-develop": "shop-ms-develop",
