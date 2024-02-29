@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  pkgs-staging,
+  pkgs,
   ...
 }: {
   options.services.postgresql = with lib; {
@@ -15,7 +15,7 @@
   in
     lib.mkIf cfg.enable {
       services.postgresql = {
-        package = pkgs-staging.postgresql_16;
+        package = pkgs.postgresql_16;
         enableTCPIP = true;
         ensureUsers =
           map (db: {
