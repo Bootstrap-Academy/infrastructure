@@ -35,7 +35,7 @@
             publicKey = "1g/V66LITNSzZD0DDIKt4l3u8/yOGYEOtcArAXMvHyQ=";
             ip4 = "10.23.1.2";
           };
-          nico-t480 = {
+          nico-p14s = {
             publicKey = "EtC01X70ExI7Kvrp5tzE8wWlcbKD/QHg6wIvUB5ewQI=";
             ip4 = "10.23.1.3";
           };
