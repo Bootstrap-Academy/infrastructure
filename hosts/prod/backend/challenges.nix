@@ -67,7 +67,7 @@
 
       challenges.coding_challenges = {
         sandkasten_url = "http://${env.servers.sandkasten.net.private.ip4}:8000/";
-        max_concurrency = 6;
+        max_concurrency = 4;
         timeout = 10; # seconds
         hearts = 2;
         creator_coins = 10;
