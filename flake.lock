@@ -6,11 +6,11 @@
         "poetry2nix": "poetry2nix"
       },
       "locked": {
-        "lastModified": 1704980591,
-        "narHash": "sha256-Cv3Ew5l0IQdFAaYffPfxAgPb4W/3DuY5NMtkvQGandc=",
+        "lastModified": 1714839525,
+        "narHash": "sha256-6/ERxY2XbZX38zDE4xCmIiLOXBb6KMMW+XhSmu8V37Y=",
         "owner": "Bootstrap-Academy",
         "repo": "auth-ms",
-        "rev": "41f54d7d161f2a7b356db0d40656c92bfbb2a010",
+        "rev": "4f5f762b0b0dce0949c153c8822ce649964c9cff",
         "type": "github"
       },
       "original": {
@@ -26,11 +26,11 @@
         "poetry2nix": "poetry2nix_2"
       },
       "locked": {
-        "lastModified": 1714837656,
-        "narHash": "sha256-spaW3eEtcyYbZcjKlwzDLyF1E/Z22XW0+XY6mhCSySM=",
+        "lastModified": 1714839525,
+        "narHash": "sha256-6/ERxY2XbZX38zDE4xCmIiLOXBb6KMMW+XhSmu8V37Y=",
         "owner": "Bootstrap-Academy",
         "repo": "auth-ms",
-        "rev": "d40f6f81938f8e0b9132bc830ce6784dcf03aea0",
+        "rev": "4f5f762b0b0dce0949c153c8822ce649964c9cff",
         "type": "github"
       },
       "original": {
@@ -46,11 +46,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1704980785,
-        "narHash": "sha256-EinmHyTo4faVU8y5eLlWUynT20ovj7ry4acMvqldhwo=",
+        "lastModified": 1714839701,
+        "narHash": "sha256-01+QP9VoYS/9aTGHltcrxAGn8SUhRw9UMkYwawxeF6U=",
         "owner": "Bootstrap-Academy",
         "repo": "challenges-ms",
-        "rev": "967c6adb63e532eafcf1141e7f82a3d54125b92a",
+        "rev": "c23e861035bd8d2d80ea8958c5fb1e79cad0bdcc",
         "type": "github"
       },
       "original": {
@@ -66,11 +66,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1714829855,
-        "narHash": "sha256-b3hhN1Ux0OHu2oeLxJ7d1dHn1iM7WqAhxYsbwGlPfi8=",
+        "lastModified": 1714839701,
+        "narHash": "sha256-01+QP9VoYS/9aTGHltcrxAGn8SUhRw9UMkYwawxeF6U=",
         "owner": "Bootstrap-Academy",
         "repo": "challenges-ms",
-        "rev": "df27f3e85b7f22faf073d90dd7587400c98630ae",
+        "rev": "c23e861035bd8d2d80ea8958c5fb1e79cad0bdcc",
         "type": "github"
       },
       "original": {
@@ -104,11 +104,11 @@
         "poetry2nix": "poetry2nix_3"
       },
       "locked": {
-        "lastModified": 1704980591,
-        "narHash": "sha256-54LOeTN8GFiOwgBSM1P8S0yluFtvW6F8cyuk1cKss0s=",
+        "lastModified": 1714839525,
+        "narHash": "sha256-UGYAcusmxdluALJpKSco+UJrawp+woS+uKzqA+amQn4=",
         "owner": "Bootstrap-Academy",
         "repo": "events-ms",
-        "rev": "c0c3026eee48473956360b2981cf82bfca77e659",
+        "rev": "9321bc6d5f3bd70b870d832361b0e5aea68f57c5",
         "type": "github"
       },
       "original": {
@@ -124,11 +124,11 @@
         "poetry2nix": "poetry2nix_4"
       },
       "locked": {
-        "lastModified": 1714838178,
-        "narHash": "sha256-N7IhYXYsYx7LMLUA5bsknuQN8arPYUlhMjRrzYOfvfU=",
+        "lastModified": 1714839525,
+        "narHash": "sha256-UGYAcusmxdluALJpKSco+UJrawp+woS+uKzqA+amQn4=",
         "owner": "Bootstrap-Academy",
         "repo": "events-ms",
-        "rev": "8726cfea52cb5717abcfe81d7b58e4a03efba300",
+        "rev": "9321bc6d5f3bd70b870d832361b0e5aea68f57c5",
         "type": "github"
       },
       "original": {
@@ -144,11 +144,11 @@
         "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
-        "lastModified": 1704781388,
-        "narHash": "sha256-QEmlnHkDkbDud5M+eXPvJpETXMaodtdM3fs635wzgfA=",
+        "lastModified": 1714631076,
+        "narHash": "sha256-at4+1R9gx3CGvX0ZJo9GwDZyt3RzOft7qDCTsYHjI4M=",
         "owner": "nix-community",
         "repo": "fenix",
-        "rev": "50818d34497c48efbf21b965cf247bda90ffc7e0",
+        "rev": "22a9eb3f20dd340d084cee4426f386a90b1351ca",
         "type": "github"
       },
       "original": {
@@ -381,11 +381,11 @@
         "poetry2nix": "poetry2nix_5"
       },
       "locked": {
-        "lastModified": 1704980591,
-        "narHash": "sha256-gk2U0jwKsU/WeIZODhUfz8k8NP8r4faIscT+0ClXIQE=",
+        "lastModified": 1714839525,
+        "narHash": "sha256-rTdG5iniLSe2Wjx2xo9igBTZNM9VEoxTJUSJvAoMrlM=",
         "owner": "Bootstrap-Academy",
         "repo": "jobs-ms",
-        "rev": "28ac114de59aca0c494a7ff0413ebd069fd845f6",
+        "rev": "687401510a3964330b6db7e9a81260ae4aa41087",
         "type": "github"
       },
       "original": {
@@ -401,11 +401,11 @@
         "poetry2nix": "poetry2nix_6"
       },
       "locked": {
-        "lastModified": 1714838132,
-        "narHash": "sha256-6pIZB9zH5wrmnDKnww7Gzq7bCdOv+Dj9Z+jDck5dCRI=",
+        "lastModified": 1714839525,
+        "narHash": "sha256-rTdG5iniLSe2Wjx2xo9igBTZNM9VEoxTJUSJvAoMrlM=",
         "owner": "Bootstrap-Academy",
         "repo": "jobs-ms",
-        "rev": "00fe0f49a1f416a89f7fb2e17d30cf2cd19aa01d",
+        "rev": "687401510a3964330b6db7e9a81260ae4aa41087",
         "type": "github"
       },
       "original": {
@@ -1083,11 +1083,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1704538339,
-        "narHash": "sha256-1734d3mQuux9ySvwf6axRWZRBhtcZA9Q8eftD6EZg6U=",
+        "lastModified": 1714253743,
+        "narHash": "sha256-mdTQw2XlariysyScCv2tTE45QSU9v/ezLcHJ22f0Nxc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "46ae0210ce163b3cba6c7da08840c1d63de9c701",
+        "rev": "58a1abdbae3217ca6b702f03d3b35125d88a2994",
         "type": "github"
       },
       "original": {
@@ -1099,16 +1099,16 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1699725108,
-        "narHash": "sha256-NTiPW4jRC+9puakU4Vi8WpFEirhp92kTOSThuZke+FA=",
+        "lastModified": 1714782413,
+        "narHash": "sha256-tbg0MEuKaPcUrnmGCu4xiY5F+7LW2+ECPKVAJd2HLwM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "911ad1e67f458b6bcf0278fa85e33bb9924fed7e",
+        "rev": "651b4702e27a388f0f18e1b970534162dec09aff",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
+        "ref": "release-23.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -1405,11 +1405,11 @@
     "rust-analyzer-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1704734508,
-        "narHash": "sha256-avMO21rwRepZXP3yJEgQDuFTatreWwyI6pau1jzuMtA=",
+        "lastModified": 1714572655,
+        "narHash": "sha256-xjD8vmit0Nz1qaSSSpeXOK3saSvAZtOGHS2SHZE75Ek=",
         "owner": "rust-lang",
         "repo": "rust-analyzer",
-        "rev": "12e7aa3132217cc6a6c1151d468be35d7b365999",
+        "rev": "cfce2bb46da62950a8b70ddb0b2a12332da1b1e1",
         "type": "github"
       },
       "original": {
@@ -1480,11 +1480,11 @@
         "poetry2nix": "poetry2nix_7"
       },
       "locked": {
-        "lastModified": 1704980591,
-        "narHash": "sha256-N0ljmu2fCS5MQwC71l5d18f/kcG6hK7Xur13o7o1BtA=",
+        "lastModified": 1714839525,
+        "narHash": "sha256-NR6/u2QsZhWdUjdr7E1mEW1XjEPyrhh5m541pGPXxF8=",
         "owner": "Bootstrap-Academy",
         "repo": "shop-ms",
-        "rev": "284ba04d3d198c97883254154aa76feff626d4ca",
+        "rev": "16366bdec0e8c565acae539dbb8aa33ba004d382",
         "type": "github"
       },
       "original": {
@@ -1500,11 +1500,11 @@
         "poetry2nix": "poetry2nix_8"
       },
       "locked": {
-        "lastModified": 1714837524,
-        "narHash": "sha256-hfjdBfBhnSPobzKglb6eZ4SOSuitdicoQ2fBdJ7DEGI=",
+        "lastModified": 1714839525,
+        "narHash": "sha256-NR6/u2QsZhWdUjdr7E1mEW1XjEPyrhh5m541pGPXxF8=",
         "owner": "Bootstrap-Academy",
         "repo": "shop-ms",
-        "rev": "a42bcab192b9e7ec5e14a7b1fbe808f2c5b592a0",
+        "rev": "16366bdec0e8c565acae539dbb8aa33ba004d382",
         "type": "github"
       },
       "original": {
@@ -1520,11 +1520,11 @@
         "poetry2nix": "poetry2nix_9"
       },
       "locked": {
-        "lastModified": 1704980591,
-        "narHash": "sha256-3uCoj5oQV/XZdXuRRYaSoyElrjWgccWMnPJZ1TlRAek=",
+        "lastModified": 1714839525,
+        "narHash": "sha256-/IPZMX3WkdpBp0WLvhTOh47epPPW1GG/mXvep9t9DEQ=",
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "876acb34e9e5e273908980bdb35a9b33483b80a8",
+        "rev": "5c2061e7c8b9b4c340654fcfc391edde478a0aed",
         "type": "github"
       },
       "original": {
@@ -1540,11 +1540,11 @@
         "poetry2nix": "poetry2nix_10"
       },
       "locked": {
-        "lastModified": 1714838077,
-        "narHash": "sha256-ePuXSZD6yy0nn3iagzjpc1KgDKpWMGUzqZEhSkT9DC8=",
+        "lastModified": 1714839525,
+        "narHash": "sha256-/IPZMX3WkdpBp0WLvhTOh47epPPW1GG/mXvep9t9DEQ=",
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "0b7e234df59198bc6b514738064eae3301d88886",
+        "rev": "5c2061e7c8b9b4c340654fcfc391edde478a0aed",
         "type": "github"
       },
       "original": {
