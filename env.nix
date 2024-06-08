@@ -43,10 +43,6 @@
             publicKey = "PrSCG2vuAiHKnB3AJm1ii6T2LHaB8ZRu8GinjPGfXEc=";
             ip4 = "10.23.1.4";
           };
-          nico-hm90 = {
-            publicKey = "aMKMkLo92dHyvbB3vDde4kF9DQLGnw0NqocLGK4KcBA=";
-            ip4 = "10.23.1.5";
-          };
         };
       };
 
