@@ -21,7 +21,7 @@
     ];
     settings = {
       internal_jwt_ttl = 10; # seconds
-      cache_ttl = 10; # seconds
+      cache_ttl = 300; # seconds
 
       database = {
         url = "postgres://academy-challenges@localhost/academy-challenges?host=/run/postgresql";
