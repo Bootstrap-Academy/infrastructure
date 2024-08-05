@@ -39,7 +39,7 @@
             publicKey = "EtC01X70ExI7Kvrp5tzE8wWlcbKD/QHg6wIvUB5ewQI=";
             ip4 = "10.23.1.3";
           };
-          nico-ws1 = {
+          nico-prod = {
             publicKey = "PrSCG2vuAiHKnB3AJm1ii6T2LHaB8ZRu8GinjPGfXEc=";
             ip4 = "10.23.1.4";
           };
