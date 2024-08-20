@@ -1461,11 +1461,11 @@
         "nixpkgs-old": "nixpkgs-old"
       },
       "locked": {
-        "lastModified": 1723943557,
-        "narHash": "sha256-4TVFhQG8Ud/qDBtRKn0YuPdfDvSTxMBX3uHvN9tByaA=",
+        "lastModified": 1724152874,
+        "narHash": "sha256-KQnKFdc+34iVSe6XxwvQrXGjNhPQqDke1s9pgu3hZQc=",
         "owner": "Defelo",
         "repo": "sandkasten",
-        "rev": "7bb1e6fa37b1b5f1772de1dbe473315a86a6a534",
+        "rev": "a23c0007227c07aa9f9acafe0c659b5ef413a91f",
         "type": "github"
       },
       "original": {
