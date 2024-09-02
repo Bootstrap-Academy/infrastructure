@@ -1540,11 +1540,11 @@
         "poetry2nix": "poetry2nix_10"
       },
       "locked": {
-        "lastModified": 1716329073,
-        "narHash": "sha256-9RyfyxuWzjadi1YM0mOR1cLl0arQERN8XykKA6a4MkQ=",
+        "lastModified": 1725295034,
+        "narHash": "sha256-Wd1Xkq7ry6iWPlVuVEh7K0ZFVjjV3cXq5ODWsPnOuOs=",
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "a3eec976f5e73d79c4c207f470dc9d02cbe675b7",
+        "rev": "29df8f7cb68d7ef38e9a4f6c7f3faf630e699691",
         "type": "github"
       },
       "original": {
