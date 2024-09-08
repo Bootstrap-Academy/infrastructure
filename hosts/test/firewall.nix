@@ -1,12 +1,13 @@
 {
-  nfnix,
   env,
-  server,
+  nfnix,
   ...
 }: {
   networking.firewall.enable = false;
   networking.nftables.enable = true;
-  networking.nftables.ruleset = with nfnix.lib;
+  networking.nftables.ruleset = let
+    inherit (nfnix.lib) mkRuleset vmap default_input allow_icmp_pings;
+  in
     mkRuleset {
       tables.filter = {
         family = "inet";
@@ -19,8 +20,8 @@
             default_input
             "iif lo accept"
             "iifname ${vmap {
-              ${server.dev.public} = "jump input_public";
-              ${server.dev.private} = "jump input_private";
+              "enp1s0" = "jump input_public";
+              "enp7s0" = "jump input_private";
             }}"
           ];
         };
@@ -42,18 +43,12 @@
 
             "ip saddr ${env.net.internal.wireguard.net4} jump input_wireguard"
 
-            # allow ssh from prod
-            "ip saddr ${env.servers.prod.net.private.ip4} tcp dport 22 accept"
-
             # allow nginx
             "tcp dport { 80, 443 } accept"
           ];
         };
 
-        chains.input_wireguard = {
-          policy = "accept";
-          rules = [];
-        };
+        chains.input_wireguard.policy = "accept";
       };
     };
 }

@@ -58,27 +58,6 @@
 
       ssh.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN0OY+9GYyDhQvaS1jCLKU7J6FA6BnsYmrFbmBguqYPE";
     };
-
-    test = {
-      system = "aarch64-linux";
-
-      net = {
-        public.ip4 = "49.13.80.22";
-        public.ip6 = "2a01:4f8:c17:ad51::";
-        private.ip4 = "10.23.0.4";
-      };
-
-      dev = {
-        public = "enp1s0";
-        private = "enp7s0";
-      };
-
-      domains = [
-        "api.test.bootstrap.academy"
-      ];
-
-      ssh.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMJ4GqpRivlCvIh/acCZlQHzeT9MEUMcFyG9MsskEgJb";
-    };
   };
 
   sshKeys = {

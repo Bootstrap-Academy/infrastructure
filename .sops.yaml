@@ -3,7 +3,7 @@ keys:
   - &admin_nico 0797D2389769CA1E57B72ED92BA7811687C90DE4
   - &host_prod age1gmp55vpd9dpmmsw6wpyd85rhgy8pp32sfg842lxl4a8tvy2agufqac3yqr
   - &host_sandkasten age19qk0dslenktglen8dfxym0ukygcz7rj2ya6z930yq5lafmqmsprqdvp439
-  - &host_test age1n0kv3gmrhj3dj7hfqw0ck6mauetk6d2ryrlrmf8cknrc9un4ncyssjuhyr
+  - &host_test age1l0u9h7wjsdge789f4fuj0ya0cz5y6c9m7nqhlhactwlzg7rt4fxquvqdzy
 
 creation_rules:
   - path_regex: hosts/prod/secrets\.yml$
