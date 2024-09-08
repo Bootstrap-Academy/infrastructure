@@ -62,24 +62,13 @@
     mkHost = name: system:
       lib.nixosSystem {
         inherit system;
-        specialArgs = inputs // (extra-pkgs system) // {inherit inputs docker-images system env;};
+        specialArgs = inputs // (extra-pkgs system) // {inherit inputs docker-images system env name;};
         modules = [
           disko.nixosModules.default
-          deploy-sh.nixosModules.default
-          sops-nix.nixosModules.default
           impermanence.nixosModule
           ./hosts/${name}
           ./hosts/${name}/hardware-configuration.nix
-          ./modules/backend
-          ./modules/monitoring.nix
-          ./modules/nginx.nix
-          ./modules/nix.nix
-          ./modules/pkgs.nix
-          ./modules/postgres.nix
-          ./modules/qemu.nix
-          ./modules/ssh.nix
-          ./modules/sshfs.nix
-          {networking.hostName = name;}
+          ./new-modules
         ];
       };
   in {
