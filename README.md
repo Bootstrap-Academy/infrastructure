@@ -7,7 +7,7 @@ If you would like to submit a bug report or feature request, or are looking for 
 | Name                                                                                     | Public IPv4      | Public IPv6               | Private IPv4 |
 |------------------------------------------------------------------------------------------|------------------|---------------------------|--------------|
 | [`prod`](https://console.hetzner.cloud/projects/2654383/servers/39607543/overview)       | `157.90.144.125` | `2a01:4f8:c012:a47b::/64` | `10.23.0.2`  |
-| [`sandkasten`](https://console.hetzner.cloud/projects/2654383/servers/39612529/overview) | *None*           | *None*                    | `10.23.0.3`  |
+| [`sandkasten`](https://console.hetzner.cloud/projects/2654383/servers/52832490/overview) | *None*           | *None*                    | `10.23.0.3`  |
 | [`test`](https://console.hetzner.cloud/projects/2654383/servers/52823145/overview)       | `49.13.123.1`    | `2a01:4f8:c013:5e5f::/64` | `10.23.0.4`  |
 
 ## Administration

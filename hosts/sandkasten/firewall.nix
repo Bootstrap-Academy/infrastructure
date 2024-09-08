@@ -1,13 +1,15 @@
 {
   config,
   nfnix,
-  env,
-  server,
   ...
 }: {
   networking.firewall.enable = false;
   networking.nftables.enable = true;
-  networking.nftables.ruleset = with nfnix.lib;
+  networking.nftables.ruleset = let
+    inherit (nfnix.lib) mkRuleset vmap default_input allow_icmp_pings;
+
+    wireguardNet = "10.23.1.0/24";
+  in
     mkRuleset {
       tables.filter = {
         family = "inet";
@@ -20,7 +22,7 @@
             default_input
             "iif lo accept"
             "iifname ${vmap {
-              ${server.dev.private} = "jump input_private";
+              ${config.networking.networks.private.internal.dev} = "jump input_private";
             }}"
           ];
         };
@@ -30,10 +32,7 @@
           rules = [
             allow_icmp_pings
 
-            "ip saddr ${env.net.internal.wireguard.net4} jump input_wireguard"
-
-            # allow ssh from prod
-            "ip saddr ${env.servers.prod.net.private.ip4} tcp dport 22 accept"
+            "ip saddr ${wireguardNet} jump input_wireguard"
 
             # allow sandkasten
             "tcp dport ${toString config.services.sandkasten.settings.port} accept"

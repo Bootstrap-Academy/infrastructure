@@ -15,7 +15,7 @@
       program_ttl = 300;
       prune_programs_interval = 60;
 
-      max_concurrent_jobs = 4;
+      max_concurrent_jobs = 2;
 
       base_resource_usage_runs = 20;
       base_resource_usage_permits = 2;

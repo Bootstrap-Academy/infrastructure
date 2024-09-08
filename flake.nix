@@ -100,7 +100,7 @@
           ];
         })
       env.servers
-      // lib.genAttrs ["test"] (name: mkHost name (getSystemFromHardwareConfiguration name));
+      // lib.genAttrs ["sandkasten" "test"] (name: mkHost name (getSystemFromHardwareConfiguration name));
 
     deploy-sh.hosts = self.nixosConfigurations;
 

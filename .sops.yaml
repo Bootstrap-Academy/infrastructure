@@ -2,7 +2,7 @@ keys:
   - &admin_defelo 61303bbad7d1bf74efa44e3be7fe2087e4380e64
   - &admin_nico 0797D2389769CA1E57B72ED92BA7811687C90DE4
   - &host_prod age1gmp55vpd9dpmmsw6wpyd85rhgy8pp32sfg842lxl4a8tvy2agufqac3yqr
-  - &host_sandkasten age19qk0dslenktglen8dfxym0ukygcz7rj2ya6z930yq5lafmqmsprqdvp439
+  - &host_sandkasten age173w0p0aj8s78j3295tzatxu56quwc3grsu4g2lsr7l9hxpa4hdpsgzujqx
   - &host_test age1l0u9h7wjsdge789f4fuj0ya0cz5y6c9m7nqhlhactwlzg7rt4fxquvqdzy
 
 creation_rules:

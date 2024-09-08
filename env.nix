@@ -48,16 +48,6 @@
 
       ssh.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDICX5+RkzRMCwFqAbGrWOTPTsz53/7byvp6GGcvKQbV";
     };
-
-    sandkasten = {
-      system = "aarch64-linux";
-
-      net.private.ip4 = "10.23.0.3";
-
-      dev.private = "enp7s0";
-
-      ssh.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN0OY+9GYyDhQvaS1jCLKU7J6FA6BnsYmrFbmBguqYPE";
-    };
   };
 
   sshKeys = {

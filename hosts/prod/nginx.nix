@@ -21,7 +21,7 @@
         limit_req_status 429;
       '';
       locations."/" = {
-        proxyPass = "http://${env.servers.sandkasten.net.private.ip4}:8000";
+        proxyPass = "http://10.23.0.3:8000";
         proxyWebsockets = true;
       };
       locations."= /metrics".return = "403";

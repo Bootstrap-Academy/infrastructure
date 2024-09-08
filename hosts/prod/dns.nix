@@ -31,6 +31,9 @@
           domains')
         env.servers)
         ++ [
+          "/sandkasten.internal.bootstrap.academy/"
+          "/sandkasten.internal.bootstrap.academy/10.23.0.3"
+
           "/api.test.bootstrap.academy/"
           "/api.test.bootstrap.academy/10.23.0.4"
           "/test.internal.bootstrap.academy/"
