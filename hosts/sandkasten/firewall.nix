@@ -34,6 +34,9 @@
 
             "ip saddr ${wireguardNet} jump input_wireguard"
 
+            # allow ssh from prod
+            "ip saddr 10.23.0.2 tcp dport 22 accept"
+
             # allow sandkasten
             "tcp dport ${toString config.services.sandkasten.settings.port} accept"
           ];

@@ -45,6 +45,9 @@
 
             "ip saddr ${wireguardNet} jump input_wireguard"
 
+            # allow ssh from prod
+            "ip saddr 10.23.0.2 tcp dport 22 accept"
+
             # allow nginx
             "tcp dport { 80, 443 } accept"
           ];
