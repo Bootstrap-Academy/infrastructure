@@ -79,15 +79,7 @@
     devShells = eachDefaultSystem (system: let
       pkgs = import nixpkgs {inherit system;};
     in {
-      default = pkgs.mkShell {
-        packages = with pkgs;
-          [sops ssh-to-age nixos-anywhere]
-          ++ [
-            deploy-sh.packages.${system}.default
-            (builtins.attrValues (import ./scripts pkgs))
-            self.formatter.${system}
-          ];
-      };
+      default = import ./dev.nix (inputs // {inherit pkgs system;});
       ci = pkgs.mkShell {
         packages = [self.formatter.${system}];
       };
