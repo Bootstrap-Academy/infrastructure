@@ -1,6 +1,5 @@
 {
   config,
-  docker-images,
   pkgs,
   ...
 }: let
@@ -41,8 +40,7 @@
   };
 in {
   virtualisation.oci-containers.containers = {
-    morpheushelper = {
-      image = docker-images.morpheushelper;
+    morpheushelper = config.dockerImages.morpheushelper.mkContainer {
       extraOptions = [
         "--rm=false"
         "--restart=always"
@@ -88,6 +86,10 @@ in {
     save = [];
     settings.protected-mode = "no";
   };
+
+  environment.persistence."/persistent/data".directories = [
+    "/var/lib/mysql"
+  ];
 
   sops = {
     secrets = {

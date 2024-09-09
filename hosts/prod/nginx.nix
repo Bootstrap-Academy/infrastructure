@@ -1,11 +1,11 @@
-{env, ...}: {
+{
   services.nginx = {
     enable = true;
 
     appendHttpConfig = ''
       geo $sandkasten_public_limit {
         default 1;
-        ${env.net.internal.net4} 0;
+        10.23.1.0/24 0;
       }
       map $sandkasten_public_limit $sandkasten_public_limit_key {
         0 "";

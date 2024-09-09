@@ -1,12 +1,8 @@
 {
-  boot.loader.grub = {
-    enable = true;
-    device = "nodev";
-    efiSupport = true;
-    efiInstallAsRemovable = false;
+  boot.loader = {
+    grub.enable = true;
+    timeout = 2;
   };
-  boot.loader.timeout = 2;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.tmp.useTmpfs = true;
-  boot.tmp.tmpfsSize = "90%";
+
+  console.enable = false;
 }

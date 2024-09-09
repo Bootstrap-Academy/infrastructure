@@ -9,3 +9,5 @@ else
   done
   nix flake lock $args --commit-lock-file
 fi
+
+ssh root@10.23.0.2 fetch-docker-images > hosts/prod2/docker-images.nix

@@ -40,10 +40,6 @@
     ];
     eachDefaultSystem = lib.genAttrs defaultSystems;
 
-    env = import ./env.nix;
-
-    docker-images = fromTOML (builtins.readFile ./docker-images.toml);
-
     extra-pkgs = system:
       lib.pipe inputs [
         (lib.filterAttrs (k: _: lib.hasPrefix "nixpkgs-" k))
@@ -62,45 +58,21 @@
     mkHost = name: system:
       lib.nixosSystem {
         inherit system;
-        specialArgs = inputs // (extra-pkgs system) // {inherit inputs docker-images system env name;};
+        specialArgs = inputs // (extra-pkgs system) // {inherit inputs system name;};
         modules = [
           disko.nixosModules.default
           impermanence.nixosModule
           ./hosts/${name}
           ./hosts/${name}/hardware-configuration.nix
-          ./new-modules
+          ./modules
         ];
       };
   in {
-    nixosConfigurations =
-      builtins.mapAttrs (name: server:
-        lib.nixosSystem {
-          inherit (server) system;
-          specialArgs =
-            inputs
-            // (lib.mapAttrs' (name: value: {
-              name = lib.removePrefix "nix" name;
-              value = import value {inherit (server) system;};
-            }) (lib.filterAttrs (name: _: lib.hasPrefix "nixpkgs-" name) inputs))
-            // {
-              inherit env server;
-              docker-images = fromTOML (builtins.readFile ./docker-images.toml);
-            };
-          modules = [
-            deploy-sh.nixosModules.default
-            sops-nix.nixosModules.default
-            ./hosts/${name}
-            ./hosts/${name}/hardware-configuration.nix
-            ./modules
-            {
-              networking.hostName = name;
-              deploy-sh.targetHost = "root@${server.net.private.ip4}";
-              sops.defaultSopsFile = ./hosts/${name}/secrets.yml;
-            }
-          ];
-        })
-      env.servers
-      // lib.genAttrs ["sandkasten" "test"] (name: mkHost name (getSystemFromHardwareConfiguration name));
+    nixosConfigurations = lib.pipe ./hosts [
+      builtins.readDir
+      (lib.filterAttrs (_: type: type == "directory"))
+      (builtins.mapAttrs (name: _: mkHost name (getSystemFromHardwareConfiguration name)))
+    ];
 
     deploy-sh.hosts = self.nixosConfigurations;
 

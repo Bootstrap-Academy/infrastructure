@@ -1,8 +1,4 @@
 {
-  lib,
-  env,
-  ...
-}: {
   services.dnsmasq = {
     enable = true;
     resolveLocalQueries = true;
@@ -16,29 +12,29 @@
         "2606:4700:4700::1111"
         "2606:4700:4700::1001"
       ];
-      address =
-        lib.flatten (lib.mapAttrsToList (name: {
-          net,
-          domains ? [],
-          ...
-        }: let
-          domains' = lib.optional (net ? "private") "${name}.internal.bootstrap.academy" ++ domains;
-        in
-          map (domain: [
-            "/${domain}/" # clear AAAA records
-            "/${domain}/${net.private.ip4}"
-          ])
-          domains')
-        env.servers)
-        ++ [
-          "/sandkasten.internal.bootstrap.academy/"
-          "/sandkasten.internal.bootstrap.academy/10.23.0.3"
+      host-record = [
+        "prod.internal.bootstrap.academy,10.23.0.2"
+        "sandkasten.internal.bootstrap.academy,10.23.0.3"
+        "test.internal.bootstrap.academy,10.23.0.4"
+      ];
+      address = [
+        "/api.bootstrap.academy/"
+        "/api.bootstrap.academy/10.23.0.2"
+        "/glitchtip.bootstrap.academy/"
+        "/glitchtip.bootstrap.academy/10.23.0.2"
+        "/sandkasten.bootstrap.academy/"
+        "/sandkasten.bootstrap.academy/10.23.0.2"
+        "/prod.internal.bootstrap.academy/"
+        "/prod.internal.bootstrap.academy/10.23.0.2"
 
-          "/api.test.bootstrap.academy/"
-          "/api.test.bootstrap.academy/10.23.0.4"
-          "/test.internal.bootstrap.academy/"
-          "/test.internal.bootstrap.academy/10.23.0.4"
-        ];
+        "/sandkasten.internal.bootstrap.academy/"
+        "/sandkasten.internal.bootstrap.academy/10.23.0.3"
+
+        "/api.test.bootstrap.academy/"
+        "/api.test.bootstrap.academy/10.23.0.4"
+        "/test.internal.bootstrap.academy/"
+        "/test.internal.bootstrap.academy/10.23.0.4"
+      ];
     };
   };
 }

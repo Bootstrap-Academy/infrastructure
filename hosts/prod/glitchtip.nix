@@ -1,52 +1,50 @@
 {
-  env,
   config,
-  docker-images,
+  lib,
   ...
 }: let
   port = 8100;
   redisPort = 63790;
   domain = "glitchtip.bootstrap.academy";
 
-  base = {
-    image = docker-images.glitchtip;
-    extraOptions = [
-      "--rm=false"
-      "--restart=always"
-      "--network=host"
-      "--no-healthcheck"
-    ];
-    environmentFiles = [config.sops.templates."glitchtip/environment".path];
-    environment = {
-      PORT = toString port;
-      REDIS_URL = "redis://127.0.0.1:${toString redisPort}/0";
-      GLITCHTIP_DOMAIN = "https://${domain}";
-      DEFAULT_FROM_EMAIL = "glitchtip@the-morpheus.de";
-      ENABLE_USER_REGISTRATION = "False";
-      ENABLE_ORGANIZATION_CREATION = "False";
-    };
-    volumes = ["/var/lib/glitchtip/uploads:/code/uploads"];
-  };
-in {
-  virtualisation.oci-containers.containers = {
-    glitchtip-web = base;
-    glitchtip-worker =
-      base
-      // {
-        cmd = ["./bin/run-celery-with-beat.sh"];
-      };
-    glitchtip-migrate =
-      base
-      // {
-        cmd = ["./manage.py" "migrate"];
-        volumes = [];
+  mkContainer = attrs:
+    config.dockerImages.glitchtip.mkContainer (lib.recursiveUpdate {
         extraOptions = [
-          "--rm=true"
-          "--restart=no"
+          "--rm=false"
+          "--restart=always"
           "--network=host"
           "--no-healthcheck"
         ];
-      };
+        environmentFiles = [config.sops.templates."glitchtip/environment".path];
+        environment = {
+          PORT = toString port;
+          REDIS_URL = "redis://127.0.0.1:${toString redisPort}/0";
+          GLITCHTIP_DOMAIN = "https://${domain}";
+          DEFAULT_FROM_EMAIL = "glitchtip@the-morpheus.de";
+          ENABLE_USER_REGISTRATION = "False";
+          ENABLE_ORGANIZATION_CREATION = "False";
+        };
+        volumes = [
+          "/persistent/data/glitchtip/uploads:/code/uploads"
+        ];
+      }
+      attrs);
+in {
+  virtualisation.oci-containers.containers = {
+    glitchtip-web = mkContainer {};
+    glitchtip-worker = mkContainer {
+      cmd = ["./bin/run-celery-with-beat.sh"];
+    };
+    glitchtip-migrate = mkContainer {
+      cmd = ["./manage.py" "migrate"];
+      volumes = [];
+      extraOptions = [
+        "--rm=true"
+        "--restart=no"
+        "--network=host"
+        "--no-healthcheck"
+      ];
+    };
   };
 
   systemd.services.podman-glitchtip-migrate.serviceConfig.RemainAfterExit = true;
@@ -55,7 +53,7 @@ in {
     forceSSL = true;
     enableACME = true;
     extraConfig = ''
-      allow ${env.net.internal.net4};
+      allow 10.23.1.0/24;
       deny all;
     '';
     locations."/" = {
@@ -65,6 +63,7 @@ in {
   };
 
   services.postgresql = {
+    enable = true;
     ensureDatabases = ["glitchtip"];
     userPasswords.glitchtip = config.sops.secrets."glitchtip/database-password".path;
   };
@@ -78,10 +77,8 @@ in {
   };
 
   system.activationScripts.initGlitchtipState = ''
-    mkdir -p /var/lib/glitchtip/uploads
+    mkdir -p /persistent/data/glitchtip/uploads
   '';
-
-  backup.paths = ["/var/lib/glitchtip/uploads"];
 
   sops = {
     secrets = {

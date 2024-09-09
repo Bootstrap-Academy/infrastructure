@@ -1,11 +1,15 @@
 {
+  config,
   nfnix,
-  server,
   ...
 }: {
   networking.firewall.enable = false;
   networking.nftables.enable = true;
-  networking.nftables.ruleset = with nfnix.lib;
+  networking.nftables.ruleset = let
+    inherit (nfnix.lib) mkRuleset vmap default_input default_forward allow_icmp_pings;
+
+    wireguardNet = "10.23.1.0/24";
+  in
     mkRuleset {
       tables.filter = {
         family = "inet";
@@ -18,9 +22,9 @@
             default_input
             "iif lo accept"
             "iifname ${vmap {
-              ${server.dev.public} = "jump input_public";
-              ${server.dev.private} = "jump input_private";
-              ${server.dev.wireguard} = "jump input_wireguard";
+              ${config.networking.networks.public.dev} = "jump input_public";
+              ${config.networking.networks.private.internal.dev} = "jump input_internal";
+              "wg0" = "jump input_wireguard";
             }}"
           ];
         };
@@ -31,7 +35,7 @@
           policy = "drop";
           rules = [
             default_forward
-            "iifname ${server.dev.wireguard} oifname ${server.dev.private} accept"
+            "iifname wg0 oifname ${config.networking.networks.private.internal.dev} accept"
           ];
         };
 
@@ -41,14 +45,14 @@
             allow_icmp_pings
 
             # allow wireguard
-            "udp dport ${toString server.wireguard.port} accept"
+            "udp dport 51820 accept"
 
             # allow nginx
             "tcp dport { 80, 443 } accept"
           ];
         };
 
-        chains.input_private = {
+        chains.input_internal = {
           policy = "drop";
           rules = [
             allow_icmp_pings
@@ -62,10 +66,7 @@
           ];
         };
 
-        chains.input_wireguard = {
-          policy = "accept";
-          rules = [];
-        };
+        chains.input_wireguard.policy = "accept";
       };
     };
 }

@@ -51,5 +51,9 @@
           EOF
         '');
       };
+
+      environment.persistence = lib.mkIf config.filesystems.defaultLayout {
+        "/persistent/data".directories = ["/var/lib/postgresql"];
+      };
     };
 }

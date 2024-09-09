@@ -16,6 +16,7 @@ pkgs: let
       update = [
         nix
         git
+        openssh
       ];
       mkpw = [
         coreutils
@@ -26,10 +27,6 @@ pkgs: let
         coreutils
         pwgen
         apacheHttpd
-      ];
-      update-docker = [
-        coreutils
-        skopeo
       ];
     };
 in

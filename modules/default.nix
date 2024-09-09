@@ -1,11 +1,12 @@
 {
   imports = [
+    ./acme.nix
     ./backend
-    ./backup.nix
     ./boot.nix
     ./containers.nix
+    ./deploy.nix
+    ./docker-images.nix
     ./filesystems.nix
-    ./localisation.nix
     ./monitoring.nix
     ./networking.nix
     ./nginx.nix
@@ -13,6 +14,7 @@
     ./pkgs.nix
     ./postgres.nix
     ./qemu.nix
+    ./sops.nix
     ./ssh.nix
     ./sshfs.nix
     ./users.nix
