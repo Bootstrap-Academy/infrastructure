@@ -2,6 +2,7 @@
   imports = [
     ./acme.nix
     ./backend
+    ./backup.nix
     ./boot.nix
     ./btrfs.nix
     ./containers.nix

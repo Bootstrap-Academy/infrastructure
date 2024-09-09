@@ -91,6 +91,9 @@ in {
     "/var/lib/mysql"
   ];
 
+  backup.exclude = ["/var/lib/mysql"];
+  backup.prepare = "${config.services.mysql.package}/bin/mysqldump --all-databases > mysql-dump.sql";
+
   sops = {
     secrets = {
       "morpheushelper/discord-token" = {};

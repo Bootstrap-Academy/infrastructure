@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   imports = [
     ./backend
     ./firewall.nix
@@ -18,5 +18,16 @@
     };
   };
 
-  sops.secrets."ssh/private-key".path = "/root/.ssh/id_ed25519";
+  backup.targets = {
+    box = {
+      repository = "sftp://u381435@u381435.your-storagebox.de:23/backups/test";
+      repositoryPasswordFile = config.sops.secrets."backup/box/repository-password".path;
+      sshKeyFile = config.sops.secrets."ssh/private-key".path;
+    };
+  };
+
+  sops.secrets = {
+    "ssh/private-key".path = "/root/.ssh/id_ed25519";
+    "backup/box/repository-password" = {};
+  };
 }

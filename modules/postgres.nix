@@ -55,5 +55,8 @@
       environment.persistence = lib.mkIf config.filesystems.defaultLayout {
         "/persistent/data".directories = ["/var/lib/postgresql"];
       };
+
+      backup.exclude = ["/var/lib/postgresql"];
+      backup.prepare = "${pkgs.sudo}/bin/sudo -u postgres ${cfg.package}/bin/pg_dumpall > postgresql-dump.sql";
     };
 }
