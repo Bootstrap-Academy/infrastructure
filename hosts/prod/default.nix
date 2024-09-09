@@ -7,6 +7,7 @@
     ./glitchtip.nix
     ./morpheushelper
     ./nginx.nix
+    ./restic.nix
     ./wireguard.nix
   ];
 
