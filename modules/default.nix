@@ -3,6 +3,7 @@
     ./acme.nix
     ./backend
     ./boot.nix
+    ./btrfs.nix
     ./containers.nix
     ./deploy.nix
     ./docker-images.nix
