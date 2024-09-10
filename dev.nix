@@ -21,7 +21,9 @@ pkgs.mkShell {
           nix flake lock "''${args[@]}" --commit-lock-file
         fi
 
-        ssh root@10.23.0.2 fetch-docker-images > hosts/prod/docker-images.nix
+        if [[ $# -eq 0 ]]; then
+          ssh root@10.23.0.2 fetch-docker-images > hosts/prod/docker-images.nix
+        fi
       '';
     };
   in
