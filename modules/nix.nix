@@ -16,10 +16,12 @@
       substituters = [
         "https://bootstrap-academy.cachix.org"
         "https://sandkasten.cachix.org"
+        "https://academy-backend.cachix.org"
       ];
       trusted-public-keys = [
         "bootstrap-academy.cachix.org-1:QoTxaO9Xw868/oefU7MrrkzrbFH9sUCJwWbIqsLCjxs="
         "sandkasten.cachix.org-1:Pa7qfdlx7bZkko+ojaaEG9pyziZkaru9v4TfcioqNZw="
+        "academy-backend.cachix.org-1:MxmjN6hjaiGdi42M6evdALWj5hHOyUAQTEgKvm+J0Ow="
       ];
     };
     registry = {

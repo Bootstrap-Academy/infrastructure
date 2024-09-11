@@ -87,4 +87,9 @@
 
     formatter = eachDefaultSystem (system: (import nixpkgs {inherit system;}).alejandra);
   };
+
+  nixConfig = {
+    extra-substituters = "https://academy-backend.cachix.org";
+    extra-trusted-public-keys = "academy-backend.cachix.org-1:MxmjN6hjaiGdi42M6evdALWj5hHOyUAQTEgKvm+J0Ow=";
+  };
 }
