@@ -28,9 +28,17 @@
         connect_timeout = 5; # seconds
       };
 
-      redis = builtins.mapAttrs (ms: {redis, ...}: "redis://127.0.0.1:6379/${toString redis.database}") config.academy.backend.microservices;
+      redis =
+        builtins.mapAttrs (ms: {redis, ...}: "redis://127.0.0.1:6379/${toString redis.database}") config.academy.backend.microservices
+        // {
+          auth = "redis://127.0.0.1:6379/0";
+        };
 
-      services = builtins.mapAttrs (ms: {port, ...}: "http://127.0.0.1:${toString port}/") config.academy.backend.microservices;
+      services =
+        builtins.mapAttrs (ms: {port, ...}: "http://127.0.0.1:${toString port}/") config.academy.backend.microservices
+        // {
+          auth = "http://127.0.0.1:8000/auth/";
+        };
 
       challenges = {
         inherit (config.academy.backend.microservices.challenges) port;
