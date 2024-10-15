@@ -53,7 +53,7 @@ in {
     forceSSL = true;
     enableACME = true;
     extraConfig = ''
-      allow 10.23.1.0/24;
+      allow 10.23.0.0/23;
       deny all;
     '';
     locations."/" = {
