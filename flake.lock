@@ -50,15 +50,16 @@
       "locked": {
         "lastModified": 1729103509,
         "narHash": "sha256-beVLv9uaxFiX5UN7jdR6QoFFUlht2qe7Wxkv2f40+es=",
-        "ref": "refs/heads/develop",
+        "owner": "Bootstrap-Academy",
+        "repo": "backend",
         "rev": "270472db2eccd26874a4d6ca8c82c04b12916114",
-        "revCount": 177,
-        "type": "git",
-        "url": "ssh://git@github.com/Bootstrap-Academy/backend.git"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/Bootstrap-Academy/backend.git"
+        "owner": "Bootstrap-Academy",
+        "ref": "develop",
+        "repo": "backend",
+        "type": "github"
       }
     },
     "cachix": {

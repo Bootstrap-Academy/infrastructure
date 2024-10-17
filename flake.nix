@@ -21,7 +21,7 @@
     jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/develop";
     events-ms-develop.url = "github:Bootstrap-Academy/events-ms/develop";
     challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/develop";
-    backend-develop.url = "git+ssh://git@github.com/Bootstrap-Academy/backend.git";
+    backend-develop.url = "github:Bootstrap-Academy/backend/develop";
   };
 
   outputs = {
