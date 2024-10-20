@@ -31,6 +31,9 @@
       internal = {
         shop_url = "http://127.0.0.1:8002/";
       };
+      health = {
+        email_cache_ttl = "5m";
+      };
       user = {
         name_change_rate_limit = "1d";
         verification_redirect_url = "https://test.bootstrap.academy/auth/verify-account";
