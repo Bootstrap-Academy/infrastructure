@@ -1,10 +1,12 @@
 {config, ...}: {
   imports = [
     ./backend
+    ./buildbot.nix
     ./dns.nix
     ./docker-images.nix
     ./firewall.nix
     ./glitchtip.nix
+    ./harmonia.nix
     ./morpheushelper
     ./nginx.nix
     ./restic.nix

@@ -7,6 +7,7 @@
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
     sandkasten.url = "github:Defelo/sandkasten";
+    buildbot-nix.url = "github:nix-community/buildbot-nix";
 
     auth-ms.url = "github:Bootstrap-Academy/auth-ms/latest";
     skills-ms.url = "github:Bootstrap-Academy/skills-ms/latest";
@@ -87,6 +88,15 @@
     });
 
     formatter = eachDefaultSystem (system: (import nixpkgs {inherit system;}).alejandra);
+
+    checks = let
+      nixosConfigurations =
+        lib.mapAttrsToList (name: config: {
+          ${getSystemFromHardwareConfiguration name}.${name} = config.config.system.build.toplevel;
+        })
+        self.nixosConfigurations;
+    in
+      builtins.foldl' lib.recursiveUpdate {} nixosConfigurations;
   };
 
   nixConfig = {

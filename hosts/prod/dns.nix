@@ -22,6 +22,8 @@
         "/api.bootstrap.academy/10.23.0.2"
         "/glitchtip.bootstrap.academy/"
         "/glitchtip.bootstrap.academy/10.23.0.2"
+        "/buildbot.bootstrap.academy/"
+        "/buildbot.bootstrap.academy/10.23.0.2"
         "/sandkasten.bootstrap.academy/"
         "/sandkasten.bootstrap.academy/10.23.0.2"
         "/prod.internal.bootstrap.academy/"
