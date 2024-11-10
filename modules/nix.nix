@@ -4,6 +4,7 @@
   ...
 }: {
   nix = {
+    package = pkgs.nixVersions.latest;
     nixPath = ["nixpkgs=${nixpkgs}"];
     gc = {
       automatic = true;
@@ -12,7 +13,7 @@
     };
     settings = {
       auto-optimise-store = true;
-      experimental-features = ["nix-command" "flakes" "repl-flake"];
+      experimental-features = ["nix-command" "flakes"];
       substituters = [
         "https://bootstrap-academy.cachix.org"
         "https://sandkasten.cachix.org"
