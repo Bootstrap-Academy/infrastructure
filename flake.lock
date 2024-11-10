@@ -47,11 +47,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1731095006,
-        "narHash": "sha256-PkHrAe2OJcuDCoGCBGR6Lefy6Vx4mLbg+pafJNJj34w=",
+        "lastModified": 1731205539,
+        "narHash": "sha256-/nIPxzgm96udCrDQQ3eXQ2e9XnktcM+Lma69D6iyn4A=",
         "owner": "Bootstrap-Academy",
         "repo": "backend",
-        "rev": "91ee6ed7f32e95b59fefd84e87507beae7585a3c",
+        "rev": "914b47139e121a38d691243a7912e0f016bc5cbb",
         "type": "github"
       },
       "original": {
