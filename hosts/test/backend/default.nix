@@ -24,6 +24,9 @@
     settings = {
       http = {
         address = "127.0.0.1:8000";
+        real_ip.header = "X-Real-Ip";
+        real_ip.set_from = "127.0.0.1";
+        allowed_origins = [".*"];
       };
       email = {
         from = "Bootstrap Academy <noreply@bootstrap.academy>";
