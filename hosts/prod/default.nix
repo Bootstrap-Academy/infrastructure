@@ -1,7 +1,6 @@
 {config, ...}: {
   imports = [
     ./backend
-    ./buildbot.nix
     ./dns.nix
     ./docker-images.nix
     ./firewall.nix

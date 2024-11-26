@@ -7,7 +7,6 @@
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
     sandkasten.url = "github:Defelo/sandkasten";
-    buildbot-nix.url = "github:nix-community/buildbot-nix";
 
     auth-ms.url = "github:Bootstrap-Academy/auth-ms/latest";
     skills-ms.url = "github:Bootstrap-Academy/skills-ms/latest";
