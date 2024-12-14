@@ -2,8 +2,8 @@
   dockerImages = {
     glitchtip.meta = {
       imageName = "docker.io/glitchtip/glitchtip";
-      imageDigest = "sha256:9021545d1312f6de1d4b3349afefebf102ee946eabcbd590d023ff52b3668ec3";
-      sha256 = "1gr97p6596c8m3v1vy53gxy3afyajp091zshi0yian8a8xksaz7v";
+      imageDigest = "sha256:c48702d5955e948df60469a0e312d6a052878771dd2291cdcf01918a14d34b50";
+      sha256 = "1i7y98z0cc2lcxm6smx5c9pqx9lgaznkyvmp203yzldhiwgqikjs";
       finalImageName = "docker.io/glitchtip/glitchtip";
       finalImageTag = "latest";
     };
