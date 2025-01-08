@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-ytdl-sub.url = "github:NixOS/nixpkgs/pull/369990/merge"; # https://github.com/NixOS/nixpkgs/pull/369990
     deploy-sh.url = "github:Defelo/deploy-sh";
     sops-nix.url = "github:Mic92/sops-nix";
     nfnix.url = "github:Defelo/nfnix";
