@@ -10,6 +10,7 @@
     ./nginx.nix
     ./restic.nix
     ./wireguard.nix
+    ./youtube-downloads.nix
   ];
 
   filesystems.defaultLayout = true;
