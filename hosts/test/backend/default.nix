@@ -8,10 +8,13 @@
     backend-develop.nixosModules.default
 
     ./skills.nix
-    ./shop.nix
     ./jobs.nix
     ./events.nix
     ./challenges.nix
+  ];
+
+  disabledModules = [
+    ../../../modules/backend/scripts.nix
   ];
 
   # new backend
@@ -28,37 +31,49 @@
         real_ip.set_from = "127.0.0.1";
         allowed_origins = [".*"];
       };
+
+      # database.run_migrations = false;
+
       email = {
         from = "Bootstrap Academy <noreply@bootstrap.academy>";
       };
+
       internal = {
         shop_url = "http://127.0.0.1:8002/";
       };
+
       health = {
         email_cache_ttl = "5m";
       };
+
       user = {
         name_change_rate_limit = "1d";
         verification_redirect_url = "https://test.bootstrap.academy/auth/verify-account";
         password_reset_redirect_url = "https://test.bootstrap.academy/auth/reset-password";
         newsletter_redirect_url = "https://test.bootstrap.academy/account/newsletter";
       };
+
       contact = {
         email = "defelo@the-morpheus.de";
       };
+
       recaptcha = {
         enable = true;
         sitekey = "6Ldb070iAAAAAKsAt_M_ilgDbnWcF-N_Pj2DBBeP";
         min_score = 0.5;
       };
+
+      paypal = {
+        base_url_override = "https://api.sandbox.paypal.com";
+        client_id = "AY8tdE7PPpUOVbURYdFvrqsisOiJpggHWnNYphRQjbDPCoPcD3z7XUU067hZ6kf4cH82GwQrAkJnhcqn";
+      };
+
       oauth2.providers = {
         github.client_id = "87e19e5e68c83d9595a3";
         discord.client_id = "1019985764735537202";
         google.client_id = "887666568821-80u0pnbuemkt6ktvjlbk5judorg46alr.apps.googleusercontent.com";
       };
     };
-
-    tasks.prune-database.schedule = "*:0/20";
   };
 
   services.nginx.virtualHosts."api.test.bootstrap.academy".locations."/" = {
@@ -118,7 +133,10 @@
           config.academy.backend.microservices)
         // {
           AUTH_URL = "http://127.0.0.1:8000/auth/";
+          SHOP_URL = "http://127.0.0.1:8000/shop/";
+
           AUTH_REDIS_URL = "redis://127.0.0.1:6379/0";
+          SHOP_REDIS_URL = "redis://127.0.0.1:6379/0";
         };
     };
   };
@@ -132,6 +150,8 @@
     allowOther = true;
   };
 
+  environment.persistence."/persistent/data".directories = ["/var/lib/academy"];
+
   sops = {
     secrets = {
       "academy-backend/jwt-secret" = {};
@@ -142,6 +162,8 @@
       "academy-backend/auth-ms/oauth/github-secret" = {};
       "academy-backend/auth-ms/oauth/discord-secret" = {};
       "academy-backend/auth-ms/oauth/google-secret" = {};
+
+      "academy-backend/shop-ms/paypal-secret" = {};
     };
     templates = {
       "academy-backend/config" = {
@@ -149,6 +171,7 @@
           email.smtp_url = "smtp://noreply@bootstrap.academy:${config.sops.placeholder."academy-backend/smtp-password"}@mail.your-server.de:587?tls=required"
           jwt.secret = "${config.sops.placeholder."academy-backend/jwt-secret"}"
           recaptcha.secret = "${config.sops.placeholder."academy-backend/recaptcha-secret"}"
+          paypal.client_secret = "${config.sops.placeholder."academy-backend/shop-ms/paypal-secret"}"
           sentry.dsn = "${config.sops.placeholder."academy-backend/sentry-dsn"}"
           oauth2.providers.github.client_secret = "${config.sops.placeholder."academy-backend/auth-ms/oauth/github-secret"}"
           oauth2.providers.discord.client_secret = "${config.sops.placeholder."academy-backend/auth-ms/oauth/discord-secret"}"
