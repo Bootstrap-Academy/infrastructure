@@ -5,7 +5,6 @@
     ./docker-images.nix
     ./firewall.nix
     ./glitchtip.nix
-    ./harmonia.nix
     ./morpheushelper
     ./nginx.nix
     ./restic.nix
