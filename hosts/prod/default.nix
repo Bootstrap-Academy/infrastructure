@@ -1,5 +1,6 @@
 {config, ...}: {
   imports = [
+    ./attic.nix
     ./backend
     ./dns.nix
     ./docker-images.nix
