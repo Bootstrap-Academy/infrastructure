@@ -15,7 +15,7 @@
   in
     lib.mkIf cfg.enable {
       services.postgresql = {
-        package = pkgs.postgresql_16;
+        package = pkgs.postgresql_17;
         enableTCPIP = true;
         ensureUsers =
           map (db: {

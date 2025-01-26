@@ -2,7 +2,6 @@
   config,
   lib,
   backend-develop,
-  pkgs,
   ...
 }: {
   imports = [
@@ -17,8 +16,6 @@
   disabledModules = [
     ../../../modules/backend/scripts.nix
   ];
-
-  services.postgresql.package = lib.mkForce pkgs.postgresql_17;
 
   # new backend
   services.academy.backend = {
