@@ -1816,11 +1816,11 @@
         "nixpkgs-master": "nixpkgs-master"
       },
       "locked": {
-        "lastModified": 1737594166,
-        "narHash": "sha256-Hw05ObugaBCBAtrvC6ZSjz7/F5CrhIbuYcrFOcZm2sk=",
+        "lastModified": 1737915157,
+        "narHash": "sha256-toCwHeszqBKSVljSNsqLn9Nc+abO9HrVpWUOIu9FjVA=",
         "owner": "Defelo",
         "repo": "sandkasten",
-        "rev": "a9600917e5296adc24dc54174c7e569b73c80311",
+        "rev": "28e62fbe57620b927c8f7503620c6eecaee45649",
         "type": "github"
       },
       "original": {

@@ -16,12 +16,12 @@
       experimental-features = ["nix-command" "flakes"];
       substituters = [
         "https://bootstrap-academy.cachix.org"
-        "https://sandkasten.cachix.org"
+        "https://attic.defelo.de/sandkasten"
         "https://cache.bootstrap.academy/academy"
       ];
       trusted-public-keys = [
         "bootstrap-academy.cachix.org-1:QoTxaO9Xw868/oefU7MrrkzrbFH9sUCJwWbIqsLCjxs="
-        "sandkasten.cachix.org-1:Pa7qfdlx7bZkko+ojaaEG9pyziZkaru9v4TfcioqNZw="
+        "sandkasten:U7kShJt9A6tZr4pZRAXHmRlxC3nmOGvfviPqKL7hROE="
         "academy:JU67oyd32Kzh7XFkUD/rZ6I3wVT8xMtgghwBvEINGus="
       ];
     };
