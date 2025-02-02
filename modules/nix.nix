@@ -18,11 +18,13 @@
         "https://bootstrap-academy.cachix.org"
         "https://attic.defelo.de/sandkasten"
         "https://cache.bootstrap.academy/academy"
+        "https://cache.bootstrap.academy/infrastructure"
       ];
       trusted-public-keys = [
         "bootstrap-academy.cachix.org-1:QoTxaO9Xw868/oefU7MrrkzrbFH9sUCJwWbIqsLCjxs="
         "sandkasten:U7kShJt9A6tZr4pZRAXHmRlxC3nmOGvfviPqKL7hROE="
         "academy:JU67oyd32Kzh7XFkUD/rZ6I3wVT8xMtgghwBvEINGus="
+        "infrastructure:fddzeTH6iTFnlohYMr/M6JISLgZfWKqy+hEstjJvgk8="
       ];
     };
     registry = {

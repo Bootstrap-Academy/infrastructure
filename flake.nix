@@ -69,6 +69,16 @@
         ];
       };
   in {
+    packages = eachDefaultSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      checks = let
+        hosts = pkgs.linkFarm "checks-hosts" (lib.mapAttrs (_: v: v.config.system.build.toplevel) self.nixosConfigurations);
+        devShells = pkgs.linkFarm "checks-devShells" self.devShells.${system};
+      in
+        pkgs.linkFarmFromDrvs "checks" [hosts devShells];
+    });
+
     nixosConfigurations = lib.pipe ./hosts [
       builtins.readDir
       (lib.filterAttrs (_: type: type == "directory"))
@@ -87,14 +97,5 @@
     });
 
     formatter = eachDefaultSystem (system: (import nixpkgs {inherit system;}).alejandra);
-
-    checks = let
-      nixosConfigurations =
-        lib.mapAttrsToList (name: config: {
-          ${getSystemFromHardwareConfiguration name}.${name} = config.config.system.build.toplevel;
-        })
-        self.nixosConfigurations;
-    in
-      builtins.foldl' lib.recursiveUpdate {} nixosConfigurations;
   };
 }

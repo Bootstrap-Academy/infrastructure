@@ -1,0 +1,35 @@
+name: nix
+
+on:
+  push:
+    branches: [main, staging, trying]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - run: nix develop .#ci --command alejandra -c .
+
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo mkdir /mnt/nix && sudo mount -m -o bind /mnt/nix /nix
+      - uses: DeterminateSystems/nix-installer-action@v16
+      - uses: ryanccn/attic-action@v0
+        with:
+          endpoint: https://cache.bootstrap.academy/
+          cache: infrastructure
+          # atticd-atticadm make-token --sub github --validity 1y --pull infrastructure --push infrastructure
+          token: ${{ secrets.ATTIC_TOKEN }}
+      - run: |
+          echo >> ~/.config/nix/nix.conf
+          echo extra-substituters = https://bootstrap-academy.cachix.org https://attic.defelo.de/sandkasten https://cache.bootstrap.academy/academy >> ~/.config/nix/nix.conf
+          echo extra-trusted-public-keys = bootstrap-academy.cachix.org-1:QoTxaO9Xw868/oefU7MrrkzrbFH9sUCJwWbIqsLCjxs= sandkasten:U7kShJt9A6tZr4pZRAXHmRlxC3nmOGvfviPqKL7hROE= academy:JU67oyd32Kzh7XFkUD/rZ6I3wVT8xMtgghwBvEINGus= >> ~/.config/nix/nix.conf
+      - run: nix build -L --keep-going .#checks
