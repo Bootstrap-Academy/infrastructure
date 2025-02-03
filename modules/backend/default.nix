@@ -3,7 +3,6 @@
     ./nginx.nix
     ./postgresql.nix
     ./redis.nix
-    ./scripts.nix
   ];
 
   options.academy.backend = with lib; {

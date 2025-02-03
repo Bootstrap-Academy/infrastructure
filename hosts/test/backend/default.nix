@@ -13,10 +13,6 @@
     ./challenges.nix
   ];
 
-  disabledModules = [
-    ../../../modules/backend/scripts.nix
-  ];
-
   # new backend
   services.academy.backend = {
     enable = true;
@@ -36,10 +32,6 @@
 
       email = {
         from = "Bootstrap Academy <noreply@bootstrap.academy>";
-      };
-
-      internal = {
-        shop_url = "http://127.0.0.1:8002/";
       };
 
       health = {

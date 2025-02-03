@@ -14,6 +14,7 @@
     jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/latest";
     events-ms.url = "github:Bootstrap-Academy/events-ms/latest";
     challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/latest";
+    backend.url = "github:Bootstrap-Academy/backend/develop";
 
     auth-ms-develop.url = "github:Bootstrap-Academy/auth-ms/develop";
     skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/develop";
