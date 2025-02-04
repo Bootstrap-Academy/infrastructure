@@ -31,7 +31,7 @@
         ];
       };
 
-      database.run_migrations = false; # TODO disable
+      # database.run_migrations = false;
 
       email = {
         from = "Bootstrap Academy <noreply@bootstrap.academy>";
