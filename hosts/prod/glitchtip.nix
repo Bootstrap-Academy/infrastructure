@@ -1,21 +1,20 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   port = 8100;
   redisPort = 63790;
   domain = "glitchtip.bootstrap.academy";
 
-  mkContainer = attrs:
-    config.dockerImages.glitchtip.mkContainer (lib.recursiveUpdate {
+  mkContainer =
+    attrs:
+    config.dockerImages.glitchtip.mkContainer (
+      lib.recursiveUpdate {
         extraOptions = [
           "--rm=false"
           "--restart=always"
           "--network=host"
           "--no-healthcheck"
         ];
-        environmentFiles = [config.sops.templates."glitchtip/environment".path];
+        environmentFiles = [ config.sops.templates."glitchtip/environment".path ];
         environment = {
           PORT = toString port;
           REDIS_URL = "redis://127.0.0.1:${toString redisPort}/0";
@@ -24,20 +23,20 @@
           ENABLE_USER_REGISTRATION = "False";
           ENABLE_ORGANIZATION_CREATION = "False";
         };
-        volumes = [
-          "/persistent/data/glitchtip/uploads:/code/uploads"
-        ];
-      }
-      attrs);
-in {
+        volumes = [ "/persistent/data/glitchtip/uploads:/code/uploads" ];
+      } attrs
+    );
+in
+{
   virtualisation.oci-containers.containers = {
-    glitchtip-web = mkContainer {};
-    glitchtip-worker = mkContainer {
-      cmd = ["./bin/run-celery-with-beat.sh"];
-    };
+    glitchtip-web = mkContainer { };
+    glitchtip-worker = mkContainer { cmd = [ "./bin/run-celery-with-beat.sh" ]; };
     glitchtip-migrate = mkContainer {
-      cmd = ["./manage.py" "migrate"];
-      volumes = [];
+      cmd = [
+        "./manage.py"
+        "migrate"
+      ];
+      volumes = [ ];
       extraOptions = [
         "--rm=true"
         "--restart=no"
@@ -64,7 +63,7 @@ in {
 
   services.postgresql = {
     enable = true;
-    ensureDatabases = ["glitchtip"];
+    ensureDatabases = [ "glitchtip" ];
     userPasswords.glitchtip = config.sops.secrets."glitchtip/database-password".path;
   };
 
@@ -72,7 +71,7 @@ in {
     enable = true;
     bind = null;
     port = redisPort;
-    save = [];
+    save = [ ];
     settings.protected-mode = "no";
   };
 
@@ -82,14 +81,18 @@ in {
 
   sops = {
     secrets = {
-      "glitchtip/database-password" = {};
-      "glitchtip/secret-key" = {};
-      "glitchtip/smtp-password" = {};
+      "glitchtip/database-password" = { };
+      "glitchtip/secret-key" = { };
+      "glitchtip/smtp-password" = { };
     };
     templates."glitchtip/environment".content = ''
-      DATABASE_URL=postgres://glitchtip:${config.sops.placeholder."glitchtip/database-password"}@127.0.0.1:5432/glitchtip
+      DATABASE_URL=postgres://glitchtip:${
+        config.sops.placeholder."glitchtip/database-password"
+      }@127.0.0.1:5432/glitchtip
       SECRET_KEY=${config.sops.placeholder."glitchtip/secret-key"}
-      EMAIL_URL=smtp+tls://glitchtip@the-morpheus.de:${config.sops.placeholder."glitchtip/smtp-password"}@mail.your-server.de:587
+      EMAIL_URL=smtp+tls://glitchtip@the-morpheus.de:${
+        config.sops.placeholder."glitchtip/smtp-password"
+      }@mail.your-server.de:587
     '';
   };
 }

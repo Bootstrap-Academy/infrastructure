@@ -7,6 +7,7 @@
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
     sandkasten.url = "github:Defelo/sandkasten";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
 
     auth-ms.url = "github:Bootstrap-Academy/auth-ms/latest";
     skills-ms.url = "github:Bootstrap-Academy/skills-ms/latest";
@@ -25,78 +26,107 @@
     backend-develop.url = "github:Bootstrap-Academy/backend/develop";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    deploy-sh,
-    sops-nix,
-    disko,
-    impermanence,
-    ...
-  } @ inputs: let
-    inherit (nixpkgs) lib;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      deploy-sh,
+      sops-nix,
+      disko,
+      impermanence,
+      treefmt-nix,
+      ...
+    }@inputs:
+    let
+      inherit (nixpkgs) lib;
 
-    defaultSystems = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
-    eachDefaultSystem = lib.genAttrs defaultSystems;
-
-    extra-pkgs = system:
-      lib.pipe inputs [
-        (lib.filterAttrs (k: _: lib.hasPrefix "nixpkgs-" k))
-        (lib.mapAttrs' (k: v: {
-          name = lib.removePrefix "nix" k;
-          value = import v {inherit system;};
-        }))
+      eachDefaultSystem = lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-linux"
       ];
 
-    getSystemFromHardwareConfiguration = hostName: let
-      f = import ./hosts/${hostName}/hardware-configuration.nix;
-      args = builtins.functionArgs f // {lib.mkDefault = lib.id;};
-    in
-      (f args).nixpkgs.hostPlatform;
-
-    mkHost = name: system:
-      lib.nixosSystem {
-        inherit system;
-        specialArgs = inputs // (extra-pkgs system) // {inherit inputs system name;};
-        modules = [
-          disko.nixosModules.default
-          impermanence.nixosModule
-          ./hosts/${name}
-          ./hosts/${name}/hardware-configuration.nix
-          ./modules
+      extra-pkgs =
+        system:
+        lib.pipe inputs [
+          (lib.filterAttrs (k: _: lib.hasPrefix "nixpkgs-" k))
+          (lib.mapAttrs' (
+            k: v: {
+              name = lib.removePrefix "nix" k;
+              value = import v { inherit system; };
+            }
+          ))
         ];
-      };
-  in {
-    packages = eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      checks = let
-        hosts = pkgs.linkFarm "checks-hosts" (lib.mapAttrs (_: v: v.config.system.build.toplevel) self.nixosConfigurations);
-        devShells = pkgs.linkFarm "checks-devShells" self.devShells.${system};
-      in
-        pkgs.linkFarmFromDrvs "checks" [hosts devShells];
-    });
 
-    nixosConfigurations = lib.pipe ./hosts [
-      builtins.readDir
-      (lib.filterAttrs (_: type: type == "directory"))
-      (builtins.mapAttrs (name: _: mkHost name (getSystemFromHardwareConfiguration name)))
-    ];
+      getSystemFromHardwareConfiguration =
+        hostName:
+        let
+          f = import ./hosts/${hostName}/hardware-configuration.nix;
+          args = builtins.functionArgs f // {
+            lib.mkDefault = lib.id;
+          };
+        in
+        (f args).nixpkgs.hostPlatform;
 
-    deploy-sh.hosts = self.nixosConfigurations;
+      mkHost =
+        name: system:
+        lib.nixosSystem {
+          inherit system;
+          specialArgs = inputs // (extra-pkgs system) // { inherit inputs system name; };
+          modules = [
+            disko.nixosModules.default
+            impermanence.nixosModule
+            ./hosts/${name}
+            ./hosts/${name}/hardware-configuration.nix
+            ./modules
+          ];
+        };
+    in
+    {
+      packages = eachDefaultSystem (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          checks =
+            let
+              hosts = pkgs.linkFarm "checks-hosts" (
+                lib.mapAttrs (_: v: v.config.system.build.toplevel) self.nixosConfigurations
+              );
+              devShells = pkgs.linkFarm "checks-devShells" self.devShells.${system};
+            in
+            pkgs.linkFarmFromDrvs "checks" [
+              hosts
+              devShells
+            ];
+        }
+      );
 
-    devShells = eachDefaultSystem (system: let
-      pkgs = import nixpkgs {inherit system;};
-    in {
-      default = import ./dev.nix (inputs // {inherit pkgs system;});
-      ci = pkgs.mkShell {
-        packages = [self.formatter.${system}];
-      };
-    });
+      nixosConfigurations = lib.pipe ./hosts [
+        builtins.readDir
+        (lib.filterAttrs (_: type: type == "directory"))
+        (builtins.mapAttrs (name: _: mkHost name (getSystemFromHardwareConfiguration name)))
+      ];
 
-    formatter = eachDefaultSystem (system: (import nixpkgs {inherit system;}).alejandra);
-  };
+      deploy-sh.hosts = self.nixosConfigurations;
+
+      devShells = eachDefaultSystem (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = import ./dev.nix (inputs // { inherit pkgs system; });
+        }
+      );
+
+      formatter = eachDefaultSystem (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+        in
+        treefmtEval.config.build.wrapper
+      );
+    };
 }

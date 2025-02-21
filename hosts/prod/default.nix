@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   imports = [
     ./attic.nix
     ./backend
@@ -39,19 +40,21 @@
     };
   };
 
-  networking.hosts."10.23.1.2" = ["backup.defelo.de"];
+  networking.hosts."10.23.1.2" = [ "backup.defelo.de" ];
 
   programs.ssh.knownHosts = {
-    "10.23.0.3".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ9cuV9YpdIQ3jowOPGOL8Y+a6zW7+2YjCOr0b7RQskn";
-    "10.23.0.4".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEvpmCYjNbdJ+TsrwagVGfu6pTNQrlvg9vZuKh9Xr/J8";
+    "10.23.0.3".publicKey =
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ9cuV9YpdIQ3jowOPGOL8Y+a6zW7+2YjCOr0b7RQskn";
+    "10.23.0.4".publicKey =
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEvpmCYjNbdJ+TsrwagVGfu6pTNQrlvg9vZuKh9Xr/J8";
   };
 
   sops = {
     secrets = {
       "ssh/private-key".path = "/root/.ssh/id_ed25519";
-      "backup/box/repository-password" = {};
-      "backup/defelo/repository-password" = {};
-      "backup/defelo/rest-password" = {};
+      "backup/box/repository-password" = { };
+      "backup/defelo/repository-password" = { };
+      "backup/defelo/rest-password" = { };
     };
     templates = {
       "backup/defelo".content = ''

@@ -1,28 +1,26 @@
+{ config, lib, ... }:
 {
-  config,
-  lib,
-  ...
-}: {
-  options.monitoring = with lib; {
-    enable = mkOption {
-      type = types.bool;
+  options.monitoring = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = true;
     };
 
-    nginxLogFormat = mkOption {
-      type = types.str;
+    nginxLogFormat = lib.mkOption {
+      type = lib.types.str;
       default = ''ra="$remote_addr" ru="$remote_user" [$time_local] h="$host" r="$request" s="$status" bbs="$body_bytes_sent" hr="$http_referer" hua="$http_user_agent" rt="$request_time" uct="$upstream_connect_time" uht="$upstream_header_time" urt="$upstream_response_time"'';
     };
   };
 
-  config = let
-    cfg = config.monitoring;
-  in
+  config =
+    let
+      cfg = config.monitoring;
+    in
     lib.mkIf cfg.enable {
       services.prometheus.exporters = {
         node = {
           enable = true;
-          enabledCollectors = ["systemd"];
+          enabledCollectors = [ "systemd" ];
           port = 9000;
         };
 
@@ -40,7 +38,7 @@
               {
                 name = "nginx";
                 format = cfg.nginxLogFormat;
-                source.files = ["/var/log/nginx/prometheus.log"];
+                source.files = [ "/var/log/nginx/prometheus.log" ];
                 relabel_configs = [
                   {
                     target_label = "host";

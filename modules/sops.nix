@@ -3,12 +3,12 @@
   name,
   sops-nix,
   ...
-}: let
+}:
+let
   file = ../hosts/${name}/secrets.yml;
-in {
-  imports = [
-    sops-nix.nixosModules.default
-  ];
+in
+{
+  imports = [ sops-nix.nixosModules.default ];
 
   sops.defaultSopsFile = lib.mkIf (builtins.pathExists file) file;
 }

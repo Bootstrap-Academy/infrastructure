@@ -1,17 +1,15 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{ config, pkgs, ... }:
+let
   domain = "cache.bootstrap.academy";
   port = 8007;
-in {
+in
+{
   services.atticd = {
     enable = true;
     environmentFile = config.sops.templates."attic/env".path;
     settings = {
       listen = "127.0.0.1:${toString port}";
-      allowed-hosts = [domain];
+      allowed-hosts = [ domain ];
       api-endpoint = "https://${domain}/";
 
       soft-delete-caches = false;
@@ -45,12 +43,12 @@ in {
 
   services.postgresql = {
     enable = true;
-    ensureDatabases = ["atticd"];
+    ensureDatabases = [ "atticd" ];
   };
 
-  environment.systemPackages = [pkgs.attic-client];
+  environment.systemPackages = [ pkgs.attic-client ];
 
-  environment.persistence."/persistent/cache".directories = ["/var/lib/private/atticd"];
+  environment.persistence."/persistent/cache".directories = [ "/var/lib/private/atticd" ];
 
   sops = {
     # nix run nixpkgs#openssl -- genrsa -traditional 4096 | base64 -w0

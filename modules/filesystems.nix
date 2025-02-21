@@ -1,8 +1,5 @@
+{ config, lib, ... }:
 {
-  config,
-  lib,
-  ...
-}: {
   options.filesystems = {
     defaultLayout = lib.mkOption {
       type = lib.types.bool;
@@ -32,26 +29,38 @@
 
               content = {
                 type = "btrfs";
-                extraArgs = ["-f"];
+                extraArgs = [ "-f" ];
                 subvolumes = {
                   "/@boot" = {
                     mountpoint = "/boot";
-                    mountOptions = ["noatime" "compress=zstd"];
+                    mountOptions = [
+                      "noatime"
+                      "compress=zstd"
+                    ];
                   };
                   "/@nix" = {
                     mountpoint = "/nix";
-                    mountOptions = ["noatime" "compress=zstd"];
+                    mountOptions = [
+                      "noatime"
+                      "compress=zstd"
+                    ];
                   };
                   "/@data" = {
                     mountpoint = "/persistent/data";
-                    mountOptions = ["noatime" "compress=zstd"];
+                    mountOptions = [
+                      "noatime"
+                      "compress=zstd"
+                    ];
                   };
                   "/@cache" = {
                     mountpoint = "/persistent/cache";
-                    mountOptions = ["noatime" "compress=zstd"];
+                    mountOptions = [
+                      "noatime"
+                      "compress=zstd"
+                    ];
                   };
-                  "/@data/.snapshots" = {};
-                  "/@cache/.snapshots" = {};
+                  "/@data/.snapshots" = { };
+                  "/@cache/.snapshots" = { };
                 };
               };
             };
@@ -61,7 +70,11 @@
 
       nodev."/" = {
         fsType = "tmpfs";
-        mountOptions = ["defaults" "mode=755" "size=100%"];
+        mountOptions = [
+          "defaults"
+          "mode=755"
+          "size=100%"
+        ];
       };
     };
 
@@ -74,9 +87,7 @@
         "/var/lib/systemd/timers"
         "/var/log"
       ];
-      files = [
-        "/etc/machine-id"
-      ];
+      files = [ "/etc/machine-id" ];
     };
   };
 }

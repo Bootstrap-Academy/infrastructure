@@ -8,13 +8,13 @@ keys:
 creation_rules:
   - path_regex: hosts/prod/secrets\.yml$
     key_groups:
-      - pgp: [ *admin_defelo, *admin_nico ]
-        age: [ *host_prod ]
+      - pgp: [*admin_defelo, *admin_nico]
+        age: [*host_prod]
   - path_regex: hosts/sandkasten/secrets\.yml$
     key_groups:
-      - pgp: [ *admin_defelo, *admin_nico ]
-        age: [ *host_sandkasten ]
+      - pgp: [*admin_defelo, *admin_nico]
+        age: [*host_sandkasten]
   - path_regex: hosts/test/secrets\.yml$
     key_groups:
-      - pgp: [ *admin_defelo, *admin_nico ]
-        age: [ *host_test ]
+      - pgp: [*admin_defelo, *admin_nico]
+        age: [*host_test]

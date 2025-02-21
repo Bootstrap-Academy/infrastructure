@@ -3,7 +3,8 @@
   lib,
   backend-develop,
   ...
-}: {
+}:
+{
   imports = [
     backend-develop.nixosModules.default
 
@@ -19,13 +20,13 @@
 
     logLevel = "info,academy=debug";
 
-    extraConfigFiles = [config.sops.templates."academy-backend/config".path];
+    extraConfigFiles = [ config.sops.templates."academy-backend/config".path ];
     settings = {
       http = {
         address = "127.0.0.1:8000";
         real_ip.header = "X-Real-Ip";
         real_ip.set_from = "127.0.0.1";
-        allowed_origins = [".*"];
+        allowed_origins = [ ".*" ];
       };
 
       # database.run_migrations = false;
@@ -79,10 +80,10 @@
     name = "Bootstrap Academy Test Instance";
     domain = "api.test.bootstrap.academy";
     frontend = "https://test.bootstrap.academy";
-    corsOrigins = [".*"];
+    corsOrigins = [ ".*" ];
 
     common = {
-      environmentFiles = [config.sops.templates."academy-backend/common".path];
+      environmentFiles = [ config.sops.templates."academy-backend/common".path ];
       environment =
         {
           LOG_LEVEL = "DEBUG";
@@ -113,16 +114,22 @@
 
           SENTRY_ENVIRONMENT = "test";
         }
-        // (lib.mapAttrs' (ms: {port, ...}: {
+        // (lib.mapAttrs' (
+          ms:
+          { port, ... }:
+          {
             name = "${lib.toUpper ms}_URL";
             value = "http://127.0.0.1:${toString port}/";
-          })
-          config.academy.backend.microservices)
-        // (lib.mapAttrs' (ms: {redis, ...}: {
+          }
+        ) config.academy.backend.microservices)
+        // (lib.mapAttrs' (
+          ms:
+          { redis, ... }:
+          {
             name = "${lib.toUpper ms}_REDIS_URL";
             value = "redis://127.0.0.1:6379/${toString redis.database}";
-          })
-          config.academy.backend.microservices)
+          }
+        ) config.academy.backend.microservices)
         // {
           AUTH_URL = "http://127.0.0.1:8000/auth/";
           SHOP_URL = "http://127.0.0.1:8000/shop/";
@@ -142,32 +149,40 @@
     allowOther = true;
   };
 
-  environment.persistence."/persistent/data".directories = ["/var/lib/academy"];
+  environment.persistence."/persistent/data".directories = [ "/var/lib/academy" ];
 
   sops = {
     secrets = {
-      "academy-backend/jwt-secret" = {};
-      "academy-backend/recaptcha-secret" = {};
-      "academy-backend/smtp-password" = {};
-      "academy-backend/sentry-dsn" = {};
+      "academy-backend/jwt-secret" = { };
+      "academy-backend/recaptcha-secret" = { };
+      "academy-backend/smtp-password" = { };
+      "academy-backend/sentry-dsn" = { };
 
-      "academy-backend/auth-ms/oauth/github-secret" = {};
-      "academy-backend/auth-ms/oauth/discord-secret" = {};
-      "academy-backend/auth-ms/oauth/google-secret" = {};
+      "academy-backend/auth-ms/oauth/github-secret" = { };
+      "academy-backend/auth-ms/oauth/discord-secret" = { };
+      "academy-backend/auth-ms/oauth/google-secret" = { };
 
-      "academy-backend/shop-ms/paypal-secret" = {};
+      "academy-backend/shop-ms/paypal-secret" = { };
     };
     templates = {
       "academy-backend/config" = {
         content = ''
-          email.smtp_url = "smtp://noreply@bootstrap.academy:${config.sops.placeholder."academy-backend/smtp-password"}@mail.your-server.de:587?tls=required"
+          email.smtp_url = "smtp://noreply@bootstrap.academy:${
+            config.sops.placeholder."academy-backend/smtp-password"
+          }@mail.your-server.de:587?tls=required"
           jwt.secret = "${config.sops.placeholder."academy-backend/jwt-secret"}"
           recaptcha.secret = "${config.sops.placeholder."academy-backend/recaptcha-secret"}"
           paypal.client_secret = "${config.sops.placeholder."academy-backend/shop-ms/paypal-secret"}"
           sentry.dsn = "${config.sops.placeholder."academy-backend/sentry-dsn"}"
-          oauth2.providers.github.client_secret = "${config.sops.placeholder."academy-backend/auth-ms/oauth/github-secret"}"
-          oauth2.providers.discord.client_secret = "${config.sops.placeholder."academy-backend/auth-ms/oauth/discord-secret"}"
-          oauth2.providers.google.client_secret = "${config.sops.placeholder."academy-backend/auth-ms/oauth/google-secret"}"
+          oauth2.providers.github.client_secret = "${
+            config.sops.placeholder."academy-backend/auth-ms/oauth/github-secret"
+          }"
+          oauth2.providers.discord.client_secret = "${
+            config.sops.placeholder."academy-backend/auth-ms/oauth/discord-secret"
+          }"
+          oauth2.providers.google.client_secret = "${
+            config.sops.placeholder."academy-backend/auth-ms/oauth/google-secret"
+          }"
         '';
         owner = "academy";
         group = "academy";

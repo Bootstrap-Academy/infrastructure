@@ -3,62 +3,63 @@
   lib,
   pkgs,
   ...
-}: {
-  options.services.sshfs = with lib; {
-    mounts = mkOption {
-      type = types.attrsOf (types.submodule {
-        options = {
-          host = mkOption {
-            type = types.str;
-          };
+}:
+{
+  options.services.sshfs = {
+    mounts = lib.mkOption {
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          options = {
+            host = lib.mkOption { type = lib.types.str; };
 
-          port = mkOption {
-            type = types.port;
-            default = 22;
-          };
+            port = lib.mkOption {
+              type = lib.types.port;
+              default = 22;
+            };
 
-          user = mkOption {
-            type = types.str;
-          };
+            user = lib.mkOption { type = lib.types.str; };
 
-          path = mkOption {
-            type = types.str;
-            default = "";
-          };
+            path = lib.mkOption {
+              type = lib.types.str;
+              default = "";
+            };
 
-          allowOther = mkOption {
-            type = types.bool;
-            default = false;
-          };
+            allowOther = lib.mkOption {
+              type = lib.types.bool;
+              default = false;
+            };
 
-          readOnly = mkOption {
-            type = types.bool;
-            default = false;
-          };
+            readOnly = lib.mkOption {
+              type = lib.types.bool;
+              default = false;
+            };
 
-          reconnect = mkOption {
-            type = types.bool;
-            default = true;
-          };
+            reconnect = lib.mkOption {
+              type = lib.types.bool;
+              default = true;
+            };
 
-          options = mkOption {
-            type = types.listOf types.str;
-            default = [];
+            options = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+            };
           };
-        };
-      });
-      default = {};
+        }
+      );
+      default = { };
     };
   };
 
-  config = let
-    cfg = config.services.sshfs;
-  in
-    lib.mkIf (cfg.mounts != {}) {
-      environment.systemPackages = [pkgs.sshfs];
+  config =
+    let
+      cfg = config.services.sshfs;
+    in
+    lib.mkIf (cfg.mounts != { }) {
+      environment.systemPackages = [ pkgs.sshfs ];
 
-      fileSystems =
-        builtins.mapAttrs (_: {
+      fileSystems = builtins.mapAttrs (
+        _:
+        {
           user,
           host,
           path,
@@ -67,16 +68,20 @@
           readOnly,
           allowOther,
           reconnect,
-        }: {
+        }:
+        {
           fsType = "fuse.sshfs";
           device = "${user}@${host}:${path}";
           options =
-            ["_netdev" "port=${toString port}"]
+            [
+              "_netdev"
+              "port=${toString port}"
+            ]
             ++ (lib.optional readOnly "ro")
             ++ (lib.optional allowOther "allow_other")
             ++ (lib.optional reconnect "reconnect")
             ++ options;
-        })
-        cfg.mounts;
+        }
+      ) cfg.mounts;
     };
 }

@@ -3,12 +3,13 @@
   challenges-ms-develop,
   env,
   ...
-}: {
-  imports = [challenges-ms-develop.nixosModules.default];
+}:
+{
+  imports = [ challenges-ms-develop.nixosModules.default ];
 
   academy.backend.microservices.challenges = {
     port = 8005;
-    database = {};
+    database = { };
     redis.database = 5;
   };
 
@@ -29,14 +30,18 @@
       };
 
       redis =
-        builtins.mapAttrs (ms: {redis, ...}: "redis://127.0.0.1:6379/${toString redis.database}") config.academy.backend.microservices
+        builtins.mapAttrs (
+          ms: { redis, ... }: "redis://127.0.0.1:6379/${toString redis.database}"
+        ) config.academy.backend.microservices
         // {
           auth = "redis://127.0.0.1:6379/0";
           shop = "redis://127.0.0.1:6379/0";
         };
 
       services =
-        builtins.mapAttrs (ms: {port, ...}: "http://127.0.0.1:${toString port}/") config.academy.backend.microservices
+        builtins.mapAttrs (
+          ms: { port, ... }: "http://127.0.0.1:${toString port}/"
+        ) config.academy.backend.microservices
         // {
           auth = "http://127.0.0.1:8000/auth/";
           shop = "http://127.0.0.1:8000/shop/";
@@ -54,7 +59,11 @@
         max_xp = 5;
         max_coins = 0;
         max_fee = 1;
-        ban_days = [3 7 30];
+        ban_days = [
+          3
+          7
+          30
+        ];
       };
 
       challenges.multiple_choice_questions = {
@@ -86,13 +95,16 @@
   };
 
   systemd.services.academy-challenges = {
-    after = ["network-online.target" "postgresql.service"];
+    after = [
+      "network-online.target"
+      "postgresql.service"
+    ];
     serviceConfig.Restart = "always";
   };
 
   sops = {
     secrets = {
-      "academy-backend/challenges-ms/sentry-dsn" = {};
+      "academy-backend/challenges-ms/sentry-dsn" = { };
     };
     templates."academy-backend/challenges-ms".content = ''
       CHALLENGES__SENTRY__DSN=${config.sops.placeholder."academy-backend/challenges-ms/sentry-dsn"}

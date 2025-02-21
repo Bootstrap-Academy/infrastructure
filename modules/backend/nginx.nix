@@ -3,11 +3,13 @@
   config,
   lib,
   ...
-}: {
-  config = let
-    cfg = config.academy.backend;
-    new = config.services.academy.backend.enable or false;
-  in
+}:
+{
+  config =
+    let
+      cfg = config.academy.backend;
+      new = config.services.academy.backend.enable or false;
+    in
     lib.mkIf cfg.enable {
       services.nginx = {
         enable = true;
@@ -32,26 +34,28 @@
             }
           '';
           locations =
-            lib.mapAttrs' (ms: {port, ...}: {
-              name = "/${ms}/";
-              value = {
-                proxyPass = "http://127.0.0.1:${toString port}/";
-                proxyWebsockets = true;
-              };
-            })
-            cfg.microservices
-            // (
-              lib.mapAttrs' (ms: {port, ...}: {
+            lib.mapAttrs' (
+              ms:
+              { port, ... }:
+              {
+                name = "/${ms}/";
+                value = {
+                  proxyPass = "http://127.0.0.1:${toString port}/";
+                  proxyWebsockets = true;
+                };
+              }
+            ) cfg.microservices
+            // (lib.mapAttrs' (
+              ms:
+              { port, ... }:
+              {
                 name = "= /${ms}/";
                 value = {
                   return = "307 /${ms}/docs";
                 };
-              })
-              cfg.microservices
-            )
-            // (lib.optionalAttrs (cfg.protectInternalEndpoints) {
-              "~* (:*/_internal/.*)".return = "403";
-            })
+              }
+            ) cfg.microservices)
+            // (lib.optionalAttrs (cfg.protectInternalEndpoints) { "~* (:*/_internal/.*)".return = "403"; })
             // {
               "= /" = {
                 tryFiles = "/index.html =404";
@@ -80,33 +84,41 @@
                           <th>Repository</th>
                         </tr>
                         ${lib.optionalString new ''
-                    <tr>
-                      <td>backend</td>
-                      <td><a href="/">https://${cfg.domain}/</a></td>
-                      <td>
-                        <a href="/docs">Swagger</a>
-                        <a href="/redoc">Redoc</a>
-                        <a href="/openapi.json">OpenAPI</a>
-                      </td>
-                      <td>
-                        <a href="https://github.com/Bootstrap-Academy/backend">https://github.com/Bootstrap-Academy/backend</a>
-                      </td>
-                    </tr>
-                  ''}
-                  ${builtins.concatStringsSep "\n" (map (ms: ''
-                    <tr>
-                      <td>${ms}-ms</td>
-                      <td><a href="${ms}">https://${cfg.domain}/${ms}</a></td>
-                      <td>
-                        <a href="${ms}/docs">Swagger</a>
-                        <a href="${ms}/redoc">Redoc</a>
-                        <a href="${ms}/openapi.json">OpenAPI</a>
-                      </td>
-                      <td>
-                        <a href="https://github.com/Bootstrap-Academy/${ms}-ms">https://github.com/Bootstrap-Academy/${ms}-ms</a>
-                      </td>
-                    </tr>
-                  '') (builtins.sort (a: b: cfg.microservices.${a}.port < cfg.microservices.${b}.port) (builtins.attrNames cfg.microservices)))}
+                          <tr>
+                            <td>backend</td>
+                            <td><a href="/">https://${cfg.domain}/</a></td>
+                            <td>
+                              <a href="/docs">Swagger</a>
+                              <a href="/redoc">Redoc</a>
+                              <a href="/openapi.json">OpenAPI</a>
+                            </td>
+                            <td>
+                              <a href="https://github.com/Bootstrap-Academy/backend">https://github.com/Bootstrap-Academy/backend</a>
+                            </td>
+                          </tr>
+                        ''}
+                  ${builtins.concatStringsSep "\n" (
+                    map
+                      (ms: ''
+                        <tr>
+                          <td>${ms}-ms</td>
+                          <td><a href="${ms}">https://${cfg.domain}/${ms}</a></td>
+                          <td>
+                            <a href="${ms}/docs">Swagger</a>
+                            <a href="${ms}/redoc">Redoc</a>
+                            <a href="${ms}/openapi.json">OpenAPI</a>
+                          </td>
+                          <td>
+                            <a href="https://github.com/Bootstrap-Academy/${ms}-ms">https://github.com/Bootstrap-Academy/${ms}-ms</a>
+                          </td>
+                        </tr>
+                      '')
+                      (
+                        builtins.sort (a: b: cfg.microservices.${a}.port < cfg.microservices.${b}.port) (
+                          builtins.attrNames cfg.microservices
+                        )
+                      )
+                  )}
                       </table>
                     </body>
                   </html>

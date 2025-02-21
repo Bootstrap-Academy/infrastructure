@@ -81,7 +81,6 @@ permission_levels:
 default_permission_level: administrator
 
 default_permission_overrides:
-
   adventofcode:
     clear: operator
     link_read: moderator

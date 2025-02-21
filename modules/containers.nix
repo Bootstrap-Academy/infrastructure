@@ -3,8 +3,9 @@
   pkgs,
   lib,
   ...
-}: {
-  config = lib.mkIf (config.virtualisation.oci-containers.containers != {}) {
+}:
+{
+  config = lib.mkIf (config.virtualisation.oci-containers.containers != { }) {
     virtualisation = {
       oci-containers.backend = "podman";
       podman = {
@@ -14,15 +15,13 @@
         autoPrune = {
           enable = true;
           dates = "daily";
-          flags = ["--all"];
+          flags = [ "--all" ];
         };
       };
     };
 
-    systemd.tmpfiles.rules = [
-      "L+ /var/run/docker.sock - - - - /run/podman/podman.sock"
-    ];
+    systemd.tmpfiles.rules = [ "L+ /var/run/docker.sock - - - - /run/podman/podman.sock" ];
 
-    environment.systemPackages = with pkgs; [ctop];
+    environment.systemPackages = [ pkgs.ctop ];
   };
 }

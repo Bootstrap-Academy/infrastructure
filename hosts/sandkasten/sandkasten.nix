@@ -1,10 +1,11 @@
-{sandkasten, ...}: {
-  imports = [sandkasten.nixosModules.sandkasten];
+{ sandkasten, ... }:
+{
+  imports = [ sandkasten.nixosModules.sandkasten ];
 
   services.sandkasten = {
     enable = true;
 
-    environments = p: with p; [all];
+    environments = p: [ p.all ];
 
     settings = {
       host = "0.0.0.0";

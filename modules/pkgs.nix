@@ -1,12 +1,15 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    dig
-    duf
-    htop
-    ncdu
-    neovim
-    wget
-  ];
+{ pkgs, ... }:
+{
+  environment.systemPackages = builtins.attrValues {
+    inherit (pkgs)
+      dig
+      duf
+      htop
+      ncdu
+      neovim
+      wget
+      ;
+  };
 
   environment.shellAliases.findport = pkgs.writeShellScript "findport.sh" ''
     port=''${1:-8000}

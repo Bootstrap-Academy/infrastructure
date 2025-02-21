@@ -1,66 +1,57 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   imports = [
     ./nginx.nix
     ./postgresql.nix
     ./redis.nix
   ];
 
-  options.academy.backend = with lib; {
-    enable = mkEnableOption "Bootstrap Academy Backend";
-    name = mkOption {
-      type = types.str;
-    };
-    domain = mkOption {
-      type = types.str;
-    };
-    frontend = mkOption {
-      type = types.str;
-    };
-    protectInternalEndpoints = mkOption {
-      type = types.bool;
+  options.academy.backend = {
+    enable = lib.mkEnableOption "Bootstrap Academy Backend";
+    name = lib.mkOption { type = lib.types.str; };
+    domain = lib.mkOption { type = lib.types.str; };
+    frontend = lib.mkOption { type = lib.types.str; };
+    protectInternalEndpoints = lib.mkOption {
+      type = lib.types.bool;
       default = true;
     };
-    corsOrigins = mkOption {
-      type = types.listOf types.str;
-      default = [];
+    corsOrigins = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
     };
 
     common = {
-      environmentFiles = mkOption {
-        type = types.listOf types.path;
-      };
+      environmentFiles = lib.mkOption { type = lib.types.listOf lib.types.path; };
 
-      environment = mkOption {
-        type = types.attrsOf types.str;
-      };
+      environment = lib.mkOption { type = lib.types.attrsOf lib.types.str; };
     };
 
-    microservices = mkOption {
-      type = types.attrsOf (types.submodule {
-        options = {
-          port = mkOption {
-            type = types.port;
-          };
+    microservices = lib.mkOption {
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          options = {
+            port = lib.mkOption { type = lib.types.port; };
 
-          database = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                passwordFile = mkOption {
-                  type = types.nullOr types.path;
-                  default = null;
-                };
-              };
-            });
-          };
+            database = lib.mkOption {
+              type = lib.types.nullOr (
+                lib.types.submodule {
+                  options = {
+                    passwordFile = lib.mkOption {
+                      type = lib.types.nullOr lib.types.path;
+                      default = null;
+                    };
+                  };
+                }
+              );
+            };
 
-          redis.database = mkOption {
-            type = types.ints.unsigned;
+            redis.database = lib.mkOption { type = lib.types.ints.unsigned; };
           };
-        };
-      });
-      default = {};
+        }
+      );
+      default = { };
     };
   };
 
-  config = {};
+  config = { };
 }

@@ -1,8 +1,5 @@
+{ config, lib, ... }:
 {
-  config,
-  lib,
-  ...
-}: {
   config = lib.mkIf config.services.nginx.enable {
     services.nginx = {
       enableReload = true;

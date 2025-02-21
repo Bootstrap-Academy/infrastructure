@@ -1,8 +1,5 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{ config, pkgs, ... }:
+let
   ports = {
     mariadb = 3306;
     redis = 63791;
@@ -38,7 +35,8 @@
 
     VOICE_CHANNEL_NAMES = "elements";
   };
-in {
+in
+{
   virtualisation.oci-containers.containers = {
     morpheushelper = config.dockerImages.morpheushelper.mkContainer {
       extraOptions = [
@@ -47,15 +45,13 @@ in {
         "--network=host"
         "--no-healthcheck"
       ];
-      volumes = ["${./config.yml}:/app/config.yml:ro"];
-      environmentFiles = [config.sops.templates."morpheushelper/env".path];
-      environment =
-        baseEnv
-        // {
-          DB_DATABASE = "morpheushelper";
-          DB_USERNAME = "morpheushelper";
-          REDIS_DB = "0";
-        };
+      volumes = [ "${./config.yml}:/app/config.yml:ro" ];
+      environmentFiles = [ config.sops.templates."morpheushelper/env".path ];
+      environment = baseEnv // {
+        DB_DATABASE = "morpheushelper";
+        DB_USERNAME = "morpheushelper";
+        REDIS_DB = "0";
+      };
     };
   };
 
@@ -68,9 +64,7 @@ in {
       max_allowed_packet = "256M";
       max_connections = "400";
     };
-    ensureDatabases = [
-      "morpheushelper"
-    ];
+    ensureDatabases = [ "morpheushelper" ];
     ensureUsers = [
       {
         name = "morpheushelper";
@@ -83,23 +77,21 @@ in {
     enable = true;
     bind = "127.0.0.1";
     port = ports.redis;
-    save = [];
+    save = [ ];
     settings.protected-mode = "no";
   };
 
-  environment.persistence."/persistent/data".directories = [
-    "/var/lib/mysql"
-  ];
+  environment.persistence."/persistent/data".directories = [ "/var/lib/mysql" ];
 
-  backup.exclude = ["/var/lib/mysql"];
+  backup.exclude = [ "/var/lib/mysql" ];
   backup.prepare = "${config.services.mysql.package}/bin/mysqldump --all-databases > mysql-dump.sql";
 
   sops = {
     secrets = {
-      "morpheushelper/discord-token" = {};
-      "morpheushelper/database-password" = {};
-      "morpheushelper/aoc-session" = {};
-      "morpheushelper/github-token" = {};
+      "morpheushelper/discord-token" = { };
+      "morpheushelper/database-password" = { };
+      "morpheushelper/aoc-session" = { };
+      "morpheushelper/github-token" = { };
     };
     templates."morpheushelper/env".content = ''
       TOKEN=${config.sops.placeholder."morpheushelper/discord-token"}

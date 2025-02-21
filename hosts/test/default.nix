@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   imports = [
     ./backend
     ./firewall.nix
@@ -36,6 +37,6 @@
 
   sops.secrets = {
     "ssh/private-key".path = "/root/.ssh/id_ed25519";
-    "backup/box/repository-password" = {};
+    "backup/box/repository-password" = { };
   };
 }

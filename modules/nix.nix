@@ -1,11 +1,8 @@
+{ pkgs, nixpkgs, ... }:
 {
-  pkgs,
-  nixpkgs,
-  ...
-}: {
   nix = {
     package = pkgs.nixVersions.latest;
-    nixPath = ["nixpkgs=${nixpkgs}"];
+    nixPath = [ "nixpkgs=${nixpkgs}" ];
     gc = {
       automatic = true;
       dates = "03:30";
@@ -13,7 +10,10 @@
     };
     settings = {
       auto-optimise-store = true;
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       substituters = [
         "https://bootstrap-academy.cachix.org"
         "https://attic.defelo.de/sandkasten"
