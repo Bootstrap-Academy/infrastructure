@@ -1193,23 +1193,22 @@
         "type": "github"
       }
     },
-    "nixpkgs-glitchtip": {
+    "nixpkgs-master": {
       "locked": {
-        "lastModified": 1740876973,
-        "narHash": "sha256-Fd/FDxI/WdptdtUvTvcVNemBNX6SfHW4Up8TBDUnJPo=",
+        "lastModified": 1741134223,
+        "narHash": "sha256-eA216W2nZKhDw5i2y8Db+kX6zSIdPQNGB5YLMXtObaw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "58ed5471b56c76b289f37e79488f1a6a1c09bef7",
+        "rev": "4f7fc6dfdfaeb02dc39682246769783307e4728b",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "pull/386013/merge",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
-    "nixpkgs-master": {
+    "nixpkgs-master_2": {
       "locked": {
         "lastModified": 1740617705,
         "narHash": "sha256-WWG+v0PPsIURb5OGTCiykZi8QdcHoitRkOzROIoBoRc=",
@@ -2101,7 +2100,7 @@
         "jobs-ms-develop": "jobs-ms-develop",
         "nfnix": "nfnix",
         "nixpkgs": "nixpkgs_29",
-        "nixpkgs-glitchtip": "nixpkgs-glitchtip",
+        "nixpkgs-master": "nixpkgs-master",
         "sandkasten": "sandkasten",
         "shop-ms": "shop-ms",
         "shop-ms-develop": "shop-ms-develop",
@@ -2201,7 +2200,7 @@
         "fenix": "fenix_5",
         "nixpkgs": "nixpkgs_31",
         "nixpkgs-csharp": "nixpkgs-csharp",
-        "nixpkgs-master": "nixpkgs-master"
+        "nixpkgs-master": "nixpkgs-master_2"
       },
       "locked": {
         "lastModified": 1740618322,
