@@ -1,6 +1,6 @@
 {
   config,
-  nixpkgs-master,
+  nixpkgs-unstable,
   system,
   ...
 }:
@@ -11,11 +11,11 @@ let
 in
 
 {
-  imports = [ "${nixpkgs-master}/nixos/modules/services/web-apps/glitchtip.nix" ];
+  imports = [ "${nixpkgs-unstable}/nixos/modules/services/web-apps/glitchtip.nix" ];
 
   services.glitchtip = {
     enable = true;
-    package = nixpkgs-master.legacyPackages.${system}.glitchtip;
+    package = nixpkgs-unstable.legacyPackages.${system}.glitchtip;
     inherit port;
     environmentFiles = [ config.sops.templates."glitchtip/environment".path ];
     settings = {
