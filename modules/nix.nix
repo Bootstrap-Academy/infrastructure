@@ -1,5 +1,15 @@
-{ pkgs, nixpkgs, ... }:
 {
+  pkgs,
+  nixpkgs,
+  nixpkgs-unstable,
+  ...
+}:
+
+{
+  nixpkgs.overlays = [
+    (final: prev: { inherit (nixpkgs-unstable.legacyPackages.${final.system}) valkey; })
+  ];
+
   nix = {
     package = pkgs.nixVersions.latest;
     nixPath = [ "nixpkgs=${nixpkgs}" ];
