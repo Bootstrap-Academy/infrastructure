@@ -2221,11 +2221,11 @@
         "nixpkgs-master": "nixpkgs-master"
       },
       "locked": {
-        "lastModified": 1741855872,
-        "narHash": "sha256-UbJHYzB532PnqNDy3cd+qpURWL+UjQrG+6aPr3oM6Kc=",
+        "lastModified": 1742073105,
+        "narHash": "sha256-7FjvNP+zxg72WhJlvXTsZ/viJVmk6MemA/UTiMKPx4g=",
         "owner": "Defelo",
         "repo": "sandkasten",
-        "rev": "ca70c7fa4746c0f60f75cd24bcd6f033fc930f07",
+        "rev": "115ba2f87a77168513b7eea5967acfcaa2e17235",
         "type": "github"
       },
       "original": {
