@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  system,
   backend-develop,
   ...
 }:
@@ -21,7 +20,7 @@
 
     logLevel = "info,academy=debug";
 
-    chromePackage = backend-develop.inputs.nixpkgs.legacyPackages.${system}.ungoogled-chromium;
+    renderDaemon.port = 8200;
 
     extraConfigFiles = [ config.sops.templates."academy-backend/config".path ];
     settings = {

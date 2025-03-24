@@ -70,11 +70,11 @@
         "treefmt-nix": "treefmt-nix_4"
       },
       "locked": {
-        "lastModified": 1742420830,
-        "narHash": "sha256-CYHb5yIxUqgNyF8s/fvJiKKjAzKzYtiJrSgDkub5+cA=",
+        "lastModified": 1742778307,
+        "narHash": "sha256-Zo0RbEO0CoSryEnN85Ve6NT4jEvMCAxqmi8FfhLz/ro=",
         "owner": "Bootstrap-Academy",
         "repo": "backend",
-        "rev": "6cb3f2973acccbe28c99cc47ac8b059514e986e6",
+        "rev": "5f296521397d1219f2124bc7175b747b03450d7b",
         "type": "github"
       },
       "original": {
