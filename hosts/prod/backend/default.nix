@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  system,
   backend,
   ...
 }:
@@ -21,7 +20,7 @@
     logLevel = "info";
     extraConfigFiles = [ config.sops.templates."academy-backend/config".path ];
 
-    chromePackage = backend.inputs.nixpkgs.legacyPackages.${system}.ungoogled-chromium;
+    renderDaemon.port = 8200;
 
     # https://github.com/Bootstrap-Academy/backend/blob/develop/config.toml
     settings = {
