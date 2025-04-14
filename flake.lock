@@ -1227,6 +1227,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-glitchtip": {
+      "locked": {
+        "lastModified": 1744650581,
+        "narHash": "sha256-C/o67S+b63VZAOefsfPd6Qm9/BNJEYZEClUQpkL1Sa8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "bec5ed5a258f43f3a4b583ea0aa3c559a58c7885",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/398613/merge",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-master": {
       "locked": {
         "lastModified": 1743037004,
@@ -2151,6 +2167,7 @@
         "jobs-ms-develop": "jobs-ms-develop",
         "nfnix": "nfnix",
         "nixpkgs": "nixpkgs_29",
+        "nixpkgs-glitchtip": "nixpkgs-glitchtip",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sandkasten": "sandkasten",
         "shop-ms": "shop-ms",
