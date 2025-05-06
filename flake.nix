@@ -4,7 +4,10 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     deploy-sh.url = "github:Defelo/deploy-sh";
     sops-nix.url = "github:Mic92/sops-nix";
-    nfnix.url = "github:Defelo/nfnix";
+    nfnix = {
+      url = "git+https://git.defelo.de/Defelo/nfnix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
     sandkasten.url = "github:Defelo/sandkasten";

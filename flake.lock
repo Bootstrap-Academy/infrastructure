@@ -855,18 +855,23 @@
       }
     },
     "nfnix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
       "locked": {
-        "lastModified": 1683705192,
-        "narHash": "sha256-W6Tkt30TQOBjV1kLEXun9/3mYUIBCDNHDJnGo/9cYo4=",
-        "owner": "Defelo",
-        "repo": "nfnix",
-        "rev": "5f6bf62a2b8ac584e15833d2d115fd87970f5dfa",
-        "type": "github"
+        "lastModified": 1746536330,
+        "narHash": "sha256-m1ZWf1gdO3eitG2yzPn414hG1rS/eH8X6MyowpILUNU=",
+        "ref": "refs/heads/main",
+        "rev": "eb3da5ac36b850472a1c0a3880177215525695b6",
+        "revCount": 8,
+        "type": "git",
+        "url": "https://git.defelo.de/Defelo/nfnix"
       },
       "original": {
-        "owner": "Defelo",
-        "repo": "nfnix",
-        "type": "github"
+        "type": "git",
+        "url": "https://git.defelo.de/Defelo/nfnix"
       }
     },
     "nix": {
