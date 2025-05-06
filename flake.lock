@@ -1823,22 +1823,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_42": {
-      "locked": {
-        "lastModified": 1745377448,
-        "narHash": "sha256-jhZDfXVKdD7TSEGgzFJQvEEZ2K65UMiqW5YJ2aIqxMA=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "507b63021ada5fee621b6ca371c4fca9ca46f52c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_5": {
       "locked": {
         "lastModified": 1733212471,
@@ -2162,8 +2146,7 @@
         "shop-ms-develop": "shop-ms-develop",
         "skills-ms": "skills-ms",
         "skills-ms-develop": "skills-ms-develop",
-        "sops-nix": "sops-nix",
-        "treefmt-nix": "treefmt-nix_14"
+        "sops-nix": "sops-nix"
       }
     },
     "rust-analyzer-src": {
@@ -2763,24 +2746,6 @@
         "owner": "numtide",
         "repo": "treefmt-nix",
         "rev": "e82f32aa7f06bbbd56d7b12186d555223dc399d1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "treefmt-nix_14": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_42"
-      },
-      "locked": {
-        "lastModified": 1745929750,
-        "narHash": "sha256-k5ELLpTwRP/OElcLpNaFWLNf8GRDq4/eHBmFy06gGko=",
-        "owner": "numtide",
-        "repo": "treefmt-nix",
-        "rev": "82bf32e541b30080d94e46af13d46da0708609ea",
         "type": "github"
       },
       "original": {

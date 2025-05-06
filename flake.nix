@@ -11,7 +11,6 @@
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
     sandkasten.url = "github:Defelo/sandkasten";
-    treefmt-nix.url = "github:numtide/treefmt-nix";
 
     auth-ms.url = "github:Bootstrap-Academy/auth-ms/latest";
     skills-ms.url = "github:Bootstrap-Academy/skills-ms/latest";
@@ -38,7 +37,6 @@
       sops-nix,
       disko,
       impermanence,
-      treefmt-nix,
       ...
     }@inputs:
     let
@@ -127,10 +125,14 @@
       formatter = eachDefaultSystem (
         system:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
-          treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+          pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
         in
-        treefmtEval.config.build.wrapper
+        pkgs.treefmt.withConfig {
+          settings = [
+            ./treefmt.nix
+            { _module.args = { inherit pkgs; }; }
+          ];
+        }
       );
     };
 }

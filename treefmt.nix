@@ -1,13 +1,31 @@
+{ lib, pkgs, ... }:
+
 {
-  settings.global.excludes = [
+  tree-root-file = ".git/config";
+  on-unmatched = "error";
+
+  excludes = [
     ".envrc"
     "*.md"
+    ".gitignore"
+    "flake.lock"
     "hosts/*/hardware-configuration.nix"
     "hosts/*/secrets.yml"
   ];
 
-  programs.nixfmt.enable = true;
-  programs.nixfmt.strict = true;
+  formatter.nixfmt = {
+    command = lib.getExe pkgs.nixfmt-rfc-style;
+    includes = [ "*.nix" ];
+    options = [ "--strict" ];
+  };
 
-  programs.prettier.enable = true;
+  formatter.prettier = {
+    command = lib.getExe pkgs.nodePackages.prettier;
+    includes = [
+      "*.json"
+      "*.yml"
+      "*.yaml"
+    ];
+    options = [ "--write" ];
+  };
 }
