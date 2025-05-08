@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    deploy-sh.url = "github:Defelo/deploy-sh";
+    deploy-sh.url = "git+https://git.defelo.de/Defelo/deploy-sh";
     sops-nix.url = "github:Mic92/sops-nix";
     nfnix = {
       url = "git+https://git.defelo.de/Defelo/nfnix";

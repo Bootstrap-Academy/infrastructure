@@ -151,15 +151,15 @@
       "locked": {
         "lastModified": 1733490486,
         "narHash": "sha256-JtDV4EeTs1WkarU5/MZs74XRXNmBJbkHVIZK1xYR3m8=",
-        "owner": "Defelo",
-        "repo": "deploy-sh",
+        "ref": "refs/heads/develop",
         "rev": "22ab73a7b68eb7e9973d685f2f8ef6ccde174716",
-        "type": "github"
+        "revCount": 19,
+        "type": "git",
+        "url": "https://git.defelo.de/Defelo/deploy-sh"
       },
       "original": {
-        "owner": "Defelo",
-        "repo": "deploy-sh",
-        "type": "github"
+        "type": "git",
+        "url": "https://git.defelo.de/Defelo/deploy-sh"
       }
     },
     "devenv": {
