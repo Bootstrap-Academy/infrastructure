@@ -1,12 +1,11 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     deploy-sh.url = "git+https://git.defelo.de/Defelo/deploy-sh";
     sops-nix.url = "github:Mic92/sops-nix";
     nfnix = {
       url = "git+https://git.defelo.de/Defelo/nfnix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
@@ -121,7 +120,7 @@
       formatter = eachDefaultSystem (
         system:
         let
-          pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
+          pkgs = nixpkgs.legacyPackages.${system};
         in
         pkgs.treefmt.withConfig {
           settings = [
