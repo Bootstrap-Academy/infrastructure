@@ -51,5 +51,5 @@
 
   environment.shellAliases.needrestart = "diff <(readlink /run/booted-system/{initrd,kernel,kernel-modules}) <(readlink /run/current-system/{initrd,kernel,kernel-modules})";
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 }
