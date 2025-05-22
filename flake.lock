@@ -998,11 +998,11 @@
     },
     "nixpkgs-glitchtip": {
       "locked": {
-        "lastModified": 1747930121,
-        "narHash": "sha256-5JvVPhkZoFjjcQHkPfPDq5k76H8aTS2yG9hWdjGTG5g=",
+        "lastModified": 1747951139,
+        "narHash": "sha256-nGEF53U2f6tXq9h69S2A6PaoBO+3aCquaE5r5152+XE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e246e040047f3adfa25bc318b73cfc4fd49f2fee",
+        "rev": "2bde818e09b2f305a740d24ea098bfee23891e0d",
         "type": "github"
       },
       "original": {
