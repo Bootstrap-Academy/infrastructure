@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nixpkgs-glitchtip.url = "github:NixOS/nixpkgs/pull/409813/merge";
+    nixpkgs-glitchtip.url = "github:NixOS/nixpkgs/pull/411453/merge";
     deploy-sh.url = "git+https://git.defelo.de/Defelo/deploy-sh";
     sops-nix.url = "github:Mic92/sops-nix";
     nfnix = {
