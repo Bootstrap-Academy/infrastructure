@@ -84,59 +84,58 @@
 
     common = {
       environmentFiles = [ config.sops.templates."academy-backend/common".path ];
-      environment =
+      environment = {
+        LOG_LEVEL = "INFO";
+
+        HOST = "127.0.0.1";
+
+        DEBUG = "False";
+        RELOAD = "False";
+
+        CACHE_TTL = "300";
+
+        INTERNAL_JWT_TTL = "10";
+
+        RECAPTCHA_SITEKEY = "6Le9pMIiAAAAAAMmaH3J7ZCsQk6JcBdQtAJNXaQJ";
+        RECAPTCHA_MIN_SCORE = "0.5";
+
+        SMTP_HOST = "mail.your-server.de";
+        SMTP_PORT = "587";
+        SMTP_USER = "noreply@bootstrap.academy";
+        SMTP_FROM = "Bootstrap Academy <noreply@bootstrap.academy>";
+        SMTP_TLS = "False";
+        SMTP_STARTTLS = "True";
+
+        POOL_RECYCLE = "300";
+        POOL_SIZE = "10";
+        MAX_OVERFLOW = "10";
+        SQL_SHOW_STATEMENTS = "False";
+
+        SENTRY_ENVIRONMENT = "prod";
+      }
+      // (lib.mapAttrs' (
+        ms:
+        { port, ... }:
         {
-          LOG_LEVEL = "INFO";
-
-          HOST = "127.0.0.1";
-
-          DEBUG = "False";
-          RELOAD = "False";
-
-          CACHE_TTL = "300";
-
-          INTERNAL_JWT_TTL = "10";
-
-          RECAPTCHA_SITEKEY = "6Le9pMIiAAAAAAMmaH3J7ZCsQk6JcBdQtAJNXaQJ";
-          RECAPTCHA_MIN_SCORE = "0.5";
-
-          SMTP_HOST = "mail.your-server.de";
-          SMTP_PORT = "587";
-          SMTP_USER = "noreply@bootstrap.academy";
-          SMTP_FROM = "Bootstrap Academy <noreply@bootstrap.academy>";
-          SMTP_TLS = "False";
-          SMTP_STARTTLS = "True";
-
-          POOL_RECYCLE = "300";
-          POOL_SIZE = "10";
-          MAX_OVERFLOW = "10";
-          SQL_SHOW_STATEMENTS = "False";
-
-          SENTRY_ENVIRONMENT = "prod";
+          name = "${lib.toUpper ms}_URL";
+          value = "http://127.0.0.1:${toString port}/";
         }
-        // (lib.mapAttrs' (
-          ms:
-          { port, ... }:
-          {
-            name = "${lib.toUpper ms}_URL";
-            value = "http://127.0.0.1:${toString port}/";
-          }
-        ) config.academy.backend.microservices)
-        // (lib.mapAttrs' (
-          ms:
-          { redis, ... }:
-          {
-            name = "${lib.toUpper ms}_REDIS_URL";
-            value = "redis://127.0.0.1:6379/${toString redis.database}";
-          }
-        ) config.academy.backend.microservices)
-        // {
-          AUTH_URL = "http://127.0.0.1:8000/auth/";
-          SHOP_URL = "http://127.0.0.1:8000/shop/";
+      ) config.academy.backend.microservices)
+      // (lib.mapAttrs' (
+        ms:
+        { redis, ... }:
+        {
+          name = "${lib.toUpper ms}_REDIS_URL";
+          value = "redis://127.0.0.1:6379/${toString redis.database}";
+        }
+      ) config.academy.backend.microservices)
+      // {
+        AUTH_URL = "http://127.0.0.1:8000/auth/";
+        SHOP_URL = "http://127.0.0.1:8000/shop/";
 
-          AUTH_REDIS_URL = "redis://127.0.0.1:6379/0";
-          SHOP_REDIS_URL = "redis://127.0.0.1:6379/0";
-        };
+        AUTH_REDIS_URL = "redis://127.0.0.1:6379/0";
+        SHOP_REDIS_URL = "redis://127.0.0.1:6379/0";
+      };
     };
   };
 

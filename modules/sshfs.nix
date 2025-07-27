@@ -72,15 +72,14 @@
         {
           fsType = "fuse.sshfs";
           device = "${user}@${host}:${path}";
-          options =
-            [
-              "_netdev"
-              "port=${toString port}"
-            ]
-            ++ (lib.optional readOnly "ro")
-            ++ (lib.optional allowOther "allow_other")
-            ++ (lib.optional reconnect "reconnect")
-            ++ options;
+          options = [
+            "_netdev"
+            "port=${toString port}"
+          ]
+          ++ (lib.optional readOnly "ro")
+          ++ (lib.optional allowOther "allow_other")
+          ++ (lib.optional reconnect "reconnect")
+          ++ options;
         }
       ) cfg.mounts;
     };
