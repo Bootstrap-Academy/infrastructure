@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   services.dnsmasq = {
     enable = true;
@@ -7,10 +9,8 @@
       no-hosts = true;
       no-resolv = true;
       server = [
-        "1.1.1.1"
-        "1.0.0.1"
-        "2606:4700:4700::1111"
-        "2606:4700:4700::1001"
+        "127.0.0.1#5353"
+        "::1#5353"
       ];
       host-record = [
         "prod.internal.bootstrap.academy,10.23.0.2"
@@ -37,6 +37,25 @@
       ];
     };
   };
+
+  services.unbound = {
+    enable = true;
+    resolveLocalQueries = false;
+    enableRootTrustAnchor = true;
+    settings = {
+      server = {
+        port = 5353;
+        root-hints = "${pkgs.dns-root-data}/root.hints";
+        prefetch = true;
+        prefetch-key = true;
+      };
+      remote-control = {
+        control-enable = true;
+      };
+    };
+  };
+
+  environment.persistence."/persistent/cache".directories = [ "/var/lib/unbound" ];
 
   services.resolved.enable = false;
 }
