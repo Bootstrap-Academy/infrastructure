@@ -67,4 +67,6 @@ in
       chains.input_wireguard.policy = "accept";
     };
   };
+
+  boot.kernel.sysctl."net.ipv4.conf.all.forwarding" = true;
 }

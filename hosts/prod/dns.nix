@@ -37,4 +37,6 @@
       ];
     };
   };
+
+  services.resolved.enable = false;
 }
