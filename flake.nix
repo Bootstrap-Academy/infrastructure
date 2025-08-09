@@ -2,7 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-glitchtip.url = "github:NixOS/nixpkgs/pull/430962/merge";
     deploy-sh.url = "git+https://git.defelo.de/Defelo/deploy-sh";
     sops-nix.url = "github:Mic92/sops-nix";
     nfnix = {
@@ -79,7 +78,7 @@
             ./modules
             {
               nixpkgs.overlays = [
-                (final: prev: { inherit (inputs.nixpkgs-glitchtip.legacyPackages.${final.system}) glitchtip; })
+                (final: prev: { inherit (inputs.nixpkgs-unstable.legacyPackages.${final.system}) glitchtip; })
               ];
             }
           ];
