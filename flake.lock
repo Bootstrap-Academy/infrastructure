@@ -159,17 +159,17 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1746724489,
-        "narHash": "sha256-y+axsjDk5Nu3hfgLkg4bLPgLrrdpjAEKEPaZk9qcAGI=",
+        "lastModified": 1757099972,
+        "narHash": "sha256-bDu/smV6h8Ota30kOCqGflJhM78S5rxmQow9J0uN3y4=",
         "ref": "refs/heads/develop",
-        "rev": "fb5f564aeca572404f534885b0f4579199c1ef65",
-        "revCount": 20,
+        "rev": "aed0e88aca309e1565db9084238e47c3bdfc0b4c",
+        "revCount": 22,
         "type": "git",
-        "url": "https://git.defelo.de/Defelo/deploy-sh"
+        "url": "https://radicle.defelo.de/z392ZFR7AcScpaQqmTKUDkDj9FWMq.git"
       },
       "original": {
         "type": "git",
-        "url": "https://git.defelo.de/Defelo/deploy-sh"
+        "url": "https://radicle.defelo.de/z392ZFR7AcScpaQqmTKUDkDj9FWMq.git"
       }
     },
     "devenv": {
@@ -725,17 +725,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1751206799,
-        "narHash": "sha256-mtymckxOcv2MfSUvjAlst6KzNN/Ex0jEHoJZmzMhYyk=",
+        "lastModified": 1756997367,
+        "narHash": "sha256-BkDbnOV0TEOCOu8MuEI8T/cjga9Mc4sgUw/Ex+11b6A=",
         "ref": "refs/heads/main",
-        "rev": "c452245ade30ec73502ee2ebba6f32ded21e239d",
-        "revCount": 9,
+        "rev": "bb37b1a78584ef9eef1ed435cff518914676f1d0",
+        "revCount": 13,
         "type": "git",
-        "url": "https://git.defelo.de/Defelo/nfnix"
+        "url": "https://radicle.defelo.de/z38ibAcVXcV86bVdfdMY9JXJcX5ZN.git"
       },
       "original": {
         "type": "git",
-        "url": "https://git.defelo.de/Defelo/nfnix"
+        "url": "https://radicle.defelo.de/z38ibAcVXcV86bVdfdMY9JXJcX5ZN.git"
       }
     },
     "nix": {
@@ -1419,11 +1419,11 @@
     },
     "nixpkgs_9": {
       "locked": {
-        "lastModified": 1702312524,
-        "narHash": "sha256-gkZJRDBUCpTPBvQk25G0B7vfbpEYM5s5OZqghkjZsnE=",
+        "lastModified": 1756787288,
+        "narHash": "sha256-rw/PHa1cqiePdBxhF66V7R+WAP8WekQ0mCDG4CFqT8Y=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a9bf124c46ef298113270b1f84a164865987a91c",
+        "rev": "d0fc30899600b9b3466ddb260fd83deb486c32f1",
         "type": "github"
       },
       "original": {
