@@ -10,7 +10,7 @@
     };
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
-    sandkasten.url = "github:Defelo/sandkasten";
+    sandkasten.url = "git+https://radicle.defelo.de/zKBbWZxz73j7BZMbutM7TMMT4v5K.git";
 
     skills-ms.url = "github:Bootstrap-Academy/skills-ms/latest";
     jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/latest";

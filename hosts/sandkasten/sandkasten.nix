@@ -1,11 +1,12 @@
 { sandkasten, ... }:
+
 {
-  imports = [ sandkasten.nixosModules.sandkasten ];
+  imports = [ sandkasten.nixosModules.default ];
 
   services.sandkasten = {
     enable = true;
 
-    environments = p: [ p.all ];
+    environments = sandkastenPackages: sandkastenPackages.all;
 
     settings = {
       host = "0.0.0.0";
@@ -18,8 +19,10 @@
 
       max_concurrent_jobs = 2;
 
-      base_resource_usage_runs = 20;
-      base_resource_usage_permits = 2;
+      base_resource_usage = {
+        runs = 20;
+        permits = 2;
+      };
 
       compile_limits = {
         cpus = 1;
