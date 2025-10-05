@@ -174,11 +174,11 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1757099972,
-        "narHash": "sha256-bDu/smV6h8Ota30kOCqGflJhM78S5rxmQow9J0uN3y4=",
+        "lastModified": 1759588061,
+        "narHash": "sha256-b1WBnbo8sbf96edO8tsjOXi8SpIlKk46N1wpQzEXQ7E=",
         "ref": "refs/heads/develop",
-        "rev": "aed0e88aca309e1565db9084238e47c3bdfc0b4c",
-        "revCount": 22,
+        "rev": "537dfe05db91e9badeefecfbfa9f30861986718d",
+        "revCount": 23,
         "type": "git",
         "url": "https://radicle.defelo.de/z392ZFR7AcScpaQqmTKUDkDj9FWMq.git"
       },
