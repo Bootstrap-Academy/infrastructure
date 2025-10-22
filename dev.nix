@@ -28,7 +28,14 @@ pkgs.mkShell {
         '';
       };
     in
-    builtins.attrValues { inherit (pkgs) sops ssh-to-age nixos-anywhere; }
+    builtins.attrValues {
+      inherit (pkgs)
+        sops
+        ssh-to-age
+        nixos-anywhere
+        dnscontrol
+        ;
+    }
     ++ [
       deploy-sh.packages.${system}.default
       self.formatter.${system}
