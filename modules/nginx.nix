@@ -1,7 +1,18 @@
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+{
+  options.services.nginx.virtualHosts = lib.mkOption {
+    type = lib.types.attrsOf (lib.types.submodule { config.quic = lib.mkDefault true; });
+  };
+
   config = lib.mkIf config.services.nginx.enable {
     services.nginx = {
+      package = pkgs.nginxQuic;
       enableReload = true;
       statusPage = true;
       recommendedProxySettings = true;
@@ -38,6 +49,8 @@
         log_format prometheus '${config.monitoring.nginxLogFormat}';
         access_log /var/log/nginx/prometheus.log prometheus;
         access_log /var/log/nginx/access.log combined;
+
+        more_set_headers 'Alt-Svc: h3=":443"; ma=86400';
       '';
     };
 

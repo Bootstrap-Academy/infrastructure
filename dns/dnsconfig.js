@@ -26,18 +26,23 @@ D(
 
   A("api", prod4),
   AAAA("api", prod6),
+  HTTPS("api", 1, ".", "alpn=h3"),
 
   A("api.test", test4),
   AAAA("api.test", test6),
+  HTTPS("api.test", 1, ".", "alpn=h3"),
 
   A("cache", prod4),
   AAAA("cache", prod6),
+  HTTPS("cache", 1, ".", "alpn=h3"),
 
   A("glitchtip", prod4),
   AAAA("glitchtip", prod6),
+  HTTPS("glitchtip", 1, ".", "alpn=h3"),
 
   A("sandkasten", prod4),
   AAAA("sandkasten", prod6),
+  HTTPS("sandkasten", 1, ".", "alpn=h3"),
 
   MX("@", 10, "www79.your-server.de."),
   TXT("@", "v=spf1 +a +mx ~all"),
