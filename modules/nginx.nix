@@ -7,7 +7,28 @@
 
 {
   options.services.nginx.virtualHosts = lib.mkOption {
-    type = lib.types.attrsOf (lib.types.submodule { config.quic = lib.mkDefault true; });
+    type = lib.types.attrsOf (
+      lib.types.submodule (virtualHost: {
+        options = {
+          allow = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+            default = [ ];
+          };
+          deny = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+            default = [ ];
+          };
+        };
+
+        config = {
+          quic = lib.mkDefault true;
+          deny = lib.mkIf (virtualHost.config.allow != [ ]) (lib.mkDefault [ "all" ]);
+          extraConfig =
+            lib.concatMapStrings (x: "allow ${x};\n") virtualHost.config.allow
+            + lib.concatMapStrings (x: "deny ${x};\n") virtualHost.config.deny;
+        };
+      })
+    );
   };
 
   config = lib.mkIf config.services.nginx.enable {

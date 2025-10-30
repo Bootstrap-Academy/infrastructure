@@ -21,10 +21,7 @@ in
   services.nginx.virtualHosts.${domain} = {
     forceSSL = true;
     enableACME = true;
-    extraConfig = ''
-      allow ${env.net.internal};
-      deny all;
-    '';
+    allow = env.wg.admins ++ [ env.net.hosts ];
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString port}/";
       proxyWebsockets = true;
