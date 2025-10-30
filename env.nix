@@ -15,6 +15,7 @@
     defelo = "10.23.1.2";
     nico-p14s = "10.23.1.3";
     nico-prod = "10.23.1.4";
+    morpheus = "10.23.1.5";
 
     admins = [
       defelo
