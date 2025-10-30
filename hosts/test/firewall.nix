@@ -38,6 +38,7 @@ in
         rules = [
           # allow nginx
           "tcp dport { 80, 443 } accept"
+          "udp dport 443 accept"
         ];
       };
 
@@ -52,6 +53,7 @@ in
 
           # allow nginx
           "tcp dport { 80, 443 } accept"
+          "udp dport 443 accept"
         ];
       };
 
