@@ -11,6 +11,7 @@ let
     defelo = "m247NX1GQVhM0+H/TNtZ7shEMy+nC1Z7C/NFYBjNFn4=";
     nico-p14s = "EtC01X70ExI7Kvrp5tzE8wWlcbKD/QHg6wIvUB5ewQI=";
     nico-prod = "PrSCG2vuAiHKnB3AJm1ii6T2LHaB8ZRu8GinjPGfXEc=";
+    morpheus = "9KenEdGlpX3kmlNRSk4tUgAwQjokbsGDI7Oglw40JT8=";
   };
 in
 
