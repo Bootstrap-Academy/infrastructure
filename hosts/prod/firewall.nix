@@ -1,7 +1,25 @@
-{ config, nfnix, ... }:
+{
+  config,
+  env,
+  lib,
+  nfnix,
+  ...
+}:
 
 let
   inherit (nfnix.lib) vmap;
+
+  mkList = lib.concatStringsSep ", ";
+
+  allow_http = [
+    "tcp dport { 80, 443 } accept"
+    "udp dport 443 accept"
+  ];
+
+  allow_dns = [
+    "tcp dport 53 accept"
+    "udp dport 53 accept"
+  ];
 in
 
 {
@@ -46,9 +64,7 @@ in
           # allow wireguard
           "udp dport 51820 accept"
 
-          # allow nginx
-          "tcp dport { 80, 443 } accept"
-          "udp dport 443 accept"
+          allow_http
         ];
       };
 
@@ -56,17 +72,21 @@ in
         policy = "drop";
         defaultRules.icmp_pings = true;
         rules = [
-          # allow dns
-          "tcp dport 53 accept"
-          "udp dport 53 accept"
-
-          # allow glitchtip
-          "tcp dport { 80, 443 } accept"
-          "udp dport 443 accept"
+          allow_dns
+          allow_http
         ];
       };
 
-      chains.input_wireguard.policy = "accept";
+      chains.input_wireguard = {
+        policy = "drop";
+        defaultRules.icmp_pings = true;
+        rules = [
+          "ip saddr { ${mkList env.wg.admins} } accept"
+
+          allow_dns
+          allow_http
+        ];
+      };
     };
   };
 

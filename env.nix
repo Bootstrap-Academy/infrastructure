@@ -10,10 +10,16 @@
     test = "10.23.0.4";
   };
 
-  wg = {
+  wg = rec {
     defelo = "10.23.1.2";
     nico-p14s = "10.23.1.3";
     nico-prod = "10.23.1.4";
+
+    admins = [
+      defelo
+      nico-p14s
+      nico-prod
+    ];
   };
 
   ssh-key = {

@@ -1,12 +1,15 @@
 {
   config,
   env,
+  lib,
   nfnix,
   ...
 }:
 
 let
   inherit (nfnix.lib) vmap;
+
+  mkList = lib.concatStringsSep ", ";
 in
 
 {
@@ -48,7 +51,11 @@ in
         ];
       };
 
-      chains.input_wireguard.policy = "accept";
+      chains.input_wireguard = {
+        policy = "drop";
+        defaultRules.icmp_pings = true;
+        rules = [ "ip saddr { ${mkList env.wg.admins} } accept" ];
+      };
     };
   };
 }
