@@ -22,6 +22,8 @@
         "/api.bootstrap.academy/${env.host.prod}"
         "/glitchtip.bootstrap.academy/"
         "/glitchtip.bootstrap.academy/${env.host.prod}"
+        "/grafana.bootstrap.academy/"
+        "/grafana.bootstrap.academy/${env.host.prod}"
         "/sandkasten.bootstrap.academy/"
         "/sandkasten.bootstrap.academy/${env.host.prod}"
         "/prod.internal.bootstrap.academy/"
