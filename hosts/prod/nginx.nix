@@ -1,3 +1,5 @@
+{ env, ... }:
+
 {
   services.nginx = {
     enable = true;
@@ -5,7 +7,7 @@
     appendHttpConfig = ''
       geo $sandkasten_public_limit {
         default 1;
-        10.23.1.0/24 0;
+        ${env.net.wg} 0;
       }
       map $sandkasten_public_limit $sandkasten_public_limit_key {
         0 "";
@@ -21,7 +23,7 @@
         limit_req_status 429;
       '';
       locations."/" = {
-        proxyPass = "http://10.23.0.3:8000";
+        proxyPass = "http://${env.host.sandkasten}:8000";
         proxyWebsockets = true;
       };
       locations."= /metrics".return = "403";

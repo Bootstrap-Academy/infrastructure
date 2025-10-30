@@ -85,7 +85,7 @@
       };
 
       challenges.coding_challenges = {
-        sandkasten_url = "http://10.23.0.3:8000/";
+        sandkasten_url = "http://${env.host.sandkasten}:8000/";
         max_concurrency = 4;
         timeout = 10; # seconds
         hearts = 2;

@@ -1,9 +1,11 @@
 {
   config,
+  env,
   lib,
   name,
   ...
 }:
+
 {
   options.networking = {
     networks.public.ip4 = lib.mkOption {
@@ -42,7 +44,7 @@
     networking = {
       hostName = name;
 
-      nameservers = [ "10.23.0.2" ];
+      nameservers = [ env.host.prod ];
 
       useDHCP = false;
       dhcpcd.enable = false;

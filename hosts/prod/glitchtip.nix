@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, env, ... }:
 
 let
   port = 8100;
@@ -22,7 +22,7 @@ in
     forceSSL = true;
     enableACME = true;
     extraConfig = ''
-      allow 10.23.0.0/23;
+      allow ${env.net.internal};
       deny all;
     '';
     locations."/" = {

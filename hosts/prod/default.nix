@@ -1,4 +1,5 @@
-{ config, ... }:
+{ config, env, ... }:
+
 {
   imports = [
     ./attic.nix
@@ -23,7 +24,7 @@
     };
     private.internal = {
       dev = "enp7s0";
-      ip4 = "10.23.0.2";
+      ip4 = env.host.prod;
     };
   };
 
@@ -40,12 +41,12 @@
     };
   };
 
-  networking.hosts."10.23.1.2" = [ "backup.defelo.de" ];
+  networking.hosts.${env.wg.defelo} = [ "backup.defelo.de" ];
 
   programs.ssh.knownHosts = {
-    "10.23.0.3".publicKey =
+    ${env.host.sandkasten}.publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ9cuV9YpdIQ3jowOPGOL8Y+a6zW7+2YjCOr0b7RQskn";
-    "10.23.0.4".publicKey =
+    ${env.host.test}.publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEvpmCYjNbdJ+TsrwagVGfu6pTNQrlvg9vZuKh9Xr/J8";
   };
 

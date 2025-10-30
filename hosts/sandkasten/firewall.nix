@@ -1,9 +1,12 @@
-{ config, nfnix, ... }:
+{
+  config,
+  env,
+  nfnix,
+  ...
+}:
 
 let
   inherit (nfnix.lib) vmap;
-
-  wireguardNet = "10.23.1.0/24";
 in
 
 {
@@ -35,20 +38,17 @@ in
         policy = "drop";
         defaultRules.icmp_pings = true;
         rules = [
-          "ip saddr ${wireguardNet} jump input_wireguard"
+          "ip saddr ${env.net.wg} jump input_wireguard"
 
           # allow ssh from prod
-          "ip saddr 10.23.0.2 tcp dport 22 accept"
+          "ip saddr ${env.host.prod} tcp dport 22 accept"
 
           # allow sandkasten
           "tcp dport ${toString config.services.sandkasten.settings.port} accept"
         ];
       };
 
-      chains.input_wireguard = {
-        policy = "accept";
-        rules = [ ];
-      };
+      chains.input_wireguard.policy = "accept";
     };
   };
 }
