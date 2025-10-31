@@ -40,6 +40,10 @@ D(
   AAAA("glitchtip", prod6),
   HTTPS("glitchtip", 1, ".", "alpn=h3"),
 
+  A("grafana", prod4),
+  AAAA("grafana", prod6),
+  HTTPS("grafana", 1, ".", "alpn=h3"),
+
   A("sandkasten", prod4),
   AAAA("sandkasten", prod6),
   HTTPS("sandkasten", 1, ".", "alpn=h3"),

@@ -8,6 +8,7 @@
     ./docker-images.nix
     ./firewall.nix
     ./glitchtip.nix
+    ./grafana.nix
     ./morpheushelper
     ./nginx.nix
     ./restic.nix
