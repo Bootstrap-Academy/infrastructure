@@ -2,12 +2,14 @@
   config,
   lib,
   skills-ms-develop,
-  pkgs,
+  system,
   ...
 }:
+
 let
   ms = "skills";
 in
+
 {
   imports = [ skills-ms-develop.nixosModules.default ];
 
@@ -29,7 +31,7 @@ in
       PUBLIC_BASE_URL = "https://${config.academy.backend.domain}/${ms}";
       DATABASE_URL = "postgresql+asyncpg://academy-${ms}@/academy-${ms}?host=/run/postgresql";
 
-      COURSES = toString skills-ms-develop.packages.${pkgs.system}.courses;
+      COURSES = toString skills-ms-develop.packages.${system}.courses;
 
       LECTURE_XP = "10";
       MP4_LECTURES = "/mnt/lectures";

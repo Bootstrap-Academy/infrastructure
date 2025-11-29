@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 
 {
   options.services.nginx.virtualHosts = lib.mkOption {
@@ -33,13 +28,11 @@
 
   config = lib.mkIf config.services.nginx.enable {
     services.nginx = {
-      package = pkgs.nginxQuic;
       enableReload = true;
       statusPage = true;
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
       recommendedOptimisation = true;
-      recommendedZstdSettings = true;
       recommendedGzipSettings = true;
       recommendedBrotliSettings = true;
 

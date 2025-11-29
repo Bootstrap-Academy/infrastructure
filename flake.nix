@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     deploy-sh.url = "git+https://radicle.defelo.de/z392ZFR7AcScpaQqmTKUDkDj9FWMq.git";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -38,10 +38,11 @@
     let
       inherit (nixpkgs) lib;
 
-      eachDefaultSystem = lib.genAttrs [
+      systems = [
         "x86_64-linux"
         "aarch64-linux"
       ];
+      eachSystem = f: lib.genAttrs systems (s: f nixpkgs.legacyPackages.${s});
 
       extra-pkgs =
         system:
@@ -79,32 +80,28 @@
             {
               _module.args.env = import ./env.nix;
               nixpkgs.overlays = [
-                (final: prev: { inherit (inputs.nixpkgs-unstable.legacyPackages.${final.system}) glitchtip; })
+                (final: prev: {
+                  inherit (inputs.nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system}) glitchtip;
+                })
               ];
             }
           ];
         };
     in
     {
-      packages = eachDefaultSystem (
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        {
-          checks =
-            let
-              hosts = pkgs.linkFarm "checks-hosts" (
-                lib.mapAttrs (_: v: v.config.system.build.toplevel) self.nixosConfigurations
-              );
-              devShells = pkgs.linkFarm "checks-devShells" self.devShells.${system};
-            in
-            pkgs.linkFarmFromDrvs "checks" [
-              hosts
-              devShells
-            ];
-        }
-      );
+      packages = eachSystem (pkgs: {
+        checks =
+          let
+            hosts = pkgs.linkFarm "checks-hosts" (
+              lib.mapAttrs (_: v: v.config.system.build.toplevel) self.nixosConfigurations
+            );
+            devShells = pkgs.linkFarm "checks-devShells" self.devShells.${pkgs.stdenv.hostPlatform.system};
+          in
+          pkgs.linkFarmFromDrvs "checks" [
+            hosts
+            devShells
+          ];
+      });
 
       nixosConfigurations = lib.pipe ./hosts [
         builtins.readDir
@@ -114,21 +111,12 @@
 
       deploy-sh.hosts = self.nixosConfigurations;
 
-      devShells = eachDefaultSystem (
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        {
-          default = import ./dev.nix (inputs // { inherit pkgs system; });
-        }
-      );
+      devShells = eachSystem (pkgs: {
+        default = pkgs.callPackage ./dev.nix { inherit inputs; };
+      });
 
-      formatter = eachDefaultSystem (
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
+      formatter = eachSystem (
+        pkgs:
         pkgs.treefmt.withConfig {
           settings = [
             ./treefmt.nix

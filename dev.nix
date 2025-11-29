@@ -1,14 +1,22 @@
-{ deploy-sh, pkgs, ... }:
+{
+  dnscontrol,
+  inputs,
+  mkShell,
+  nixos-anywhere,
+  sops,
+  ssh-to-age,
+  stdenv,
+}:
 
-pkgs.mkShell {
+mkShell {
   packages = builtins.attrValues {
-    inherit (pkgs)
+    inherit
       dnscontrol
       nixos-anywhere
       sops
       ssh-to-age
       ;
 
-    deploy-sh = deploy-sh.packages.${pkgs.system}.default;
+    deploy-sh = inputs.deploy-sh.packages.${stdenv.hostPlatform.system}.default;
   };
 }
