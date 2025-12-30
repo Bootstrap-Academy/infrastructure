@@ -1,6 +1,6 @@
 {
-  lib,
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -9,6 +9,31 @@ let
   cfg = config.services.postgresql;
   escape = lib.replaceStrings [ ":" ] [ "-" ];
   passwordFileName = name: "user-password-${escape name}";
+
+  newPostgres = pkgs.postgresql_18;
+  upgrading = newPostgres.psqlSchema != cfg.package.psqlSchema;
+
+  postgres-upgrade = pkgs.writeScriptBin "postgres-upgrade" ''
+    set -eux
+
+    systemctl stop postgresql
+
+    export NEWDATA="/var/lib/postgresql/${newPostgres.psqlSchema}"
+    export NEWBIN="${newPostgres}/bin"
+
+    export OLDDATA="${cfg.dataDir}"
+    export OLDBIN="${cfg.finalPackage}/bin"
+
+    install -d -m 0700 -o postgres -g postgres "$NEWDATA"
+    cd "$NEWDATA"
+    sudo -u postgres "$NEWBIN/initdb" -D "$NEWDATA" ${lib.escapeShellArgs cfg.initdbArgs}
+
+    sudo -u postgres "$NEWBIN/pg_upgrade" \
+      --old-datadir "$OLDDATA" --new-datadir "$NEWDATA" \
+      --old-bindir "$OLDBIN" --new-bindir "$NEWBIN" \
+      --clone \
+      "$@"
+  '';
 in
 
 {
@@ -18,7 +43,7 @@ in
 
   config = lib.mkIf cfg.enable {
     services.postgresql = {
-      package = pkgs.postgresql_17;
+      package = pkgs.postgresql_18;
       enableTCPIP = true;
       ensureUsers = map (db: {
         name = db;
@@ -50,6 +75,8 @@ in
         EOF
       ''
     );
+
+    environment.systemPackages = lib.mkIf upgrading [ postgres-upgrade ];
 
     environment.persistence = lib.mkIf config.filesystems.defaultLayout {
       "/persistent/data".directories = [ "/var/lib/postgresql" ];
