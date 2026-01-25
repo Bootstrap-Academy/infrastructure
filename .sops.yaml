@@ -1,5 +1,5 @@
 keys:
-  - &admin_defelo 61303bbad7d1bf74efa44e3be7fe2087e4380e64
+  - &admin_defelo age1pq1vkey6lkyxdjrcpw663td7kah5wm6f5psetp3whqw0pzpwx3t9nqpz6dpq8edkkrzhf09cuj0cldzu39fqnt4wk4fvyauhuyqj4dfy6m6se503vsgcd6ffqx2khvk9e6szc5zpnlxfqhaqatgygd30ljqsdy3jedsyyzq47rw9k46veeqspp5jwt9z3nrwg472pu467tm494e5jsk26zn66rjtrcen5rev23lnw9nex03xcgh7xguqk5r5z9rhykp62z90vayjp3xkprty54ldwjsezzrqs78y72pjus63p3gwkfac57yzdppfrstjhghtlwv9tfy2ypelnxr344e56hncz0a5xjz3wcg9txt3sstkvug420fx95lk5q0p7rarzchf7883skqcald7shy3xmj5yxqjrayxcsc5qygcp73lwre5szne54qcxnegxnmq95mc390vdemqtp3c5g8d9uw57x0ak96hmdqv39zfdvawlrmrfl9q2tc0f7qgfnrh0lygutvnxt57pkf9zv39vh6va82r373qc3hzvrf7ek2cem8ehnrsx9xrq9qs6zl02am7fk35jxv38jlfg6kjjqvpptm66u90ennvmwkwcutdvtxhruhn2fjphpapwmlvjq02e9n6wsh0urvj8kjrtnll3vjhqcntedqa3l5yd8ggpca2qclm7a4e644dcs3d9egv3z5eqcypvumkft3dvtv4hppsh2tqvp5vje9hgd9jsz3gtxljzvm9wy2t3z7twc6nhtf9j6343zxrv9564676npm433g4x82xdk9yc7aja2p6ut50f8n46d28vs2eszzxqujxtcg5wgfjrkz5t5ugs522295j6vh3f5esvdcxuld4s2d3537mznu5x360m04204cvcfyrjzulm5k6py6tcelnffe8nr3dkd9lv363sk5gsljxvvz26svl6d088vj8ar85cl6y0z2ngllgpur3d26lw0pstcpn90vyjndeymzsg958pkvjz0g55cfhjwkvg6nhcgv5rtt8dm9c4vy0sqwcnyc6t39tpvpq96t3sya7xyzngp75e7ymh9vpetagdd0vv9h87zy5lmu3h35zxqz9d3vpxmlsj20smv8sgjnf2nqrzuxgprxqqt2em238fcyfu7k92mn6pnd3jnx7rxt4c6u4fntegt63vt70ex8km4tp9cxykqzycjg3j2nn64jqtrjaukxqdehzyljm8qwy0rnvkucdyeu345kgg2227agf5jfwag8p62ewq8zvzezevra8fnhs2f8lv9ycyf23rcgyv5duk9z7kdufj932e22jausa3qyezq8hk56jn7zep5hgmzt7mqr88xrahu2jz89cx00g678dj3wxgj57hppv32czn0u0dgj5j4a42ktcm5sv69cn7fhygcww2xfng7vv36qly0jfca4yr5wf2d0mxx95faupd6nqejfnr9su46kx37whfdh4j0k4zt8kvx7cxaxeczg0kjqjk5yhsnsqavkrpyqpwqf72cvdgcc5na7xn6d5ax0skmw57c8vqevqqkxnsq22dsza7zswg4c96h5wdztgepe5pu9fkqn423fe5nkwsuhx8at0v2gkepn86n6gf09k3madp02g2ajkcz3xczs3tv9j5z84xk7ax85myfnmy59p2er022t4p7fqs5hmnq8ugahv8j54x53rd394j5t2kg8fdekfg0s3cfgv2g9jkf7y2u0sxru893g8l0v25ekrxg8hkdteggj2ha9nfrlxslggfh8n6vwena2tfrkyrz2kxv8qjvjl9j6hn5jgvhnq8gxprfy2cmzg9hz8dg0tuwvvk4ry0ftpzlycz974srhzkegjv7n07e9zcuf8m0nqk3830l2vta94z5c6eyee6jh6n8nrnclnxauda66vu0tvfk6gvgu8au0
   - &admin_nico 0797D2389769CA1E57B72ED92BA7811687C90DE4
   - &host_prod age13r2hmarqllghyaavnu57w8rtcsf5qgnvr65smw50fkd2c4gvrgfshhwj3n
   - &host_sandkasten age173w0p0aj8s78j3295tzatxu56quwc3grsu4g2lsr7l9hxpa4hdpsgzujqx
@@ -8,13 +8,13 @@ keys:
 creation_rules:
   - path_regex: hosts/prod/secrets\.yml$
     key_groups:
-      - pgp: [*admin_defelo, *admin_nico]
-        age: [*host_prod]
+      - age: [*admin_defelo, *host_prod]
+        pgp: [*admin_nico]
   - path_regex: hosts/sandkasten/secrets\.yml$
     key_groups:
-      - pgp: [*admin_defelo, *admin_nico]
-        age: [*host_sandkasten]
+      - age: [*admin_defelo, *host_sandkasten]
+        pgp: [*admin_nico]
   - path_regex: hosts/test/secrets\.yml$
     key_groups:
-      - pgp: [*admin_defelo, *admin_nico]
-        age: [*host_test]
+      - age: [*admin_defelo, *host_test]
+        pgp: [*admin_nico]
