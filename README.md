@@ -13,7 +13,7 @@ If you would like to submit a bug report or feature request, or are looking for 
 ## Administration
 
 ### Deployment
-On a system with [Nix](https://nixos.org/) installed, enter a dev shell using `nix develop` (or use [direnv](https://github.com/direnv/direnv)) and run the `deploy` command. For more information, run `deploy --help` or refer to the [readme of deploy-sh](https://github.com/Defelo/deploy-sh).
+On a system with [Nix](https://nixos.org/) installed, enter a dev shell using `nix develop` (or use [direnv](https://github.com/direnv/direnv)) and run the `deploy` command. For more information, run `deploy --help` or refer to the [readme of deploy-sh](https://radicle.defelo.de/nodes/radicle.defelo.de/rad:z392ZFR7AcScpaQqmTKUDkDj9FWMq).
 
 ### PostgreSQL
 To connect to the database, run the postgres administration commands as the `postgres` user (e.g. `sudo -u postgres psql`).
