@@ -38,7 +38,9 @@ let
 in
 {
   virtualisation.oci-containers.containers = {
-    morpheushelper = config.dockerImages.morpheushelper.mkContainer {
+    morpheushelper = {
+      image = "localhost/morpheushelper";
+      pull = "never";
       extraOptions = [
         "--rm=false"
         "--restart=always"
@@ -90,14 +92,10 @@ in
     secrets = {
       "morpheushelper/discord-token" = { };
       "morpheushelper/database-password" = { };
-      "morpheushelper/aoc-session" = { };
-      "morpheushelper/github-token" = { };
     };
     templates."morpheushelper/env".content = ''
       TOKEN=${config.sops.placeholder."morpheushelper/discord-token"}
       DB_PASSWORD=${config.sops.placeholder."morpheushelper/database-password"}
-      AOC_SESSION=${config.sops.placeholder."morpheushelper/aoc-session"}
-      GITHUB_TOKEN=${config.sops.placeholder."morpheushelper/github-token"}
     '';
   };
 }
