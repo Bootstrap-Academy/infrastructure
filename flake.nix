@@ -77,14 +77,7 @@
             ./hosts/${name}
             ./hosts/${name}/hardware-configuration.nix
             ./modules
-            {
-              _module.args.env = import ./env.nix;
-              nixpkgs.overlays = [
-                (final: prev: {
-                  inherit (inputs.nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system}) glitchtip;
-                })
-              ];
-            }
+            { _module.args.env = import ./env.nix; }
           ];
         };
     in
