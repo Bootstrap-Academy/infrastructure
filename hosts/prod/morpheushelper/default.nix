@@ -84,6 +84,7 @@ in
   };
 
   environment.persistence."/persistent/data".directories = [ "/var/lib/mysql" ];
+  environment.persistence."/persistent/cache".directories = [ "/var/lib/containers" ];
 
   backup.exclude = [ "/var/lib/mysql" ];
   backup.prepare = "${config.services.mysql.package}/bin/mysqldump --all-databases > mysql-dump.sql";
