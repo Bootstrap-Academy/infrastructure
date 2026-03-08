@@ -5,7 +5,6 @@
     ./attic.nix
     ./backend
     ./dns.nix
-    ./docker-images.nix
     ./firewall.nix
     ./glitchtip.nix
     ./grafana.nix

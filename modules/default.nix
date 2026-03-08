@@ -7,7 +7,6 @@
     ./btrfs.nix
     ./containers.nix
     ./deploy.nix
-    ./docker-images.nix
     ./filesystems.nix
     ./monitoring.nix
     ./networking.nix
