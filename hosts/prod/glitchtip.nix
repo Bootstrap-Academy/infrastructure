@@ -1,4 +1,10 @@
-{ config, env, ... }:
+{
+  config,
+  env,
+  nixpkgs-glitchtip,
+  pkgs-glitchtip,
+  ...
+}:
 
 let
   port = 8100;
@@ -6,15 +12,21 @@ let
 in
 
 {
+  disabledModules = [ "services/web-apps/glitchtip.nix" ];
+  imports = [ "${nixpkgs-glitchtip}/nixos/modules/services/web-apps/glitchtip.nix" ];
+
+  nixpkgs.overlays = [ (final: prev: { inherit (pkgs-glitchtip) glitchtip; }) ];
+
   services.glitchtip = {
     enable = true;
-    inherit port;
     environmentFiles = [ config.sops.templates."glitchtip/environment".path ];
     settings = {
+      GRANIAN_PORT = port;
       GLITCHTIP_DOMAIN = "https://${domain}";
       DEFAULT_FROM_EMAIL = "glitchtip@the-morpheus.de";
       ENABLE_USER_REGISTRATION = false;
       ENABLE_ORGANIZATION_CREATION = false;
+      GLITCHTIP_UPTIME_ALLOW_PRIVATE_IPS = true;
     };
   };
 
