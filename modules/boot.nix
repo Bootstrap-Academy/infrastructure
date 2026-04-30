@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   boot.loader = {
     grub.enable = true;
@@ -5,4 +7,6 @@
   };
 
   console.enable = false;
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 }
