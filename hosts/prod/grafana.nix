@@ -14,6 +14,8 @@ in
         http_port = port;
         root_url = "https://${domain}/";
       };
+      # https://github.com/NixOS/nixpkgs/commit/8129a2d1fa58534c855665faddd4608e19e7a0bb
+      security.secret_key = "SW2YcwTIb9zpOOhoPsMm";
     };
   };
 
