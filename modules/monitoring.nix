@@ -1,5 +1,4 @@
-{ config, lib, ... }:
-{
+{ config, lib, ... }: {
   options.monitoring = {
     enable = lib.mkOption {
       type = lib.types.bool;

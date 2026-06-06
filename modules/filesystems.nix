@@ -1,5 +1,4 @@
-{ config, lib, ... }:
-{
+{ config, lib, ... }: {
   options.filesystems = {
     defaultLayout = lib.mkOption {
       type = lib.types.bool;

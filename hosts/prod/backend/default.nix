@@ -113,22 +113,14 @@
 
         SENTRY_ENVIRONMENT = "prod";
       }
-      // (lib.mapAttrs' (
-        ms:
-        { port, ... }:
-        {
-          name = "${lib.toUpper ms}_URL";
-          value = "http://127.0.0.1:${toString port}/";
-        }
-      ) config.academy.backend.microservices)
-      // (lib.mapAttrs' (
-        ms:
-        { redis, ... }:
-        {
-          name = "${lib.toUpper ms}_REDIS_URL";
-          value = "redis://127.0.0.1:6379/${toString redis.database}";
-        }
-      ) config.academy.backend.microservices)
+      // (lib.mapAttrs' (ms: { port, ... }: {
+        name = "${lib.toUpper ms}_URL";
+        value = "http://127.0.0.1:${toString port}/";
+      }) config.academy.backend.microservices)
+      // (lib.mapAttrs' (ms: { redis, ... }: {
+        name = "${lib.toUpper ms}_REDIS_URL";
+        value = "redis://127.0.0.1:6379/${toString redis.database}";
+      }) config.academy.backend.microservices)
       // {
         AUTH_URL = "http://127.0.0.1:8000/auth/";
         SHOP_URL = "http://127.0.0.1:8000/shop/";

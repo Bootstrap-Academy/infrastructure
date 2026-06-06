@@ -34,27 +34,19 @@
             }
           '';
           locations =
-            lib.mapAttrs' (
-              ms:
-              { port, ... }:
-              {
-                name = "/${ms}/";
-                value = {
-                  proxyPass = "http://127.0.0.1:${toString port}/";
-                  proxyWebsockets = true;
-                };
-              }
-            ) cfg.microservices
-            // (lib.mapAttrs' (
-              ms:
-              { port, ... }:
-              {
-                name = "= /${ms}/";
-                value = {
-                  return = "307 /${ms}/docs";
-                };
-              }
-            ) cfg.microservices)
+            lib.mapAttrs' (ms: { port, ... }: {
+              name = "/${ms}/";
+              value = {
+                proxyPass = "http://127.0.0.1:${toString port}/";
+                proxyWebsockets = true;
+              };
+            }) cfg.microservices
+            // (lib.mapAttrs' (ms: { port, ... }: {
+              name = "= /${ms}/";
+              value = {
+                return = "307 /${ms}/docs";
+              };
+            }) cfg.microservices)
             // (lib.optionalAttrs (cfg.protectInternalEndpoints) { "~* (:*/_internal/.*)".return = "403"; })
             // {
               "= /" = {
