@@ -7,6 +7,7 @@
   excludes = [
     ".envrc"
     "*.md"
+    "*.patch"
     ".gitignore"
     "flake.lock"
     "hosts/*/hardware-configuration.nix"
