@@ -1,0 +1,12 @@
+diff --git a/library/PyDrocsid/cog.py b/library/PyDrocsid/cog.py
+index 0a55b3b..41f8c66 100644
+--- a/library/PyDrocsid/cog.py
++++ b/library/PyDrocsid/cog.py
+@@ -257,6 +257,7 @@ def load_cogs(bot: Bot, *cogs: Cog) -> None:
+ 
+ 
+ def get_documentation(cog: Cog | Type[Cog]) -> str | None:
++    return None
+     if isinstance(cog, Cog):
+         cog = type(cog)
+ 

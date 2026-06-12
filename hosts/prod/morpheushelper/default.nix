@@ -1,9 +1,11 @@
 { config, pkgs, ... }:
+
 let
   ports = {
     mariadb = 3306;
     redis = 63791;
   };
+
   baseEnv = {
     LOG_LEVEL = "INFO";
     PYCORD_LOG_LEVEL = "ERROR";
@@ -35,11 +37,33 @@ let
 
     VOICE_CHANNEL_NAMES = "elements";
   };
+
+  src = pkgs.applyPatches {
+    src = pkgs.fetchFromGitHub {
+      owner = "PyDrocsid";
+      repo = "MorpheusHelper";
+      rev = "41152ab680c539c7ef38559ffe9ac8e153120183";
+      hash = "sha256-k2/6Ba5Q4XvKiqCErlfYLrAW23qsz8wEBi0/8+UxyWs=";
+      fetchSubmodules = true;
+    };
+
+    patches = [
+      ./disable-documentation-links.patch
+      ./privileged-intents.patch
+    ];
+  };
+
 in
+
 {
   virtualisation.oci-containers.containers = {
     morpheushelper = {
-      image = "localhost/morpheushelper";
+      image = "ghcr.io/pydrocsid/morpheushelper:v3.5.3";
+      imageFile = pkgs.dockerTools.pullImage {
+        imageName = "ghcr.io/pydrocsid/morpheushelper";
+        imageDigest = "sha256:0644787b006d52dc3fd7d1789d5d159fd89eacc2393d006f0a379dc295eabeca";
+        hash = "sha256-aCL+Qob4K3/npl/ogWjwQ6CDO/Pm2zJvOVysvQyyamQ=";
+      };
       pull = "never";
       extraOptions = [
         "--rm=false"
@@ -47,7 +71,11 @@ in
         "--network=host"
         "--no-healthcheck"
       ];
-      volumes = [ "${./config.yml}:/app/config.yml:ro" ];
+      volumes = [
+        "${./config.yml}:/app/config.yml:ro"
+        "${src}/bot:/app/bot:ro"
+        "${src}/library/PyDrocsid:/usr/local/lib/python3.10/site-packages/PyDrocsid:ro"
+      ];
       environmentFiles = [ config.sops.templates."morpheushelper/env".path ];
       environment = baseEnv // {
         DB_DATABASE = "morpheushelper";

@@ -1,0 +1,14 @@
+diff --git a/bot/bot.py b/bot/bot.py
+index dfab4fe..ccda46d 100644
+--- a/bot/bot.py
++++ b/bot/bot.py
+@@ -64,7 +64,10 @@ async def fetch_prefix(_, msg: Message) -> Iterable[str]:
+     return prefix
+ 
+ 
+-bot = Bot(command_prefix=fetch_prefix, case_insensitive=True, intents=(Intents.all()))
++intents = Intents.default()
++intents.members = True
++intents.message_content = True
++bot = Bot(command_prefix=fetch_prefix, case_insensitive=True, intents=intents)
+ bot.remove_command("help")
