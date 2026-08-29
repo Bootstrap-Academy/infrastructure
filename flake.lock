@@ -7,11 +7,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1787105337,
-        "narHash": "sha256-CpuIjx8EHS1iiqa6+87eYmbqzWgZOcfzdPPm0cAJiU4=",
+        "lastModified": 1787709911,
+        "narHash": "sha256-Z9FJlSqaFiV/V2W0XkpNovocNRKoqoyuGZY7RKo0g7I=",
         "owner": "Bootstrap-Academy",
         "repo": "backend",
-        "rev": "1d581654aa532141667d8f59fda4d9aababfd8d9",
+        "rev": "2a704154e33bba84c05183f430e4870e47906d8c",
         "type": "github"
       },
       "original": {
@@ -28,11 +28,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1787105337,
-        "narHash": "sha256-CpuIjx8EHS1iiqa6+87eYmbqzWgZOcfzdPPm0cAJiU4=",
+        "lastModified": 1787709911,
+        "narHash": "sha256-Z9FJlSqaFiV/V2W0XkpNovocNRKoqoyuGZY7RKo0g7I=",
         "owner": "Bootstrap-Academy",
         "repo": "backend",
-        "rev": "1d581654aa532141667d8f59fda4d9aababfd8d9",
+        "rev": "2a704154e33bba84c05183f430e4870e47906d8c",
         "type": "github"
       },
       "original": {
@@ -158,11 +158,11 @@
     },
     "crane": {
       "locked": {
-        "lastModified": 1785631643,
-        "narHash": "sha256-H++/2dMt+5+tErKU+t5z6c4Xedvj9w+UPQYrpygwIPw=",
+        "lastModified": 1787326676,
+        "narHash": "sha256-lWhBbBvC05/xwivKBBiM2YNizpmgqCgyOIzomvRuwxs=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "b8d87f76ea4e4b6f30f2e6eaf3fbb60ff7d87167",
+        "rev": "692f7e9ef2ece8125b466f66f2af532b3edaed0d",
         "type": "github"
       },
       "original": {
@@ -1149,11 +1149,11 @@
     },
     "nixpkgs-glitchtip": {
       "locked": {
-        "lastModified": 1787479266,
-        "narHash": "sha256-lT/g2WIGOuObYdMwGYFSM/IaKdEdNx8OlOMtDTKZcLo=",
+        "lastModified": 1788032384,
+        "narHash": "sha256-Cy9yK1u5UIg9Oh2oDsE4Hj7BFA2nCU3ikqeaAiUNrrs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "820529a45fed4b569b2a3b2a674252b01d5f627a",
+        "rev": "bf330fc598f979418f9d2bca8cee47dab2a8a3f4",
         "type": "github"
       },
       "original": {
@@ -1180,11 +1180,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1787360063,
-        "narHash": "sha256-dt4WdcvsA8/RCe+VZZwqU0X+XMM3wBbGCWA0/sFWzGo=",
+        "lastModified": 1787736819,
+        "narHash": "sha256-cV5xEJJK3BvhU8rEd4mC9UsmDi5qscv/kzGPhBRC5WA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2c423e03bbafcff28bfadc6781a4a8257f205cb5",
+        "rev": "9fbb54b33e91ee4ca368e35a78e0613c720600b3",
         "type": "github"
       },
       "original": {
@@ -1196,11 +1196,11 @@
     },
     "nixpkgs-unstable_2": {
       "locked": {
-        "lastModified": 1785602060,
-        "narHash": "sha256-z7D96eESRM4CPV/XtwpwFn8IDdfLAmxz6lVWrGYXvR4=",
+        "lastModified": 1787364730,
+        "narHash": "sha256-NcYt9QJfpJiF1lAyN8BDPB4EeScbPU+EwQqPiBElrpU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a5cbcfe954791221bfffe2307f7d1a1bf61a871e",
+        "rev": "a831408e6378bc02ebf8cc09b52c96ca86f6bab4",
         "type": "github"
       },
       "original": {
@@ -1388,11 +1388,11 @@
     },
     "nixpkgs_20": {
       "locked": {
-        "lastModified": 1787204541,
-        "narHash": "sha256-OURZPknrTjQrlNyxPdqzyqmU/81Wes1CUP/Ft1Rv/YI=",
+        "lastModified": 1787848966,
+        "narHash": "sha256-7gDpu5hpq0rOYnYMcOWqSzquK4HA/xU8Xf3CjUBOOJA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5880666fd9eb563038431edb35c2d0aa595884e6",
+        "rev": "d57af924f160a5084293c71c2043f058bd1cdb60",
         "type": "github"
       },
       "original": {
@@ -1889,11 +1889,11 @@
         "radicle-update": "radicle-update"
       },
       "locked": {
-        "lastModified": 1785725982,
-        "narHash": "sha256-r0jfy6QY+YH8ZQmNFIQR26HXUu03j8Owgfjx/OhJ6BQ=",
+        "lastModified": 1787540392,
+        "narHash": "sha256-388ucK+uNap2qvGQhQPzwPQsTspMJuclaxgCXmYrt0E=",
         "ref": "refs/heads/develop",
-        "rev": "9c1b6be9313ac76a136c44aa43eaf98003fabfab",
-        "revCount": 896,
+        "rev": "ee8d9b0150f6416a396cd59ebd82c58d0c3a450a",
+        "revCount": 898,
         "type": "git",
         "url": "https://radicle.defelo.de/zKBbWZxz73j7BZMbutM7TMMT4v5K.git"
       },
