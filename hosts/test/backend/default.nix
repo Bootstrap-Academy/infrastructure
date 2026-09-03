@@ -53,7 +53,7 @@
       };
 
       recaptcha = {
-        enable = true;
+        enable = false;
         sitekey = "6Ldb070iAAAAAKsAt_M_ilgDbnWcF-N_Pj2DBBeP";
         min_score = 0.5;
       };
