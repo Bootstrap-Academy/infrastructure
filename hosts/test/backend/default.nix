@@ -52,7 +52,6 @@
         name_change_rate_limit = "1d";
         verification_redirect_url = "https://test.bootstrap.academy/auth/verify-account";
         password_reset_redirect_url = "https://test.bootstrap.academy/auth/reset-password";
-        newsletter_redirect_url = "https://test.bootstrap.academy/account/newsletter";
       };
 
       contact = {
