@@ -16,6 +16,10 @@
 
   academy.backend.challenges = {
     enable = true;
+    sweepDeletedUsers = {
+      enable = true;
+      interval = "03:40";
+    };
     RUST_LOG = "info,poem_ext,lib,entity,migration,challenges=trace";
     environmentFiles = [
       config.sops.templates."academy-backend/common".path

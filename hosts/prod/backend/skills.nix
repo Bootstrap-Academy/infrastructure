@@ -21,6 +21,10 @@ in
 
   academy.backend.skills = {
     enable = true;
+    sweepDeletedUsers = {
+      enable = true;
+      interval = "03:10";
+    };
     environmentFiles = config.academy.backend.common.environmentFiles ++ [
       config.sops.templates."academy-backend/skills-ms".path
     ];

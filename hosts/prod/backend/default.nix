@@ -44,6 +44,13 @@
         email_cache_ttl = "5m";
       };
 
+      microservices = {
+        skills_url = "http://127.0.0.1:${toString config.academy.backend.microservices.skills.port}/";
+        challenges_url = "http://127.0.0.1:${toString config.academy.backend.microservices.challenges.port}/";
+        events_url = "http://127.0.0.1:${toString config.academy.backend.microservices.events.port}/";
+        timeout = "10s";
+      };
+
       contact = {
         email = "hallo@bootstrap.academy";
       };
