@@ -307,11 +307,11 @@
         "poetry2nix": "poetry2nix"
       },
       "locked": {
-        "lastModified": 1714839525,
-        "narHash": "sha256-UGYAcusmxdluALJpKSco+UJrawp+woS+uKzqA+amQn4=",
+        "lastModified": 1788437070,
+        "narHash": "sha256-JK9HCee96Y4fvsL5tyXfzPpezIlwzB1ZzGJ7Z2dNGm8=",
         "owner": "Bootstrap-Academy",
         "repo": "events-ms",
-        "rev": "9321bc6d5f3bd70b870d832361b0e5aea68f57c5",
+        "rev": "2f3f42592f7f98444875c3f5b80c65370fc584a3",
         "type": "github"
       },
       "original": {
@@ -327,11 +327,11 @@
         "poetry2nix": "poetry2nix_2"
       },
       "locked": {
-        "lastModified": 1725959597,
-        "narHash": "sha256-1PMuQmLOSllzm8qM0lv/JJqsFrkAQNLMiQRhjXqEEHY=",
+        "lastModified": 1788436743,
+        "narHash": "sha256-8xzCpLGp//kabiBhapafXfIYCAa/30vTXyn1j7cMhc8=",
         "owner": "Bootstrap-Academy",
         "repo": "events-ms",
-        "rev": "7fbb15fb21b820796acff8e74a0e1c4a9dd8a824",
+        "rev": "f48db6a6ac6f71454b9df05db177830bba04107e",
         "type": "github"
       },
       "original": {
@@ -781,11 +781,11 @@
         "poetry2nix": "poetry2nix_3"
       },
       "locked": {
-        "lastModified": 1714839525,
-        "narHash": "sha256-rTdG5iniLSe2Wjx2xo9igBTZNM9VEoxTJUSJvAoMrlM=",
+        "lastModified": 1788437075,
+        "narHash": "sha256-cIUZc23yprVdpLsdHFhAn46DL1//vaVS+bPRaNLSAkY=",
         "owner": "Bootstrap-Academy",
         "repo": "jobs-ms",
-        "rev": "687401510a3964330b6db7e9a81260ae4aa41087",
+        "rev": "eb89be99ff3ae4881639397ebb74460037b18c68",
         "type": "github"
       },
       "original": {
@@ -801,11 +801,11 @@
         "poetry2nix": "poetry2nix_4"
       },
       "locked": {
-        "lastModified": 1725959554,
-        "narHash": "sha256-MQNrBXm7p5dJWSg5RMk2QtgpkymmPoQ7UXFA5D//DPg=",
+        "lastModified": 1788435979,
+        "narHash": "sha256-hcWBZvokDwMela8Iyt4tR3QjDpI2sweDcvZ1i7lzyXw=",
         "owner": "Bootstrap-Academy",
         "repo": "jobs-ms",
-        "rev": "e0af1c066aad56195e4a83a3284d1beb2ab42be1",
+        "rev": "2420dc60fd4917f4667963cc7b050b5e44fa72b0",
         "type": "github"
       },
       "original": {
