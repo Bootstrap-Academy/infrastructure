@@ -8,6 +8,7 @@
     ./containers.nix
     ./deploy.nix
     ./filesystems.nix
+    ./logging.nix
     ./monitoring.nix
     ./networking.nix
     ./nginx.nix

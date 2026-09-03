@@ -26,6 +26,8 @@ in
       DEFAULT_FROM_EMAIL = "glitchtip@the-morpheus.de";
       ENABLE_USER_REGISTRATION = false;
       ENABLE_ORGANIZATION_CREATION = false;
+      # Error reports are deleted after 90 days, as stated in the privacy notice.
+      GLITCHTIP_RETENTION_DAYS = 90;
       GLITCHTIP_UPTIME_ALLOW_PRIVATE_IPS = true;
     };
   };
