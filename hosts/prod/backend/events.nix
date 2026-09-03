@@ -18,6 +18,10 @@ in
 
   academy.backend.events = {
     enable = true;
+    sweepDeletedUsers = {
+      enable = true;
+      interval = "03:25";
+    };
     environmentFiles = config.academy.backend.common.environmentFiles ++ [
       config.sops.templates."academy-backend/events-ms".path
     ];

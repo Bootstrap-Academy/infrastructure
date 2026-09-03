@@ -41,6 +41,13 @@
         email_cache_ttl = "5m";
       };
 
+      microservices = {
+        skills_url = "http://127.0.0.1:${toString config.academy.backend.microservices.skills.port}/";
+        challenges_url = "http://127.0.0.1:${toString config.academy.backend.microservices.challenges.port}/";
+        events_url = "http://127.0.0.1:${toString config.academy.backend.microservices.events.port}/";
+        timeout = "10s";
+      };
+
       user = {
         name_change_rate_limit = "1d";
         verification_redirect_url = "https://test.bootstrap.academy/auth/verify-account";
