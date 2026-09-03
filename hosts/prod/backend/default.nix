@@ -49,7 +49,7 @@
       };
 
       recaptcha = {
-        enable = true;
+        enable = false;
         sitekey = "6Le9pMIiAAAAAAMmaH3J7ZCsQk6JcBdQtAJNXaQJ";
         min_score = 0.5;
       };
@@ -96,8 +96,8 @@
 
         INTERNAL_JWT_TTL = "10";
 
-        RECAPTCHA_SITEKEY = "6Le9pMIiAAAAAAMmaH3J7ZCsQk6JcBdQtAJNXaQJ";
-        RECAPTCHA_MIN_SCORE = "0.5";
+        # RECAPTCHA_SITEKEY = "6Le9pMIiAAAAAAMmaH3J7ZCsQk6JcBdQtAJNXaQJ";
+        # RECAPTCHA_MIN_SCORE = "0.5";
 
         SMTP_HOST = "mail.your-server.de";
         SMTP_PORT = "587";
