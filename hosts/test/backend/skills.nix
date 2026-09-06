@@ -8,6 +8,9 @@
 
 let
   ms = "skills";
+
+  # the audiences this service talks to, plus its own for incoming tokens
+  internalJwtSecrets = config.academy.backend.internalJwtSecrets.values;
 in
 
 {
@@ -50,6 +53,9 @@ in
     };
     templates."academy-backend/skills-ms".content = ''
       SENTRY_DSN=${config.sops.placeholder."academy-backend/skills-ms/sentry-dsn"}
+      INTERNAL_JWT_SECRET_AUTH=${internalJwtSecrets.auth}
+      INTERNAL_JWT_SECRET_SHOP=${internalJwtSecrets.shop}
+      INTERNAL_JWT_SECRET_SKILLS=${internalJwtSecrets.skills}
     '';
   };
 }
