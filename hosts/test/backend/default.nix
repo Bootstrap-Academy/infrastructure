@@ -74,6 +74,11 @@ in
         client_id = "AY8tdE7PPpUOVbURYdFvrqsisOiJpggHWnNYphRQjbDPCoPcD3z7XUU067hZ6kf4cH82GwQrAkJnhcqn";
       };
 
+      # `POST /auth/oauth/authorize` accepts only the redirect uris listed here.
+      # The default in the backend is the production callback, so this instance
+      # has to name its own.
+      oauth2.redirect_uris = [ "https://test.bootstrap.academy/oauth/callback" ];
+
       oauth2.providers = {
         github.client_id = "87e19e5e68c83d9595a3";
         discord.client_id = "1019985764735537202";
