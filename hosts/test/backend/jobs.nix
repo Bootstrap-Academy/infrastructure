@@ -6,6 +6,9 @@
 }:
 let
   ms = "jobs";
+
+  # the audiences this service talks to, plus its own for incoming tokens
+  internalJwtSecrets = config.academy.backend.internalJwtSecrets.values;
 in
 {
   imports = [ jobs-ms-develop.nixosModules.default ];
@@ -36,6 +39,9 @@ in
     };
     templates."academy-backend/jobs-ms".content = ''
       SENTRY_DSN=${config.sops.placeholder."academy-backend/jobs-ms/sentry-dsn"}
+      INTERNAL_JWT_SECRET_AUTH=${internalJwtSecrets.auth}
+      INTERNAL_JWT_SECRET_SKILLS=${internalJwtSecrets.skills}
+      INTERNAL_JWT_SECRET_JOBS=${internalJwtSecrets.jobs}
     '';
   };
 }

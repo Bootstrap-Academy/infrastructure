@@ -4,6 +4,11 @@
   backend-develop,
   ...
 }:
+let
+  # only the audiences the monolith serves (auth, shop) and calls (the three
+  # microservices it fans account deletions out to)
+  internalJwtSecrets = config.academy.backend.internalJwtSecrets.values;
+in
 {
   imports = [
     backend-develop.nixosModules.default
@@ -170,6 +175,11 @@
             config.sops.placeholder."academy-backend/smtp-password"
           }@mail.your-server.de:587?tls=required"
           jwt.secret = "${config.sops.placeholder."academy-backend/jwt-secret"}"
+          internal.secrets.auth = "${internalJwtSecrets.auth}"
+          internal.secrets.shop = "${internalJwtSecrets.shop}"
+          internal.secrets.skills = "${internalJwtSecrets.skills}"
+          internal.secrets.challenges = "${internalJwtSecrets.challenges}"
+          internal.secrets.events = "${internalJwtSecrets.events}"
           recaptcha.secret = "${config.sops.placeholder."academy-backend/recaptcha-secret"}"
           paypal.client_secret = "${config.sops.placeholder."academy-backend/shop-ms/paypal-secret"}"
           sentry.dsn = "${config.sops.placeholder."academy-backend/sentry-dsn"}"
