@@ -21,6 +21,7 @@
       defelo
       nico-p14s
       nico-prod
+      morpheus
     ];
   };
 

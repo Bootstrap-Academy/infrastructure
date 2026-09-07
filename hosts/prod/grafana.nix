@@ -27,7 +27,7 @@ in
   services.nginx.virtualHosts.${domain} = {
     forceSSL = true;
     enableACME = true;
-    allow = env.wg.admins ++ [ env.wg.morpheus ];
+    allow = env.wg.admins;
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString port}";
       proxyWebsockets = true;
