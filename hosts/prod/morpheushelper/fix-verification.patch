@@ -1,0 +1,28 @@
+diff --git a/bot/cogs/library/moderation/verification/cog.py b/bot/cogs/library/moderation/verification/cog.py
+index 52037db..6924873 100644
+--- a/bot/cogs/library/moderation/verification/cog.py
++++ b/bot/cogs/library/moderation/verification/cog.py
+@@ -35,7 +35,7 @@ class VerificationCog(Cog, name="Verification"):
+     CONTRIBUTORS = [Contributor.Defelo, Contributor.wolflu]
+ 
+     @commands.command()
+-    @private_only
++    @guild_only()
+     async def verify(self, ctx: Context, *, password: str):
+         correct_password: str = await VerificationSettings.password.get()
+         if correct_password is None:
+@@ -46,12 +46,8 @@ class VerificationCog(Cog, name="Verification"):
+         if password != correct_password:
+             raise CommandError(t.password_incorrect)
+ 
+-        guild: Guild = self.bot.guilds[0]
+-        member: Member = guild.get_member(ctx.author.id)
+-
+-        delay: int = await VerificationSettings.delay.get()
+-        if delay != -1 and (utcnow() - member.joined_at).total_seconds() < delay:
+-            raise CommandError(t.too_soon)
++        guild: Guild = ctx.guild
++        member: Member = ctx.author
+ 
+         add: List[Role] = []
+         remove: List[Role] = []

@@ -50,6 +50,7 @@ let
     patches = [
       ./disable-documentation-links.patch
       ./privileged-intents.patch
+      ./fix-verification.patch
     ];
   };
 
