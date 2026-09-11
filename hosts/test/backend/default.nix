@@ -13,6 +13,7 @@ in
   imports = [
     backend-develop.nixosModules.default
 
+    ./mail.nix
     ./skills.nix
     ./jobs.nix
     ./events.nix
@@ -44,6 +45,15 @@ in
 
       health = {
         email_cache_ttl = "5m";
+      };
+
+      # New offers promise confirmation and provision within 24 hours of acceptance.
+      purchase.provision_window_seconds = {
+        premium_monthly = 86400;
+        premium_yearly = 86400;
+        coins = 86400;
+        hearts = 86400;
+        course = 86400;
       };
 
       microservices = {
@@ -117,12 +127,13 @@ in
         # RECAPTCHA_SITEKEY = "6Ldb070iAAAAAKsAt_M_ilgDbnWcF-N_Pj2DBBeP";
         # RECAPTCHA_MIN_SCORE = "0.5";
 
-        SMTP_HOST = "mail.your-server.de";
-        SMTP_PORT = "587";
-        SMTP_USER = "noreply@bootstrap.academy";
+        SMTP_HOST = "127.0.0.1";
+        SMTP_PORT = "1025";
+        SMTP_USER = "";
+        SMTP_PASSWORD = "";
         SMTP_FROM = "Bootstrap Academy <noreply@bootstrap.academy>";
         SMTP_TLS = "False";
-        SMTP_STARTTLS = "True";
+        SMTP_STARTTLS = "False";
 
         POOL_RECYCLE = "300";
         POOL_SIZE = "20";
@@ -176,9 +187,7 @@ in
     templates = {
       "academy-backend/config" = {
         content = ''
-          email.smtp_url = "smtp://noreply@bootstrap.academy:${
-            config.sops.placeholder."academy-backend/smtp-password"
-          }@mail.your-server.de:587?tls=required"
+          email.smtp_url = "smtp://127.0.0.1:1025"
           jwt.secret = "${config.sops.placeholder."academy-backend/jwt-secret"}"
           internal.secrets.auth = "${internalJwtSecrets.auth}"
           internal.secrets.shop = "${internalJwtSecrets.shop}"
@@ -204,7 +213,6 @@ in
       "academy-backend/common".content = ''
         JWT_SECRET=${config.sops.placeholder."academy-backend/jwt-secret"}
         # RECAPTCHA_SECRET=${config.sops.placeholder."academy-backend/recaptcha-secret"}
-        SMTP_PASSWORD=${config.sops.placeholder."academy-backend/smtp-password"}
       '';
     };
   };

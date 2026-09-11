@@ -5,8 +5,8 @@ let
     "test"
   ];
 
-  # Snapshots older than these limits are deleted on every backup target, as
-  # stated in the privacy notice.
+  # Keep counts of hourly, daily, weekly and monthly snapshot groups.
+  # These counts are not fixed deletion ages measured from account deletion.
   prunePolicy = [
     "--keep-hourly 48"
     "--keep-daily 14"

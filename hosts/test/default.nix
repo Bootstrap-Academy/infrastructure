@@ -6,6 +6,9 @@
     ./firewall.nix
   ];
 
+  # Test services and maintenance timers use their normal startup after reboot.
+  academy.releaseHold = false;
+
   filesystems.defaultLayout = true;
 
   networking.networks = {

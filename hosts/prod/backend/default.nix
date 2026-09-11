@@ -49,6 +49,15 @@ in
         email_cache_ttl = "5m";
       };
 
+      # New offers promise confirmation and provision within 24 hours of acceptance.
+      purchase.provision_window_seconds = {
+        premium_monthly = 86400;
+        premium_yearly = 86400;
+        coins = 86400;
+        hearts = 86400;
+        course = 86400;
+      };
+
       microservices = {
         skills_url = "http://127.0.0.1:${toString config.academy.backend.microservices.skills.port}/";
         challenges_url = "http://127.0.0.1:${toString config.academy.backend.microservices.challenges.port}/";

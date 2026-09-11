@@ -17,6 +17,9 @@
     # defelo
     "cert-authority ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICwW+Q4ZyT5JZvXAJrD3rPuz2nsK8J7WBiSW3R+wkvOT"
 
+    # morpheus
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGsM09VM6wMeueptPFsg18UoswaXAzRR5PdO0Z8ML6Gd"
+
     # nico
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE2k27mRS2MmZ+b0QqF7eGonD8pEQE3lqFTLUHkUDK3X"
   ];
