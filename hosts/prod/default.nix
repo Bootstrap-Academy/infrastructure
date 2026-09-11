@@ -14,6 +14,9 @@
     ./wireguard.nix
   ];
 
+  # Explicit admission is required before any application writer can start.
+  academy.releaseHold = true;
+
   filesystems.defaultLayout = true;
 
   networking.networks = {

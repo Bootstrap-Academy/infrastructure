@@ -16,6 +16,7 @@
     ./pkgs.nix
     ./postgres.nix
     ./qemu.nix
+    ./release-hold.nix
     ./sops.nix
     ./ssh.nix
     ./sshfs.nix
