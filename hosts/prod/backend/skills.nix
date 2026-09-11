@@ -11,10 +11,28 @@ let
 
   # the audiences this service talks to, plus its own for incoming tokens
   internalJwtSecrets = config.academy.backend.internalJwtSecrets.values;
+  coursesPath = config.academy.backend.skills.settings.COURSES;
+  coursesContext = builtins.getContext coursesPath;
+  courseFiles = if builtins.pathExists coursesPath then builtins.readDir coursesPath else { };
 in
 
 {
   imports = [ skills-ms.nixosModules.default ];
+
+  assertions = [
+    {
+      assertion = lib.any (path: path == coursesPath && (coursesContext.${path}.path or false)) (
+        builtins.attrNames coursesContext
+      );
+      message = "Skills COURSES must retain its store-path reference in the deployment closure.";
+    }
+    {
+      assertion = lib.any (name: lib.hasSuffix ".yml" name && courseFiles.${name} == "regular") (
+        builtins.attrNames courseFiles
+      );
+      message = "Skills COURSES must contain course YAML definitions.";
+    }
+  ];
 
   academy.backend.microservices.skills = {
     port = 8001;
@@ -38,7 +56,7 @@ in
       PUBLIC_BASE_URL = "https://${config.academy.backend.domain}/${ms}";
       DATABASE_URL = "postgresql+asyncpg://academy-${ms}@/academy-${ms}?host=/run/postgresql";
 
-      COURSES = toString skills-ms.packages.${system}.courses;
+      COURSES = "${skills-ms.packages.${system}.courses}";
 
       LECTURE_XP = "10";
       MP4_LECTURES = "/mnt/lectures";
