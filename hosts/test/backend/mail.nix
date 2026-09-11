@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   # Capture test notifications locally, including recovery after a deployment.
   # Neither SMTP nor the mailbox UI is exposed outside this host.
   services.mailpit.instances.academy-test = {
