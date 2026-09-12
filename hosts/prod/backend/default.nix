@@ -100,6 +100,7 @@ in
   # old backend
   academy.backend = {
     enable = true;
+    feedback.enable = true;
     name = "Bootstrap Academy Production Instance";
     domain = "api.bootstrap.academy";
     frontend = "https://bootstrap.academy";

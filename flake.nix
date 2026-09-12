@@ -13,17 +13,17 @@
     impermanence.url = "github:nix-community/impermanence";
     sandkasten.url = "git+https://radicle.defelo.de/zKBbWZxz73j7BZMbutM7TMMT4v5K.git";
 
-    skills-ms.url = "github:Bootstrap-Academy/skills-ms/7561f9b709746c273bee5717c18953d53e29faf4";
+    skills-ms.url = "github:Bootstrap-Academy/skills-ms/7d083605655802d32f44e6fefb714ea0d177201a";
     jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/ea946c12f6f2caaa56e4b2e4edc73ce926ccfa2b";
-    events-ms.url = "github:Bootstrap-Academy/events-ms/337d3002183c7420a1ebd2bb38474350c36eb7cb";
-    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/6c4a7453b970212c31639048d59baccd87220e29";
-    backend.url = "github:Bootstrap-Academy/backend/ba62852fc4d76f8a38c6ce99f46abbaba3714062";
+    events-ms.url = "github:Bootstrap-Academy/events-ms/ff767ea8f76a253995b53fcfeb1217fe79f19da5";
+    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/fcc9f52e568d322712a77552d404fab32fb1894c";
+    backend.url = "github:Bootstrap-Academy/backend/fc0b82a5d1ce09eebd4cb77f8fe2220e943aeb90";
 
-    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/7561f9b709746c273bee5717c18953d53e29faf4";
+    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/7d083605655802d32f44e6fefb714ea0d177201a";
     jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/ea946c12f6f2caaa56e4b2e4edc73ce926ccfa2b";
-    events-ms-develop.url = "github:Bootstrap-Academy/events-ms/337d3002183c7420a1ebd2bb38474350c36eb7cb";
-    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/6c4a7453b970212c31639048d59baccd87220e29";
-    backend-develop.url = "github:Bootstrap-Academy/backend/ba62852fc4d76f8a38c6ce99f46abbaba3714062";
+    events-ms-develop.url = "github:Bootstrap-Academy/events-ms/ff767ea8f76a253995b53fcfeb1217fe79f19da5";
+    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/fcc9f52e568d322712a77552d404fab32fb1894c";
+    backend-develop.url = "github:Bootstrap-Academy/backend/fc0b82a5d1ce09eebd4cb77f8fe2220e943aeb90";
   };
 
   outputs =

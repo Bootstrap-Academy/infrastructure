@@ -7,17 +7,17 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1789136737,
-        "narHash": "sha256-YwWaN7PMYi0oSaGWQQFIoXKUcr4Gmn/uRjtKcbbSt5U=",
+        "lastModified": 1789203310,
+        "narHash": "sha256-bbhAWV6LBTmCmSvsRerI7EyoJ7RFcVB5ROJXaX9igjE=",
         "owner": "Bootstrap-Academy",
         "repo": "backend",
-        "rev": "ba62852fc4d76f8a38c6ce99f46abbaba3714062",
+        "rev": "fc0b82a5d1ce09eebd4cb77f8fe2220e943aeb90",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "backend",
-        "rev": "ba62852fc4d76f8a38c6ce99f46abbaba3714062",
+        "rev": "fc0b82a5d1ce09eebd4cb77f8fe2220e943aeb90",
         "type": "github"
       }
     },
@@ -28,17 +28,17 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1789136737,
-        "narHash": "sha256-YwWaN7PMYi0oSaGWQQFIoXKUcr4Gmn/uRjtKcbbSt5U=",
+        "lastModified": 1789203310,
+        "narHash": "sha256-bbhAWV6LBTmCmSvsRerI7EyoJ7RFcVB5ROJXaX9igjE=",
         "owner": "Bootstrap-Academy",
         "repo": "backend",
-        "rev": "ba62852fc4d76f8a38c6ce99f46abbaba3714062",
+        "rev": "fc0b82a5d1ce09eebd4cb77f8fe2220e943aeb90",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "backend",
-        "rev": "ba62852fc4d76f8a38c6ce99f46abbaba3714062",
+        "rev": "fc0b82a5d1ce09eebd4cb77f8fe2220e943aeb90",
         "type": "github"
       }
     },
@@ -122,17 +122,17 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1789128298,
-        "narHash": "sha256-bY38mHz6Wl5NM18+QgOp6arnrruQWSSWdpVmrUy4KAw=",
+        "lastModified": 1789201805,
+        "narHash": "sha256-f0we3VjTPzSFr5wdURM1rAHeaxTzqpU3YLqrlGqYTWA=",
         "owner": "Bootstrap-Academy",
         "repo": "challenges-ms",
-        "rev": "6c4a7453b970212c31639048d59baccd87220e29",
+        "rev": "fcc9f52e568d322712a77552d404fab32fb1894c",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "challenges-ms",
-        "rev": "6c4a7453b970212c31639048d59baccd87220e29",
+        "rev": "fcc9f52e568d322712a77552d404fab32fb1894c",
         "type": "github"
       }
     },
@@ -142,17 +142,17 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1789128298,
-        "narHash": "sha256-bY38mHz6Wl5NM18+QgOp6arnrruQWSSWdpVmrUy4KAw=",
+        "lastModified": 1789201805,
+        "narHash": "sha256-f0we3VjTPzSFr5wdURM1rAHeaxTzqpU3YLqrlGqYTWA=",
         "owner": "Bootstrap-Academy",
         "repo": "challenges-ms",
-        "rev": "6c4a7453b970212c31639048d59baccd87220e29",
+        "rev": "fcc9f52e568d322712a77552d404fab32fb1894c",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "challenges-ms",
-        "rev": "6c4a7453b970212c31639048d59baccd87220e29",
+        "rev": "fcc9f52e568d322712a77552d404fab32fb1894c",
         "type": "github"
       }
     },
@@ -307,17 +307,17 @@
         "poetry2nix": "poetry2nix"
       },
       "locked": {
-        "lastModified": 1789129712,
-        "narHash": "sha256-zCK6UiIg2OyrRcYjHl3ek+/h5gU61UoE19mC7niOW+Y=",
+        "lastModified": 1789201881,
+        "narHash": "sha256-mS4gLRILtVc2j7ITAH/OfWPUdxfhVPE+dieIwajRw7Q=",
         "owner": "Bootstrap-Academy",
         "repo": "events-ms",
-        "rev": "337d3002183c7420a1ebd2bb38474350c36eb7cb",
+        "rev": "ff767ea8f76a253995b53fcfeb1217fe79f19da5",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "events-ms",
-        "rev": "337d3002183c7420a1ebd2bb38474350c36eb7cb",
+        "rev": "ff767ea8f76a253995b53fcfeb1217fe79f19da5",
         "type": "github"
       }
     },
@@ -327,17 +327,17 @@
         "poetry2nix": "poetry2nix_2"
       },
       "locked": {
-        "lastModified": 1789129712,
-        "narHash": "sha256-zCK6UiIg2OyrRcYjHl3ek+/h5gU61UoE19mC7niOW+Y=",
+        "lastModified": 1789201881,
+        "narHash": "sha256-mS4gLRILtVc2j7ITAH/OfWPUdxfhVPE+dieIwajRw7Q=",
         "owner": "Bootstrap-Academy",
         "repo": "events-ms",
-        "rev": "337d3002183c7420a1ebd2bb38474350c36eb7cb",
+        "rev": "ff767ea8f76a253995b53fcfeb1217fe79f19da5",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "events-ms",
-        "rev": "337d3002183c7420a1ebd2bb38474350c36eb7cb",
+        "rev": "ff767ea8f76a253995b53fcfeb1217fe79f19da5",
         "type": "github"
       }
     },
@@ -1908,17 +1908,17 @@
         "poetry2nix": "poetry2nix_5"
       },
       "locked": {
-        "lastModified": 1789137387,
-        "narHash": "sha256-igngc+TwhxEBN6raGG25FNs8RmHesJrTSP4jOMxqhto=",
+        "lastModified": 1789201918,
+        "narHash": "sha256-wOau9cyHLxt/ZuZtFd3aryO7j57wPODkipIwJ45s3gs=",
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "7561f9b709746c273bee5717c18953d53e29faf4",
+        "rev": "7d083605655802d32f44e6fefb714ea0d177201a",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "7561f9b709746c273bee5717c18953d53e29faf4",
+        "rev": "7d083605655802d32f44e6fefb714ea0d177201a",
         "type": "github"
       }
     },
@@ -1928,17 +1928,17 @@
         "poetry2nix": "poetry2nix_6"
       },
       "locked": {
-        "lastModified": 1789137387,
-        "narHash": "sha256-igngc+TwhxEBN6raGG25FNs8RmHesJrTSP4jOMxqhto=",
+        "lastModified": 1789201918,
+        "narHash": "sha256-wOau9cyHLxt/ZuZtFd3aryO7j57wPODkipIwJ45s3gs=",
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "7561f9b709746c273bee5717c18953d53e29faf4",
+        "rev": "7d083605655802d32f44e6fefb714ea0d177201a",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "7561f9b709746c273bee5717c18953d53e29faf4",
+        "rev": "7d083605655802d32f44e6fefb714ea0d177201a",
         "type": "github"
       }
     },
