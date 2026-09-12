@@ -58,6 +58,26 @@ in
 
       COURSES = "${skills-ms-develop.packages.${system}.courses}";
 
+      ROOMS_ENABLED = "true";
+      CHALLENGES_URL = "http://127.0.0.1:8005";
+      LEARNING_ROOMS_EXERCISE_REFS = builtins.toJSON {
+        loops-predict = {
+          type = "multiple_choice";
+          task_id = "94338c50-72dd-4c33-8f29-0e50bd33f328";
+          subtask_id = "5184dd0b-8880-410a-ae18-34b2c014f70c";
+        };
+        loops-match = {
+          type = "matching";
+          task_id = "94338c50-72dd-4c33-8f29-0e50bd33f328";
+          subtask_id = "5bcb585f-302b-4265-b2f5-4a255f872394";
+        };
+        loops-code = {
+          type = "coding";
+          task_id = "94338c50-72dd-4c33-8f29-0e50bd33f328";
+          subtask_id = "753c85ca-caf4-41fd-a927-2925fc73b649";
+        };
+      };
+
       LECTURE_XP = "10";
       MP4_LECTURES = "/mnt/lectures";
       STREAM_CHUNK_SIZE = toString (4 * 1024 * 1024); # bytes
