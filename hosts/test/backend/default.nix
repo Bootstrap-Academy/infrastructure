@@ -4,10 +4,16 @@
   backend-develop,
   ...
 }:
+let
+  # only the audiences the monolith serves (auth, shop) and calls (the three
+  # microservices it fans account deletions out to)
+  internalJwtSecrets = config.academy.backend.internalJwtSecrets.values;
+in
 {
   imports = [
     backend-develop.nixosModules.default
 
+    ./mail.nix
     ./skills.nix
     ./jobs.nix
     ./events.nix
@@ -41,11 +47,26 @@
         email_cache_ttl = "5m";
       };
 
+      # New offers promise confirmation and provision within 24 hours of acceptance.
+      purchase.provision_window_seconds = {
+        premium_monthly = 86400;
+        premium_yearly = 86400;
+        coins = 86400;
+        hearts = 86400;
+        course = 86400;
+      };
+
+      microservices = {
+        skills_url = "http://127.0.0.1:${toString config.academy.backend.microservices.skills.port}/";
+        challenges_url = "http://127.0.0.1:${toString config.academy.backend.microservices.challenges.port}/";
+        events_url = "http://127.0.0.1:${toString config.academy.backend.microservices.events.port}/";
+        timeout = "10s";
+      };
+
       user = {
         name_change_rate_limit = "1d";
         verification_redirect_url = "https://test.bootstrap.academy/auth/verify-account";
         password_reset_redirect_url = "https://test.bootstrap.academy/auth/reset-password";
-        newsletter_redirect_url = "https://test.bootstrap.academy/account/newsletter";
       };
 
       contact = {
@@ -53,7 +74,7 @@
       };
 
       recaptcha = {
-        enable = true;
+        enable = false;
         sitekey = "6Ldb070iAAAAAKsAt_M_ilgDbnWcF-N_Pj2DBBeP";
         min_score = 0.5;
       };
@@ -62,6 +83,11 @@
         base_url_override = "https://api.sandbox.paypal.com";
         client_id = "AY8tdE7PPpUOVbURYdFvrqsisOiJpggHWnNYphRQjbDPCoPcD3z7XUU067hZ6kf4cH82GwQrAkJnhcqn";
       };
+
+      # `POST /auth/oauth/authorize` accepts only the redirect uris listed here.
+      # The default in the backend is the production callback, so this instance
+      # has to name its own.
+      oauth2.redirect_uris = [ "https://test.bootstrap.academy/oauth/callback" ];
 
       oauth2.providers = {
         github.client_id = "87e19e5e68c83d9595a3";
@@ -79,6 +105,7 @@
   # old backend
   academy.backend = {
     enable = true;
+    feedback.enable = true;
     name = "Bootstrap Academy Test Instance";
     domain = "api.test.bootstrap.academy";
     frontend = "https://test.bootstrap.academy";
@@ -101,12 +128,13 @@
         # RECAPTCHA_SITEKEY = "6Ldb070iAAAAAKsAt_M_ilgDbnWcF-N_Pj2DBBeP";
         # RECAPTCHA_MIN_SCORE = "0.5";
 
-        SMTP_HOST = "mail.your-server.de";
-        SMTP_PORT = "587";
-        SMTP_USER = "noreply@bootstrap.academy";
+        SMTP_HOST = "127.0.0.1";
+        SMTP_PORT = "1025";
+        SMTP_USER = "";
+        SMTP_PASSWORD = "";
         SMTP_FROM = "Bootstrap Academy <noreply@bootstrap.academy>";
         SMTP_TLS = "False";
-        SMTP_STARTTLS = "True";
+        SMTP_STARTTLS = "False";
 
         POOL_RECYCLE = "300";
         POOL_SIZE = "20";
@@ -160,10 +188,13 @@
     templates = {
       "academy-backend/config" = {
         content = ''
-          email.smtp_url = "smtp://noreply@bootstrap.academy:${
-            config.sops.placeholder."academy-backend/smtp-password"
-          }@mail.your-server.de:587?tls=required"
+          email.smtp_url = "smtp://127.0.0.1:1025"
           jwt.secret = "${config.sops.placeholder."academy-backend/jwt-secret"}"
+          internal.secrets.auth = "${internalJwtSecrets.auth}"
+          internal.secrets.shop = "${internalJwtSecrets.shop}"
+          internal.secrets.skills = "${internalJwtSecrets.skills}"
+          internal.secrets.challenges = "${internalJwtSecrets.challenges}"
+          internal.secrets.events = "${internalJwtSecrets.events}"
           recaptcha.secret = "${config.sops.placeholder."academy-backend/recaptcha-secret"}"
           paypal.client_secret = "${config.sops.placeholder."academy-backend/shop-ms/paypal-secret"}"
           sentry.dsn = "${config.sops.placeholder."academy-backend/sentry-dsn"}"
@@ -183,7 +214,6 @@
       "academy-backend/common".content = ''
         JWT_SECRET=${config.sops.placeholder."academy-backend/jwt-secret"}
         # RECAPTCHA_SECRET=${config.sops.placeholder."academy-backend/recaptcha-secret"}
-        SMTP_PASSWORD=${config.sops.placeholder."academy-backend/smtp-password"}
       '';
     };
   };

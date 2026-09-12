@@ -4,6 +4,10 @@
   env,
   ...
 }:
+let
+  # the audiences this service talks to, plus its own for incoming tokens
+  internalJwtSecrets = config.academy.backend.internalJwtSecrets.values;
+in
 {
   imports = [ challenges-ms.nixosModules.default ];
 
@@ -15,6 +19,10 @@
 
   academy.backend.challenges = {
     enable = true;
+    sweepDeletedUsers = {
+      enable = true;
+      interval = "03:40";
+    };
     RUST_LOG = "info";
     environmentFiles = [
       config.sops.templates."academy-backend/common".path
@@ -108,6 +116,10 @@
     };
     templates."academy-backend/challenges-ms".content = ''
       CHALLENGES__SENTRY__DSN=${config.sops.placeholder."academy-backend/challenges-ms/sentry-dsn"}
+      INTERNAL_JWT_SECRETS__AUTH=${internalJwtSecrets.auth}
+      INTERNAL_JWT_SECRETS__SHOP=${internalJwtSecrets.shop}
+      INTERNAL_JWT_SECRETS__SKILLS=${internalJwtSecrets.skills}
+      INTERNAL_JWT_SECRETS__CHALLENGES=${internalJwtSecrets.challenges}
     '';
   };
 }

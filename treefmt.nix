@@ -12,6 +12,7 @@
     "flake.lock"
     "hosts/*/hardware-configuration.nix"
     "hosts/*/secrets.yml"
+    "scripts/release-preflight.py"
   ];
 
   formatter.nixfmt = {
