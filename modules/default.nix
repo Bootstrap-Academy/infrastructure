@@ -6,6 +6,7 @@
     ./boot.nix
     ./btrfs.nix
     ./containers.nix
+    ./continuous-learning-recovery.nix
     ./deploy.nix
     ./filesystems.nix
     ./logging.nix
