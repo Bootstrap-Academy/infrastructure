@@ -6,6 +6,9 @@
 }:
 let
   ms = "events";
+
+  # the audiences this service talks to, plus its own for incoming tokens
+  internalJwtSecrets = config.academy.backend.internalJwtSecrets.values;
 in
 {
   imports = [ events-ms.nixosModules.default ];
@@ -18,6 +21,10 @@ in
 
   academy.backend.events = {
     enable = true;
+    sweepDeletedUsers = {
+      enable = true;
+      interval = "03:25";
+    };
     environmentFiles = config.academy.backend.common.environmentFiles ++ [
       config.sops.templates."academy-backend/events-ms".path
     ];
@@ -40,11 +47,13 @@ in
   sops = {
     secrets = {
       "academy-backend/events-ms/sentry-dsn" = { };
-      "academy-backend/events-ms/calendar-secret" = { };
     };
     templates."academy-backend/events-ms".content = ''
       SENTRY_DSN=${config.sops.placeholder."academy-backend/events-ms/sentry-dsn"}
-      CALENDAR_SECRET=${config.sops.placeholder."academy-backend/events-ms/calendar-secret"}
+      INTERNAL_JWT_SECRET_AUTH=${internalJwtSecrets.auth}
+      INTERNAL_JWT_SECRET_SHOP=${internalJwtSecrets.shop}
+      INTERNAL_JWT_SECRET_SKILLS=${internalJwtSecrets.skills}
+      INTERNAL_JWT_SECRET_EVENTS=${internalJwtSecrets.events}
     '';
   };
 }

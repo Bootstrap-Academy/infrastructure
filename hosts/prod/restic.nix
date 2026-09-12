@@ -5,36 +5,47 @@ let
     "test"
   ];
 
+  # Keep counts of hourly, daily, weekly and monthly snapshot groups.
+  # These counts are not fixed deletion ages measured from account deletion.
   prunePolicy = [
     "--keep-hourly 48"
     "--keep-daily 14"
     "--keep-weekly 8"
-    "--keep-monthly 24"
-    "--keep-yearly unlimited"
+    "--keep-monthly 12"
   ];
+
+  prune = {
+    timerConfig = {
+      OnCalendar = "04:20";
+      Persistent = true;
+    };
+
+    initialize = true;
+
+    pruneOpts = prunePolicy;
+  };
 in
 {
-  services.restic.backups = builtins.listToAttrs (
-    map (repo: {
-      name = "box-${repo}";
-      value = {
-        timerConfig = {
-          OnCalendar = "04:20";
-          Persistent = true;
+  services.restic.backups =
+    builtins.listToAttrs (
+      map (repo: {
+        name = "box-${repo}";
+        value = prune // {
+          repository = "sftp://u381435@u381435.your-storagebox.de:23/backups/${repo}";
+          passwordFile = config.sops.secrets."restic/${repo}".path;
+          extraOptions = [ "sftp.args='-i ${config.sops.secrets."ssh/private-key".path}'" ];
+
+          runCheck = true;
+          checkOpts = [ "--read-data-subset=4G" ];
         };
-        repository = "sftp://u381435@u381435.your-storagebox.de:23/backups/${repo}";
-        passwordFile = config.sops.secrets."restic/${repo}".path;
-        extraOptions = [ "sftp.args='-i ${config.sops.secrets."ssh/private-key".path}'" ];
-
-        initialize = true;
-
-        pruneOpts = prunePolicy;
-
-        runCheck = true;
-        checkOpts = [ "--read-data-subset=4G" ];
+      }) repos
+    )
+    // {
+      defelo-prod = prune // {
+        inherit (config.backup.targets.defelo) repository environmentFile;
+        passwordFile = config.backup.targets.defelo.repositoryPasswordFile;
       };
-    }) repos
-  );
+    };
 
   sops.secrets = builtins.listToAttrs (map (repo: lib.nameValuePair "restic/${repo}" { }) repos);
 }

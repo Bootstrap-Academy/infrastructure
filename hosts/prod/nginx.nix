@@ -18,6 +18,9 @@
     virtualHosts."sandkasten.bootstrap.academy" = {
       forceSSL = true;
       enableACME = true;
+      # The code execution service is only called by challenges-ms over the
+      # internal network.
+      allow = env.wg.admins ++ [ env.net.hosts ];
       extraConfig = ''
         limit_req zone=sandkasten_public burst=5 nodelay;
         limit_req_status 429;
