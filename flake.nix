@@ -13,17 +13,17 @@
     impermanence.url = "github:nix-community/impermanence";
     sandkasten.url = "git+https://radicle.defelo.de/zKBbWZxz73j7BZMbutM7TMMT4v5K.git";
 
-    skills-ms.url = "github:Bootstrap-Academy/skills-ms/348c4b39407fcf9334aa5efd803bbcbe06a415f9";
+    skills-ms.url = "github:Bootstrap-Academy/skills-ms/2d13a4891ad08630ee7f4ab43651d273bf2aa468";
     jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/ea946c12f6f2caaa56e4b2e4edc73ce926ccfa2b";
     events-ms.url = "github:Bootstrap-Academy/events-ms/ff767ea8f76a253995b53fcfeb1217fe79f19da5";
-    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/fcc9f52e568d322712a77552d404fab32fb1894c";
-    backend.url = "github:Bootstrap-Academy/backend/fc0b82a5d1ce09eebd4cb77f8fe2220e943aeb90";
+    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/4d680fff6ae6e800559f9cb79f522d4d6c59ad96";
+    backend.url = "github:Bootstrap-Academy/backend/5e284f148b50cad63be54302cd9c358fbe36637b";
 
-    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/348c4b39407fcf9334aa5efd803bbcbe06a415f9";
+    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/2d13a4891ad08630ee7f4ab43651d273bf2aa468";
     jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/ea946c12f6f2caaa56e4b2e4edc73ce926ccfa2b";
     events-ms-develop.url = "github:Bootstrap-Academy/events-ms/ff767ea8f76a253995b53fcfeb1217fe79f19da5";
-    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/fcc9f52e568d322712a77552d404fab32fb1894c";
-    backend-develop.url = "github:Bootstrap-Academy/backend/fc0b82a5d1ce09eebd4cb77f8fe2220e943aeb90";
+    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/4d680fff6ae6e800559f9cb79f522d4d6c59ad96";
+    backend-develop.url = "github:Bootstrap-Academy/backend/5e284f148b50cad63be54302cd9c358fbe36637b";
   };
 
   outputs =
