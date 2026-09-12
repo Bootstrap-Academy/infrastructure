@@ -4,6 +4,11 @@
   backend,
   ...
 }:
+let
+  # only the audiences the monolith serves (auth, shop) and calls (the three
+  # microservices it fans account deletions out to)
+  internalJwtSecrets = config.academy.backend.internalJwtSecrets.values;
+in
 {
   imports = [
     backend.nixosModules.default
@@ -44,12 +49,28 @@
         email_cache_ttl = "5m";
       };
 
+      # New offers promise confirmation and provision within 24 hours of acceptance.
+      purchase.provision_window_seconds = {
+        premium_monthly = 86400;
+        premium_yearly = 86400;
+        coins = 86400;
+        hearts = 86400;
+        course = 86400;
+      };
+
+      microservices = {
+        skills_url = "http://127.0.0.1:${toString config.academy.backend.microservices.skills.port}/";
+        challenges_url = "http://127.0.0.1:${toString config.academy.backend.microservices.challenges.port}/";
+        events_url = "http://127.0.0.1:${toString config.academy.backend.microservices.events.port}/";
+        timeout = "10s";
+      };
+
       contact = {
         email = "hallo@bootstrap.academy";
       };
 
       recaptcha = {
-        enable = true;
+        enable = false;
         sitekey = "6Le9pMIiAAAAAAMmaH3J7ZCsQk6JcBdQtAJNXaQJ";
         min_score = 0.5;
       };
@@ -57,6 +78,11 @@
       paypal = {
         client_id = "ATyoxdWxm36bTHFypQ2lVOwDQc4lKr0CkQs6NO03HfzFjnnM-6RIre6_ycFFQDP1Iez6zVxEe6o2FHu7";
       };
+
+      # `POST /auth/oauth/authorize` accepts only the redirect uris listed here.
+      # This is also the backend's default; it is written out so that the
+      # instance says which callback it allows.
+      oauth2.redirect_uris = [ "https://bootstrap.academy/oauth/callback" ];
 
       oauth2.providers = {
         github.client_id = "4f869d4f526dbb56864b";
@@ -74,6 +100,7 @@
   # old backend
   academy.backend = {
     enable = true;
+    feedback.enable = true;
     name = "Bootstrap Academy Production Instance";
     domain = "api.bootstrap.academy";
     frontend = "https://bootstrap.academy";
@@ -96,8 +123,8 @@
 
         INTERNAL_JWT_TTL = "10";
 
-        RECAPTCHA_SITEKEY = "6Le9pMIiAAAAAAMmaH3J7ZCsQk6JcBdQtAJNXaQJ";
-        RECAPTCHA_MIN_SCORE = "0.5";
+        # RECAPTCHA_SITEKEY = "6Le9pMIiAAAAAAMmaH3J7ZCsQk6JcBdQtAJNXaQJ";
+        # RECAPTCHA_MIN_SCORE = "0.5";
 
         SMTP_HOST = "mail.your-server.de";
         SMTP_PORT = "587";
@@ -162,6 +189,11 @@
             config.sops.placeholder."academy-backend/smtp-password"
           }@mail.your-server.de:587?tls=required"
           jwt.secret = "${config.sops.placeholder."academy-backend/jwt-secret"}"
+          internal.secrets.auth = "${internalJwtSecrets.auth}"
+          internal.secrets.shop = "${internalJwtSecrets.shop}"
+          internal.secrets.skills = "${internalJwtSecrets.skills}"
+          internal.secrets.challenges = "${internalJwtSecrets.challenges}"
+          internal.secrets.events = "${internalJwtSecrets.events}"
           recaptcha.secret = "${config.sops.placeholder."academy-backend/recaptcha-secret"}"
           paypal.client_secret = "${config.sops.placeholder."academy-backend/shop-ms/paypal-secret"}"
           sentry.dsn = "${config.sops.placeholder."academy-backend/sentry-dsn"}"

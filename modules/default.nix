@@ -6,8 +6,10 @@
     ./boot.nix
     ./btrfs.nix
     ./containers.nix
+    ./continuous-learning-recovery.nix
     ./deploy.nix
     ./filesystems.nix
+    ./logging.nix
     ./monitoring.nix
     ./networking.nix
     ./nginx.nix
@@ -15,6 +17,7 @@
     ./pkgs.nix
     ./postgres.nix
     ./qemu.nix
+    ./release-hold.nix
     ./sops.nix
     ./ssh.nix
     ./sshfs.nix

@@ -14,6 +14,9 @@
     ./wireguard.nix
   ];
 
+  # Normal production operation after the coordinated release is admitted.
+  academy.releaseHold = false;
+
   filesystems.defaultLayout = true;
 
   networking.networks = {
