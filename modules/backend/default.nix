@@ -6,6 +6,7 @@
     ./lesson-modules.nix
     ./nginx.nix
     ./postgresql.nix
+    ./private-content.nix
     ./redis.nix
   ];
 

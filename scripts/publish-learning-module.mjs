@@ -10,6 +10,7 @@ import {
   rm,
   copyFile,
   chmod,
+  chown,
 } from "node:fs/promises";
 import { basename, dirname, join, resolve } from "node:path";
 import { parseArgs } from "node:util";
@@ -52,7 +53,15 @@ async function fileHash(path) {
   return hash.digest("hex");
 }
 
-export async function validatePackage(directory, baseUrl, requireName = true) {
+export async function validatePackage(
+  directory,
+  baseUrl,
+  requireName = true,
+  privateMode = false,
+) {
+  const assetBase = privateMode
+    ? "/private-lesson-modules/"
+    : "/lesson-modules/";
   const base = new URL(baseUrl.endsWith("/") ? baseUrl : baseUrl + "/");
   if (
     base.protocol !== "https:" ||
@@ -60,10 +69,10 @@ export async function validatePackage(directory, baseUrl, requireName = true) {
     base.password ||
     base.search ||
     base.hash ||
-    base.pathname !== "/lesson-modules/"
+    base.pathname !== assetBase
   ) {
     throw new Error(
-      "Use the reviewed HTTPS API origin with /lesson-modules/ as its asset base",
+      `Use the reviewed HTTPS API origin with ${assetBase} as its asset base`,
     );
   }
   const files = await inventory(directory);
@@ -79,7 +88,7 @@ export async function validatePackage(directory, baseUrl, requireName = true) {
     typeof descriptor.id !== "string" ||
     !/^[a-z0-9][a-z0-9-]{0,79}$/.test(descriptor.id)
   ) {
-    throw new Error("Invalid public module descriptor");
+    throw new Error("Invalid module descriptor");
   }
   const definition = manifest.definition;
   if (
@@ -143,11 +152,30 @@ export async function validatePackage(directory, baseUrl, requireName = true) {
   return { artifact, descriptor, files };
 }
 
-async function samePackage(source, target, files) {
+async function privatePermissions(path, gid) {
+  const info = await lstat(path);
+  const mode = info.isDirectory() ? 0o550 : 0o440;
+  if (
+    (!info.isDirectory() && !info.isFile()) ||
+    (info.mode & 0o7777) !== mode ||
+    info.gid !== gid
+  ) {
+    throw new Error(
+      "Private artifacts require 0550 directories and 0440 files with the publication root's group; existing permissions were not changed",
+    );
+  }
+  if (info.isDirectory()) {
+    for (const name of await readdir(path))
+      await privatePermissions(join(path, name), gid);
+  }
+}
+
+async function samePackage(source, target, files, privateGid) {
   if (JSON.stringify(await inventory(target)) !== JSON.stringify(files))
     throw new Error(
       "An existing artifact differs; immutable assets cannot be replaced",
     );
+  if (privateGid !== undefined) await privatePermissions(target, privateGid);
   for (const file of files) {
     if (
       (await fileHash(join(source, file))) !==
@@ -165,21 +193,29 @@ export async function publishLearningModule({
   root,
   baseUrl,
   check = false,
+  privateMode = false,
 }) {
-  const verified = await validatePackage(source, baseUrl);
+  const verified = await validatePackage(source, baseUrl, true, privateMode);
   if (check) return { ...verified, published: false, checked: true };
   let createdRoot = false;
-  try {
-    // Only create the explicit public root, never arbitrary missing parents.
-    await mkdir(root, { mode: 0o755 });
-    createdRoot = true;
-  } catch (error) {
-    if (error.code !== "EEXIST") throw error;
+  if (!privateMode) {
+    try {
+      // Only create the explicit public root, never arbitrary missing parents.
+      await mkdir(root, { mode: 0o755 });
+      createdRoot = true;
+    } catch (error) {
+      if (error.code !== "EEXIST") throw error;
+    }
   }
   const rootStat = await lstat(root);
   if (!rootStat.isDirectory())
     throw new Error("The publication root cannot be a symbolic link");
-  if (createdRoot) {
+  if (privateMode) {
+    if ((rootStat.mode & 0o7777) !== 0o750)
+      throw new Error(
+        "The existing private publication root must have mode 0750 for group reading and traversal without public access; its permissions were not changed",
+      );
+  } else if (createdRoot) {
     // mkdir's mode is filtered by the caller's umask, including deployment 077.
     await chmod(root, 0o755);
   } else if ((rootStat.mode & 0o005) !== 0o005) {
@@ -189,9 +225,10 @@ export async function publishLearningModule({
   }
   const destination = await realpath(root);
   const target = join(destination, verified.artifact);
+  const privateGid = privateMode ? rootStat.gid : undefined;
   try {
     await lstat(target);
-    await samePackage(source, target, verified.files);
+    await samePackage(source, target, verified.files, privateGid);
     return { ...verified, published: false, reused: true, directory: target };
   } catch (error) {
     if (error.code !== "ENOENT") throw error;
@@ -204,11 +241,20 @@ export async function publishLearningModule({
   try {
     for (const name of verified.files) {
       const path = join(temporary, name);
-      await mkdir(dirname(path), { recursive: true, mode: 0o755 });
+      await mkdir(dirname(path), {
+        recursive: true,
+        mode: privateMode ? 0o700 : 0o755,
+      });
       await copyFile(join(source, name), path);
-      await chmod(path, 0o444);
+      if (privateMode) await chown(path, -1, privateGid);
+      await chmod(path, privateMode ? 0o440 : 0o444);
     }
-    const staged = await validatePackage(temporary, baseUrl, false);
+    const staged = await validatePackage(
+      temporary,
+      baseUrl,
+      false,
+      privateMode,
+    );
     if (
       staged.artifact !== verified.artifact ||
       JSON.stringify(staged.descriptor) !==
@@ -221,14 +267,16 @@ export async function publishLearningModule({
       for (const item of await readdir(directory, { withFileTypes: true })) {
         if (item.isDirectory()) await seal(join(directory, item.name));
       }
-      await chmod(directory, 0o555);
+      if (privateMode) await chown(directory, -1, privateGid);
+      await chmod(directory, privateMode ? 0o550 : 0o555);
     }
     await seal(temporary);
+    if (privateMode) await privatePermissions(temporary, privateGid);
     try {
       await rename(temporary, target);
     } catch (error) {
       if (!["EEXIST", "ENOTEMPTY"].includes(error.code)) throw error;
-      await samePackage(source, target, verified.files);
+      await samePackage(source, target, verified.files, privateGid);
       return { ...verified, published: false, reused: true, directory: target };
     }
     return { ...verified, published: true, directory: target };
@@ -260,17 +308,19 @@ if (
         root: { type: "string" },
         "base-url": { type: "string" },
         check: { type: "boolean", default: false },
+        private: { type: "boolean", default: false },
       },
     });
     if (!values.package || !values.root || !values["base-url"])
       throw new Error(
-        "Usage: academy-publish-learning-module --package HASH_DIR --root STATIC_ROOT/lesson-modules --base-url https://API_HOST/lesson-modules/ [--check]",
+        "Usage: academy-publish-learning-module --package HASH_DIR --root MODULE_ROOT --base-url https://API_HOST/lesson-modules/ [--check] [--private (requires /private-lesson-modules/ and an existing 0750 root)]",
       );
     const result = await publishLearningModule({
       source: values.package,
       root: values.root,
       baseUrl: values["base-url"],
       check: values.check,
+      privateMode: values.private,
     });
     process.stdout.write(JSON.stringify(result, null, 2) + "\n");
   } catch (error) {
