@@ -13,7 +13,8 @@ let
     "academy-events-sweep-deleted-users"
     "academy-skills-sweep-deleted-users"
     "academy-challenges-sweep-deleted-users"
-  ];
+  ]
+  ++ config.academy.backend.codingExecution.workerUnits;
 in
 {
   options.academy.releaseHold = lib.mkEnableOption "explicit per-service admission during a coordinated release";
