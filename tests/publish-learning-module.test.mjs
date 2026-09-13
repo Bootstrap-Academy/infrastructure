@@ -6,6 +6,7 @@ import {
   mkdtemp,
   readFile,
   readdir,
+  stat,
   rm,
   symlink,
   writeFile,
@@ -94,6 +95,61 @@ test("publication is atomic and an identical package is safely reused", async ()
     assert.equal(
       await readFile(join(value.root, value.artifact, "main.mjs"), "utf8"),
       "export const apiVersion = 1;\n",
+    );
+  } finally {
+    await value.cleanup();
+  }
+});
+
+test("a new public root is traversable even with a private caller umask", async () => {
+  const value = await fixture();
+  const previousUmask = process.umask(0o077);
+  try {
+    const result = await publishLearningModule({ ...value, baseUrl });
+    assert.equal(result.published, true);
+    assert.equal((await stat(value.root)).mode & 0o777, 0o755);
+    assert.equal(
+      (await stat(join(value.root, value.artifact))).mode & 0o777,
+      0o555,
+    );
+    assert.equal(
+      (await stat(join(value.root, value.artifact, "assets ü"))).mode & 0o777,
+      0o555,
+    );
+    assert.equal(
+      (await stat(join(value.root, value.artifact, "assets ü/bg image.svg")))
+        .mode & 0o777,
+      0o444,
+    );
+    // The pre-existing private parent is not ours to open.
+    assert.equal((await stat(value.directory)).mode & 0o777, 0o700);
+  } finally {
+    process.umask(previousUmask);
+    await value.cleanup();
+  }
+});
+
+test("existing private roots and missing parents are not opened implicitly", async () => {
+  const value = await fixture();
+  try {
+    await mkdir(value.root, { mode: 0o700 });
+    await assert.rejects(
+      publishLearningModule({ ...value, baseUrl }),
+      /existing publication root must be publicly readable and traversable/i,
+    );
+    assert.equal((await stat(value.root)).mode & 0o777, 0o700);
+    assert.deepEqual(await readdir(value.root), []);
+    await assert.rejects(
+      publishLearningModule({
+        ...value,
+        root: join(value.directory, "absent-parent", "lesson-modules"),
+        baseUrl,
+      }),
+      { code: "ENOENT" },
+    );
+    assert.deepEqual(
+      (await readdir(value.directory)).sort(),
+      [value.artifact, "published"].sort(),
     );
   } finally {
     await value.cleanup();

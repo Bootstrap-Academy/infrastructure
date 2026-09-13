@@ -168,9 +168,25 @@ export async function publishLearningModule({
 }) {
   const verified = await validatePackage(source, baseUrl);
   if (check) return { ...verified, published: false, checked: true };
-  await mkdir(root, { recursive: true, mode: 0o755 });
-  if (!(await lstat(root)).isDirectory())
+  let createdRoot = false;
+  try {
+    // Only create the explicit public root, never arbitrary missing parents.
+    await mkdir(root, { mode: 0o755 });
+    createdRoot = true;
+  } catch (error) {
+    if (error.code !== "EEXIST") throw error;
+  }
+  const rootStat = await lstat(root);
+  if (!rootStat.isDirectory())
     throw new Error("The publication root cannot be a symbolic link");
+  if (createdRoot) {
+    // mkdir's mode is filtered by the caller's umask, including deployment 077.
+    await chmod(root, 0o755);
+  } else if ((rootStat.mode & 0o005) !== 0o005) {
+    throw new Error(
+      "The existing publication root must be publicly readable and traversable; its permissions were not changed",
+    );
+  }
   const destination = await realpath(root);
   const target = join(destination, verified.artifact);
   try {

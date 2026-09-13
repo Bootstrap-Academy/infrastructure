@@ -82,6 +82,14 @@ existing assets are never overwritten. Hidden files, symbolic links, controls
 and backslashes are rejected; normal Unicode names and spaces are supported.
 Staging directories are inaccessible through the hash-only URL route.
 
+The publisher creates only the final publication root and explicitly sets a new
+root to `0755`, including when the caller uses `umask 077`. Its parent must
+already exist with permissions suitable for the web server. Existing private
+roots are rejected without changing their permissions; no existing parent is
+opened implicitly. The Nix tmpfiles rules prepare both configured public
+directories with `0755`. Artifacts and nested asset directories are sealed to
+`0555`, files to `0444`, independently of the caller's umask.
+
 After actual GET/HEAD verification on the target host, register the reviewed
 `module.json` through Skills' internal `python -m api.register_lesson_module`
 CLI using its normal service environment. There is no public registration or
@@ -104,7 +112,8 @@ edge caching is desired; no new paid service is required for this preparation.
 ## Verification and release
 
 `node --test tests/publish-learning-module.test.mjs` checks immutable reuse,
-tampering, unexpected files, origin mismatches, symbolic links and Unicode assets.
+tampering, unexpected files, origin mismatches, symbolic links, Unicode assets,
+public traversal under `umask 077` and preservation of existing private roots.
 `tests/learning-runtime.nix` evaluates disabled host parity, enabled roles,
 capacity and every worker recovery condition against an explicitly pinned flake.
 Use pure offline evaluation with import-from-derivation disabled. The existing
