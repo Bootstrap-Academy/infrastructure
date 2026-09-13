@@ -22,5 +22,7 @@
     ./ssh.nix
     ./sshfs.nix
     ./users.nix
+    ./v2-maintenance.nix
+    ./v2-recovery.nix
   ];
 }
