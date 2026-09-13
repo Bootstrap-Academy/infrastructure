@@ -106,6 +106,7 @@ in
       instances = 1;
     };
     lessonModules.enable = true;
+    privateContent.enable = true;
     name = "Bootstrap Academy Production Instance";
     domain = "api.bootstrap.academy";
     frontend = "https://bootstrap.academy";
