@@ -196,26 +196,6 @@ in
           task_id = "94338c50-72dd-4c33-8f29-0e50bd33f328";
           subtask_id = "5184dd0b-8880-410a-ae18-34b2c014f70c";
         };
-        percent-discount = {
-          type = "multiple_choice";
-          task_id = "3224af44-bfd7-4274-93bb-2464452c35c3";
-          subtask_id = "6622ae62-8d14-4b35-a6f9-1f2860694587";
-        };
-        percent-double-discount = {
-          type = "multiple_choice";
-          task_id = "3224af44-bfd7-4274-93bb-2464452c35c3";
-          subtask_id = "36e4072b-0cb8-4627-b1f1-68eea8c3dbb4";
-        };
-        percent-pairs = {
-          type = "matching";
-          task_id = "3224af44-bfd7-4274-93bb-2464452c35c3";
-          subtask_id = "65a53338-888d-4c71-af26-e625ad8e3f6f";
-        };
-        percent-transfer = {
-          type = "multiple_choice";
-          task_id = "3224af44-bfd7-4274-93bb-2464452c35c3";
-          subtask_id = "843c9c3d-677b-4518-986f-b31b83f6d190";
-        };
         python-basket-code = {
           type = "coding";
           task_id = "9a6a1bf5-4080-4e13-a71d-4d8c8163dae4";
