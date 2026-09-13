@@ -31,9 +31,11 @@ in
     # This is a maintenance stop, not an old application/schema rollback.
     # No admission files are created; after reboot these writers remain held.
     # Events and Jobs retain their normal units and running processes.
-    systemd.services = lib.genAttrs services (name: {
-      unitConfig.ConditionPathExists = [ "/run/academy-continuous-learning-recovery-admit/${name}" ];
-    });
+    systemd.services =
+      lib.genAttrs (services ++ config.academy.backend.codingExecution.workerUnits)
+        (name: {
+          unitConfig.ConditionPathExists = [ "/run/academy-continuous-learning-recovery-admit/${name}" ];
+        });
     systemd.timers = lib.genAttrs tasks (_: {
       wantedBy = lib.mkForce [ ];
     });

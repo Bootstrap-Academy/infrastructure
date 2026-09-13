@@ -1,7 +1,9 @@
 { lib, ... }: {
   imports = [
+    ./coding-execution.nix
     ./feedback.nix
     ./internal-jwt-secrets.nix
+    ./lesson-modules.nix
     ./nginx.nix
     ./postgresql.nix
     ./redis.nix

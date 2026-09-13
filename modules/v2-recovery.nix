@@ -33,9 +33,11 @@ in
     # Retain the exact current package, settings and migration startup for every
     # writer. Admission is never created automatically and disappears on reboot.
     # Jobs has no changed package or Coin producer in this release.
-    systemd.services = lib.genAttrs (apis ++ tasks) (name: {
-      unitConfig.ConditionPathExists = [ "/run/academy-v2-recovery-admit/${name}" ];
-    });
+    systemd.services =
+      lib.genAttrs (apis ++ tasks ++ config.academy.backend.codingExecution.workerUnits)
+        (name: {
+          unitConfig.ConditionPathExists = [ "/run/academy-v2-recovery-admit/${name}" ];
+        });
     systemd.timers = lib.genAttrs tasks (_: {
       wantedBy = lib.mkForce [ ];
     });

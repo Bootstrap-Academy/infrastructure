@@ -25,6 +25,7 @@
     command = lib.getExe pkgs.prettier;
     includes = [
       "*.js"
+      "*.mjs"
       "*.json"
       "*.yaml"
       "*.yml"

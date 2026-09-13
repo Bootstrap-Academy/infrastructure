@@ -101,6 +101,11 @@ in
   academy.backend = {
     enable = true;
     feedback.enable = true;
+    codingExecution = {
+      enable = true;
+      instances = 1;
+    };
+    lessonModules.enable = true;
     name = "Bootstrap Academy Production Instance";
     domain = "api.bootstrap.academy";
     frontend = "https://bootstrap.academy";
