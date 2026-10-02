@@ -1,0 +1,93 @@
+From 6a1759a02aed282ab1af51207301974fa51bc33f Mon Sep 17 00:00:00 2001
+From: Michael Paquier <michael@paquier.xyz>
+Date: Thu, 20 Aug 2026 15:17:32 +0900
+Subject: [PATCH] Fix postmaster failing to exit when startup crashes during
+ crash restart
+
+Commit 9b43e6793b0f removed the PM_STARTUP shortcut that exited the
+postmaster directly when the startup process died, routing the case
+through HandleChildCrash() so that children processes running during
+PM_STARTUP are cleaned up rather than orphaned.
+
+However, HandleChildCrash() does nothing if FatalError is already set,
+and that is exactly the case while reinitializing after a crash: a
+relaunched startup process that dies before WAL redo starts would leave
+the state machine stuck at PM_STARTUP, preventing the postmaster to shut
+down.
+
+This issue is fixed by restoring the pre-9b43e6793b0f shortcut behavior:
+if FatalError is set when the startup process crashes, signal the
+remaining children and move to PM_NO_CHILDREN, so as the postmaster can
+properly exit with nothing orphaned.  This is only reachable in v18 and
+newer versions, the early return of HandleChildCrash() on FatalError
+being introduced in f0b7ab725139.
+
+This issue has been reported on Windows, for a postmaster with its
+console gone.  A trick to make InitPostmasterChild() fail aggressively
+was equally able to stuck a postmaster.
+
+Reported-by: Kuan-Ting Kuo <m0935388420@gmail.com>
+Author: Zexin Li <lizi.openmind@gmail.com>
+Discussion: https://postgr.es/m/19623-f9bd331940be1273@postgresql.org
+Backpatch-through: 18
+---
+ src/backend/postmaster/postmaster.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
+
+diff --git a/src/backend/postmaster/postmaster.c b/src/backend/postmaster/postmaster.c
+index 5124d39e5c2fb..af29a3b15f741 100644
+--- a/src/backend/postmaster/postmaster.c
++++ b/src/backend/postmaster/postmaster.c
+@@ -430,6 +430,7 @@ static void process_pm_shutdown_request(void);
+ static void dummy_handler(SIGNAL_ARGS);
+ static void CleanupBackend(PMChild *bp, int exitstatus);
+ static void HandleChildCrash(int pid, int exitstatus, const char *procname);
++static void HandleFatalError(QuitSignalReason reason, bool consider_sigabrt);
+ static void LogChildExit(int lev, const char *procname,
+ 						 int pid, int exitstatus);
+ static void PostmasterStateMachine(void);
+@@ -2305,8 +2306,25 @@ process_pm_child_exit(void)
+ 				}
+ 				else
+ 					StartupStatus = STARTUP_CRASHED;
+-				HandleChildCrash(pid, exitstatus,
+-								 _("startup process"));
++
++				/*
++				 * If FatalError is already set, we are reinitializing after a
++				 * previous crash, and HandleChildCrash() would do nothing,
++				 * leaving the state machine stuck at PM_STARTUP.  Give up,
++				 * signal the remaining children and head for PM_NO_CHILDREN,
++				 * where STARTUP_CRASHED makes us exit.
++				 */
++				if (StartupStatus == STARTUP_CRASHED &&
++					FatalError && Shutdown != ImmediateShutdown)
++				{
++					LogChildExit(LOG, _("startup process"), pid, exitstatus);
++					ereport(LOG,
++							(errmsg("aborting startup due to startup process failure")));
++					HandleFatalError(PMQUIT_FOR_CRASH, true);
++				}
++				else
++					HandleChildCrash(pid, exitstatus,
++									 _("startup process"));
+ 				continue;
+ 			}
+ 
+@@ -2679,15 +2697,13 @@ CleanupBackend(PMChild *bp,
+  * happened. Commonly the caller will have logged the reason for entering
+  * FatalError state.
+  *
+- * This should only be called when not already in FatalError or
+- * ImmediateShutdown state.
++ * This should only be called when not already in ImmediateShutdown state.
+  */
+ static void
+ HandleFatalError(QuitSignalReason reason, bool consider_sigabrt)
+ {
+ 	int			sigtosend;
+ 
+-	Assert(!FatalError);
+ 	Assert(Shutdown != ImmediateShutdown);
+ 
+ 	SetQuitSignalReason(reason);

@@ -13,6 +13,8 @@
     "hosts/*/hardware-configuration.nix"
     "hosts/*/secrets.yml"
     "scripts/release-preflight.py"
+    "scripts/test-backup-preparation.py"
+    "scripts/test-postgres-startup-crash.py"
   ];
 
   formatter.nixfmt = {

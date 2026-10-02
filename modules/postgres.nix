@@ -10,7 +10,15 @@ let
   escape = lib.replaceStrings [ ":" ] [ "-" ];
   passwordFileName = name: "user-password-${escape name}";
 
-  newPostgres = pkgs.postgresql_18;
+  # Upstream REL_18_STABLE fix: a second startup crash must let the
+  # postmaster exit so systemd can restart it, rather than stay in recovery.
+  newPostgres =
+    if lib.versionAtLeast pkgs.postgresql_18.version "18.7" then
+      pkgs.postgresql_18
+    else
+      pkgs.postgresql_18.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ./patches/postgresql-18-startup-crash-exit.patch ];
+      });
   upgrading = newPostgres.psqlSchema != cfg.package.psqlSchema;
 
   postgres-upgrade = pkgs.writeScriptBin "postgres-upgrade" ''
@@ -43,7 +51,7 @@ in
 
   config = lib.mkIf cfg.enable {
     services.postgresql = {
-      package = pkgs.postgresql_18;
+      package = newPostgres;
       enableTCPIP = true;
       ensureUsers = map (db: {
         name = db;
@@ -83,6 +91,15 @@ in
     };
 
     backup.exclude = [ "/var/lib/postgresql" ];
-    backup.prepare = "${pkgs.sudo}/bin/sudo -u postgres ${cfg.package}/bin/pg_dumpall > postgresql-dump.sql";
+    backup.prepare = ''
+      (
+        set -euo pipefail
+        dump=$(mktemp postgresql-dump.sql.gz.XXXXXX)
+        trap 'rm -f "$dump"' EXIT
+        ${pkgs.sudo}/bin/sudo -u postgres ${cfg.finalPackage}/bin/pg_dumpall \
+          | ${pkgs.gzip}/bin/gzip -n -1 --rsyncable > "$dump"
+        mv "$dump" postgresql-dump.sql.gz
+      )
+    '';
   };
 }
