@@ -13,12 +13,16 @@
     "flake.lock"
     "hosts/*/hardware-configuration.nix"
     "hosts/*/secrets.yml"
+    "scripts/grafana-key-migration.py"
+    "tests/grafana-key-fixture.py"
+    "hosts/prod/grafana-runtime-key.yml"
     "scripts/release-preflight.py"
     "scripts/alertmanager-config.py"
     "scripts/backup-metrics.py"
     "scripts/test-alerting.py"
     "scripts/test-backup-preparation.py"
     "scripts/test-postgres-startup-crash.py"
+    "scripts/test-private-lesson-headers.py"
   ];
 
   formatter.nixfmt = {
