@@ -1,4 +1,5 @@
 result
 .direnv
 __pycache__/
+.private-inputs/
 dns/types-dnscontrol.d.ts
