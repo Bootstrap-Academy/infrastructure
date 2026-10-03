@@ -96,9 +96,9 @@
             devShells = pkgs.linkFarm "checks-devShells" self.devShells.${pkgs.stdenv.hostPlatform.system};
           in
           pkgs.linkFarmFromDrvs "checks" [
+            self.packages.${pkgs.stdenv.hostPlatform.system}.private-lesson-header-tests
             hosts
             devShells
-            self.packages.${pkgs.stdenv.hostPlatform.system}.private-lesson-header-tests
           ];
       });
 
