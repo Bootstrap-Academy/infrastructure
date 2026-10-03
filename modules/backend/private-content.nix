@@ -8,6 +8,20 @@ let
   cfg = config.academy.backend.privateContent;
   domain = config.academy.backend.domain;
   skillsPort = toString config.academy.backend.microservices.skills.port;
+  # Own the policy at the final location; inherited add_header runs after
+  # headers-more and can also run twice when a Range filter produces an error.
+  # The pinned Nginx supports add_header_inherit (since 1.29.3). Keep the vhost's
+  # headers-more CORS policy and explicitly preserve its HSTS/frame protections.
+  privateHeaders = ''
+    add_header_inherit off;
+    # X-Accel retains upstream Cache-Control even with proxy_hide_header.
+    # Replace values idempotently, including on reprocessed error responses.
+    more_set_headers "Cache-Control: private, no-store";
+    more_set_headers "Referrer-Policy: no-referrer";
+    more_set_headers "X-Content-Type-Options: nosniff";
+    more_set_headers "X-Frame-Options: DENY";
+    more_set_headers "Strict-Transport-Security: $hsts_header";
+  '';
 in
 {
   options.academy.backend.privateContent = {
@@ -81,9 +95,13 @@ in
                 access_log off;
                 error_log /dev/null crit;
                 limit_except GET { deny all; }
-                more_set_headers "Cache-Control: private, no-store";
-                more_set_headers "Referrer-Policy: no-referrer";
-                more_set_headers "X-Content-Type-Options: nosniff";
+                # Normalize older Skills versions during a staggered rollout.
+                proxy_hide_header Cache-Control;
+                proxy_hide_header Referrer-Policy;
+                proxy_hide_header X-Content-Type-Options;
+                proxy_hide_header X-Frame-Options;
+                proxy_hide_header Strict-Transport-Security;
+                ${privateHeaders}
               '';
             };
 
@@ -97,9 +115,7 @@ in
                 error_log /dev/null crit;
                 limit_except GET { deny all; }
                 # Skills checked the grant and the exact manifest entry first.
-                more_set_headers "Cache-Control: private, no-store";
-                more_set_headers "Referrer-Policy: no-referrer";
-                more_set_headers "X-Content-Type-Options: nosniff";
+                ${privateHeaders}
               '';
             };
           };

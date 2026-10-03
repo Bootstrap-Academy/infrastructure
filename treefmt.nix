@@ -19,6 +19,7 @@
     "scripts/test-alerting.py"
     "scripts/test-backup-preparation.py"
     "scripts/test-postgres-startup-crash.py"
+    "scripts/test-private-lesson-headers.py"
   ];
 
   formatter.nixfmt = {
