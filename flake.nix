@@ -12,6 +12,7 @@
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
     sandkasten.url = "git+https://radicle.defelo.de/zKBbWZxz73j7BZMbutM7TMMT4v5K.git";
+    llm-ms.url = "github:Bootstrap-Academy/llm-ms/1f73fc69903418854e7b91130586ee01306dfe07";
 
     skills-ms.url = "github:Bootstrap-Academy/skills-ms/0d3a17d69f624f8c38843158ae40c612996b3d7d";
     jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/ea946c12f6f2caaa56e4b2e4edc73ce926ccfa2b";
@@ -84,6 +85,8 @@
     in
     {
       packages = eachSystem (pkgs: {
+        alerting-rule-tests = import ./tests/alerting-rule-tests.nix { inherit pkgs lib; };
+        alerting-tests = pkgs.callPackage ./tests/alerting.nix { inherit self; };
         checks =
           let
             hosts = pkgs.linkFarm "checks-hosts" (

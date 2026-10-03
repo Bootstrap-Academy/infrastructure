@@ -22,6 +22,25 @@ jobs:
       - uses: actions/checkout@v5
       - uses: wimpysworld/nothing-but-nix@main
       - uses: cachix/install-nix-action@v31
+      - name: Select the locked private source
+        id: llm-source
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          from pathlib import Path
+          source = json.loads(Path('flake.lock').read_text())['nodes']['llm-ms']['locked']
+          assert source['owner'] == 'Bootstrap-Academy' and source['repo'] == 'llm-ms'
+          print('revision=' + source['rev'])
+          PY
+      - uses: actions/checkout@v5
+        with:
+          repository: Bootstrap-Academy/llm-ms
+          ref: ${{ steps.llm-source.outputs.revision }}
+          path: .private-inputs/llm-ms
+          fetch-depth: 0
+          ssh-key: ${{ secrets.LLM_MS_SOURCE_SSH_KEY }}
+          persist-credentials: false
       - uses: ryanccn/attic-action@v0
         with:
           endpoint: https://cache.bootstrap.academy/
@@ -32,4 +51,10 @@ jobs:
           echo >> ~/.config/nix/nix.conf
           echo extra-substituters = https://bootstrap-academy.cachix.org https://attic.defelo.de/sandkasten https://cache.bootstrap.academy/academy >> ~/.config/nix/nix.conf
           echo extra-trusted-public-keys = bootstrap-academy.cachix.org-1:QoTxaO9Xw868/oefU7MrrkzrbFH9sUCJwWbIqsLCjxs= sandkasten:U7kShJt9A6tZr4pZRAXHmRlxC3nmOGvfviPqKL7hROE= academy:JU67oyd32Kzh7XFkUD/rZ6I3wVT8xMtgghwBvEINGus= >> ~/.config/nix/nix.conf
-      - run: nix build -L --keep-going .#checks
+      - name: Build the exact locked sources
+        env:
+          LLM_SOURCE_REVISION: ${{ steps.llm-source.outputs.revision }}
+        run: |
+          set -euo pipefail
+          nix build -L --keep-going .#checks --no-write-lock-file \
+            --override-input llm-ms "git+file://$GITHUB_WORKSPACE/.private-inputs/llm-ms?rev=$LLM_SOURCE_REVISION"
