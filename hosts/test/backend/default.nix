@@ -22,6 +22,11 @@ in
   ];
 
   # new backend
+  academy.backend.profilePublication = {
+    enable = true;
+    mode = "prepare";
+  };
+
   services.academy.backend = {
     enable = true;
 
