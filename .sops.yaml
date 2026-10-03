@@ -7,7 +7,7 @@ keys:
   - &host_test age1l0u9h7wjsdge789f4fuj0ya0cz5y6c9m7nqhlhactwlzg7rt4fxquvqdzy
 
 creation_rules:
-  - path_regex: hosts/prod/secrets\.yml$
+  - path_regex: hosts/prod/(secrets|grafana-runtime-key)\.yml$
     key_groups:
       - age: [*admin_defelo, *admin_morpheus, *host_prod]
         pgp: [*admin_nico]
