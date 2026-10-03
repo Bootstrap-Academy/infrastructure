@@ -21,6 +21,27 @@ testers.runNixOSTest {
       };
     };
     environment.systemPackages = [ pkgs.curl ];
+    system.activationScripts.test-metrics-persistence.text = ''
+      set -euo pipefail
+      mkdir -p /persistent-test/backup-metrics /var/lib/academy-backup-metrics
+    '';
+    systemd.mounts = [
+      {
+        what = "/persistent-test/backup-metrics";
+        where = "/var/lib/academy-backup-metrics";
+        options = "bind";
+      }
+    ];
+    systemd.services.test-second-backup-metric = {
+      wantedBy = [ "multi-user.target" ];
+      before = [ "prometheus-node-exporter.service" ];
+      unitConfig.RequiresMountsFor = [ "/var/lib/academy-backup-metrics" ];
+      script = ''
+        set -euo pipefail
+        ${pkgs.python3}/bin/python3 ${../scripts/backup-metrics.py} /var/lib/academy-backup-metrics fixture init
+      '';
+      serviceConfig.Type = "oneshot";
+    };
     systemd.services.prepare-backup = {
       script = ''
         set -euo pipefail
@@ -57,6 +78,14 @@ testers.runNixOSTest {
     machine.wait_for_unit("test-receiver.service")
     machine.succeed("journalctl -u alertmanager | grep -q 'webhook URL missing; alert delivery disabled'")
     machine.wait_until_succeeds("curl -sf 'http://127.0.0.1:9090/api/v1/query?query=probe_success' | grep -q '\"1\"'")
+
+    with subtest("recorders and collector wait for persistent storage, and both units are scraped"):
+        machine.succeed("mountpoint /var/lib/academy-backup-metrics")
+        machine.succeed("systemctl show academy-backup-metrics -p RequiresMountsFor --value | grep -F /var/lib/academy-backup-metrics")
+        machine.succeed("test -s /persistent-test/backup-metrics/prepare-backup.prom")
+        machine.succeed("test -s /persistent-test/backup-metrics/fixture.prom")
+        machine.wait_until_succeeds("curl -sf http://127.0.0.1:9000/metrics | grep 'academy_backup_observed_since_seconds.*unit=\"prepare-backup\"'")
+        machine.wait_until_succeeds("curl -sf http://127.0.0.1:9000/metrics | grep 'academy_backup_observed_since_seconds.*unit=\"fixture\"'")
 
     with subtest("actual unit failures and successful retries record separate times"):
         machine.succeed("touch /tmp/backup-failure")

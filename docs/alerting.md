@@ -19,6 +19,8 @@ service, updates groups at most every five minutes and repeats unresolved groups
 hours. Resolutions are sent too. Backups record their actual `SERVICE_RESULT` in `ExecStopPost`;
 failure does not erase the previous success. Observation start is separate from success, with
 a three-hour initial grace period. Metrics persist in `/var/lib/academy-backup-metrics`.
+Recorders and the node exporter require that directory's mount before starting; the exporter
+also waits for metric initialization. This preserves every unit's state during first activation.
 
 ## Webhook secret
 
