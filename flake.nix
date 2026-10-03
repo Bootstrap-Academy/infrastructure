@@ -87,7 +87,7 @@
       packages = eachSystem (pkgs: {
         alerting-rule-tests = import ./tests/alerting-rule-tests.nix { inherit pkgs lib; };
         alerting-tests = pkgs.callPackage ./tests/alerting.nix { inherit self; };
-        private-lesson-header-tests = import ./tests/private-lesson-headers.nix { inherit pkgs self; };
+        private-lesson-header-tests = import ./tests/private-lesson-headers.nix { inherit self; };
         checks =
           let
             hosts = pkgs.linkFarm "checks-hosts" (

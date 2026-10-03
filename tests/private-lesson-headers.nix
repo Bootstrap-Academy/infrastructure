@@ -1,6 +1,9 @@
-{ pkgs, self }:
+{ self }:
 
 let
+  # Test the deployed Nginx on its native architecture, even when the check
+  # farm is requested through the flake's aarch64-linux package set.
+  pkgs = self.nixosConfigurations.test.pkgs;
   fixtures =
     map
       (
