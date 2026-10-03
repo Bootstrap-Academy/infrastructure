@@ -11,6 +11,7 @@ let
 in
 {
   imports = [
+    ../../../modules/backend/llm.nix
     backend-develop.nixosModules.default
 
     ./mail.nix
@@ -105,6 +106,7 @@ in
   # old backend
   academy.backend = {
     enable = true;
+    llm.enable = true;
     feedback.enable = true;
     codingExecution = {
       enable = true;

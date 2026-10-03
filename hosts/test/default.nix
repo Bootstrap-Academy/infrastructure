@@ -9,6 +9,24 @@
   # Test services and maintenance timers use their normal startup after reboot.
   academy.releaseHold = false;
 
+  monitoring.alerting = {
+    enable = true;
+    probes = {
+      api = {
+        url = "https://api.test.bootstrap.academy/health";
+        module = "database";
+      };
+      skills.url = "https://api.test.bootstrap.academy/skills/skilltree";
+      challenges.url = "https://api.test.bootstrap.academy/challenges/openapi.json";
+      frontend.url = "https://test.bootstrap.academy/";
+    };
+  };
+  environment.persistence."/persistent/data".directories = [
+    "/var/lib/prometheus2"
+    "/var/lib/alertmanager"
+    "/var/lib/academy-backup-metrics"
+  ];
+
   filesystems.defaultLayout = true;
 
   networking.networks = {

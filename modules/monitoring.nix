@@ -1,4 +1,5 @@
 { config, lib, ... }: {
+  imports = [ ./alerting.nix ];
   options.monitoring = {
     enable = lib.mkOption {
       type = lib.types.bool;

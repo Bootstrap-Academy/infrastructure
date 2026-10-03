@@ -1,10 +1,11 @@
 { lib, pkgs, ... }:
 
 {
-  tree-root-file = ".git/config";
+  tree-root-file = "flake.nix";
   on-unmatched = "error";
 
   excludes = [
+    "**/__pycache__/**"
     ".envrc"
     "*.md"
     "*.patch"
@@ -13,6 +14,9 @@
     "hosts/*/hardware-configuration.nix"
     "hosts/*/secrets.yml"
     "scripts/release-preflight.py"
+    "scripts/alertmanager-config.py"
+    "scripts/backup-metrics.py"
+    "scripts/test-alerting.py"
     "scripts/test-backup-preparation.py"
     "scripts/test-postgres-startup-crash.py"
   ];
