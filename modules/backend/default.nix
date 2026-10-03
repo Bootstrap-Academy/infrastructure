@@ -4,6 +4,7 @@
     ./feedback.nix
     ./internal-jwt-secrets.nix
     ./lesson-modules.nix
+    ./learning-access.nix
     ./nginx.nix
     ./postgresql.nix
     ./private-content.nix
