@@ -199,6 +199,7 @@ in
 
     systemd.services =
       (lib.genAttrs backupUnits (unit: {
+        unitConfig.RequiresMountsFor = [ metricsDirectory ];
         postStop = lib.mkAfter ''
           set -euo pipefail
           ${record} ${lib.escapeShellArg unit} "$SERVICE_RESULT" || echo "backup result metric could not be recorded" >&2
@@ -224,11 +225,17 @@ in
         academy-backup-metrics = {
           wantedBy = [ "multi-user.target" ];
           before = [ "prometheus-node-exporter.service" ];
+          unitConfig.RequiresMountsFor = [ metricsDirectory ];
           script = ''
             set -euo pipefail
             ${lib.concatMapStringsSep "\n" (unit: "${record} ${lib.escapeShellArg unit} init") backupUnits}
           '';
           serviceConfig.Type = "oneshot";
+        };
+        prometheus-node-exporter = {
+          wants = [ "academy-backup-metrics.service" ];
+          after = [ "academy-backup-metrics.service" ];
+          unitConfig.RequiresMountsFor = [ metricsDirectory ];
         };
       };
     systemd.tmpfiles.rules = [ "d ${metricsDirectory} 0755 root root -" ];
