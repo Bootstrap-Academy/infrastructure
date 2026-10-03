@@ -85,6 +85,15 @@
     in
     {
       packages = eachSystem (pkgs: {
+        grafana-key-activation =
+          (self.nixosConfigurations.prod.extendModules {
+            modules = [
+              ./hosts/prod/grafana-runtime-key.nix
+              ./hosts/prod/alerting.nix
+            ];
+          }).config.system.build.toplevel;
+        grafana-key-migration = pkgs.callPackage ./scripts/grafana-key-migration.nix { };
+        grafana-key-migration-tests = pkgs.callPackage ./tests/grafana-key-migration.nix { inherit self; };
         alerting-rule-tests = import ./tests/alerting-rule-tests.nix { inherit pkgs lib; };
         alerting-tests = pkgs.callPackage ./tests/alerting.nix { inherit self; };
         checks =
@@ -97,6 +106,7 @@
           pkgs.linkFarmFromDrvs "checks" [
             hosts
             devShells
+            self.packages.${pkgs.stdenv.hostPlatform.system}.grafana-key-migration-tests
           ];
       });
 
