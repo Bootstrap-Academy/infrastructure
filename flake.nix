@@ -96,6 +96,7 @@
         grafana-key-migration-tests = pkgs.callPackage ./tests/grafana-key-migration.nix { inherit self; };
         alerting-rule-tests = import ./tests/alerting-rule-tests.nix { inherit pkgs lib; };
         alerting-tests = pkgs.callPackage ./tests/alerting.nix { inherit self; };
+        private-lesson-header-tests = import ./tests/private-lesson-headers.nix { inherit self; };
         checks =
           let
             hosts = pkgs.linkFarm "checks-hosts" (
@@ -104,6 +105,7 @@
             devShells = pkgs.linkFarm "checks-devShells" self.devShells.${pkgs.stdenv.hostPlatform.system};
           in
           pkgs.linkFarmFromDrvs "checks" [
+            self.packages.${pkgs.stdenv.hostPlatform.system}.private-lesson-header-tests
             hosts
             devShells
             self.packages.${pkgs.stdenv.hostPlatform.system}.grafana-key-migration-tests
