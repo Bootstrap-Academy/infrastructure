@@ -6,6 +6,7 @@ The source is never modified; the operator must stop Grafana before taking its s
 
 import argparse
 import base64
+from contextlib import closing
 import hashlib
 import json
 import os
@@ -188,14 +189,15 @@ def main():
     fd = os.open(args.output, os.O_CREAT | os.O_EXCL | os.O_WRONLY | os.O_NOFOLLOW, 0o600)
     os.close(fd)
     try:
-        with sqlite3.connect(source.as_uri() + "?mode=ro", uri=True) as original:
-            with sqlite3.connect(args.output) as db:
+        with closing(sqlite3.connect(source.as_uri() + "?mode=ro", uri=True)) as original:
+            with closing(sqlite3.connect(args.output)) as db:
                 original.backup(db)
                 if db.execute("PRAGMA integrity_check").fetchall() != [("ok",)]:
                     raise MigrationError("source integrity check failed")
                 db.execute("BEGIN IMMEDIATE")
                 counts = migrate(db, old_key, new_key)
                 db.commit()
+                db.execute("PRAGMA wal_checkpoint(TRUNCATE)")
                 if db.execute("PRAGMA integrity_check").fetchall() != [("ok",)]:
                     raise MigrationError("output integrity check failed")
         result = {

@@ -85,6 +85,7 @@ testers.runNixOSTest {
     machine.succeed("systemctl stop grafana")
     machine.succeed(f"{fixture} legacy {database} ${../scripts/grafana-key-migration.py}")
     machine.succeed(f"sqlite3 {database} '.backup /root/migration/old.db'")
+    machine.succeed("sqlite3 /root/migration/old.db \"PRAGMA journal_mode=WAL;\"")
     original_hash = machine.succeed("sha256sum /root/migration/old.db").split()[0]
     command = "grafana-key-migration --source /root/migration/old.db --old-key-file /var/lib/grafana/key --new-key-file /root/migration/new-key"
 
@@ -107,6 +108,9 @@ testers.runNixOSTest {
         assert result["counts"]["envelope_secrets"] > 0, result
         assert result["counts"]["legacy_secrets"] > 0, result
         assert machine.succeed("sha256sum /root/migration/old.db").split()[0] == original_hash
+        manifest = json.loads(machine.succeed("cat /root/migration/new.db.manifest.json"))
+        assert machine.succeed("sha256sum /root/migration/new.db").split()[0] == manifest["database_sha256"]
+        machine.succeed("test ! -e /root/migration/new.db-wal; test ! -e /root/migration/new.db-shm")
         machine.fail(command + " --output /root/migration/new.db")
         machine.succeed("install -m 0640 -o grafana -g grafana /root/migration/new.db " + database)
         machine.succeed("install -m 0440 -o root -g grafana /root/migration/new.db.manifest.json /var/lib/grafana/runtime-key-ready.json")

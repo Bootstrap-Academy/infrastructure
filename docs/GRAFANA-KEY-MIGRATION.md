@@ -20,7 +20,7 @@ weiterverwenden und gemeinsam mit der Datenbank privat sichern.
 `grafana-key-migration` öffnet die Quelle nur lesend, erzeugt eine neue private SQLite-Kopie
 und ändert diese in einer Transaktion. Alle DEKs werden mit dem alten Schlüssel entschlüsselt,
 mit dem neuen umhüllt und vollständig rückgeprüft; IDs/Provider/Labels bleiben erhalten.
-Envelope-Payloads bleiben bytegleich. Direkte alte Payloads werden mit dem neuen Schlüssel
+Vor dem Manifest werden WAL und Datenbankdatei synchronisiert und alle Verbindungen geschlossen. Envelope-Payloads bleiben bytegleich. Direkte alte Payloads werden mit dem neuen Schlüssel
 verschlüsselt. Unterstützt: Datasource-/Plugin-JSON, Secret-KV, Kontaktpunkte in
 `alert_configuration`, Snapshot-, OAuth-, Signing-Key- und externe Sitzungsspalten.
 Gezählt und geprüft werden alle vorhandenen unterstützten Payloads einschließlich inaktiver
@@ -56,7 +56,7 @@ nix build --no-link -L .#nixosConfigurations.prod.config.system.build.toplevel
 Der VM-Test erzeugt die Secrets mit echten Grafana-APIs. Ein lokaler HTTP-Dienst akzeptiert
 die Datasource-Anfrage und den Kontaktpunkt-Test ausschließlich mit dem gespeicherten
 jeweiligen Passwort. Das wird auf Altstand, migriertem Stand, nach Neustart und nach
-Restore geprüft. Außerdem: alter Direktpayload, unbekannter Provider, falscher Altkey,
+Restore geprüft. Außerdem: WAL-Snapshot mit verifiziertem finalem DB-Hash, alter Direktpayload, unbekannter Provider, falscher Altkey,
 unveränderte Quelle, verweigertes Überschreiben, Startguard, Dateirechte und dieselbe
 Prometheus-Provisionierung wie bei der vorbereiteten Prod-Alarmierung. Kein Anbieterschlüssel
 und kein echter externer Kontaktpunkt werden gebraucht.
