@@ -38,6 +38,7 @@ jobs:
           repository: Bootstrap-Academy/llm-ms
           ref: ${{ steps.llm-source.outputs.revision }}
           path: .private-inputs/llm-ms
+          fetch-depth: 0
           ssh-key: ${{ secrets.LLM_MS_SOURCE_SSH_KEY }}
           persist-credentials: false
       - uses: ryanccn/attic-action@v0
