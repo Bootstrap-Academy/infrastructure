@@ -86,6 +86,9 @@
     {
       packages = eachSystem (pkgs: {
         profile-publication-tests = pkgs.callPackage ./tests/profile-publication.nix { inherit self; };
+        profile-publication-config-tests = pkgs.callPackage ./tests/profile-publication-config.nix {
+          inherit self;
+        };
         grafana-key-activation =
           (self.nixosConfigurations.prod.extendModules {
             modules = [
@@ -110,6 +113,7 @@
             self.checks.${pkgs.stdenv.hostPlatform.system}.sandbox-hardening
             self.packages.${pkgs.stdenv.hostPlatform.system}.grafana-key-migration-tests
             self.packages.${pkgs.stdenv.hostPlatform.system}.profile-publication-tests
+            self.packages.${pkgs.stdenv.hostPlatform.system}.profile-publication-config-tests
           ];
       });
 
