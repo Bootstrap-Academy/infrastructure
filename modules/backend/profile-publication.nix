@@ -176,6 +176,7 @@ in
               extraConfig = protected;
             };
             "~ ^/auth/users(?:/|$)" = proxy 8000 "" "";
+            "~ ^/auth/sessions?(?:/|$)" = proxy 8000 "" "";
             "~ ^/profiles(?:/|$)" = proxy 8000 "" "";
             "~ ^/skills/xp(?:/|$)" = proxy backend.microservices.skills.port "^/skills(/.*)$ $1" "";
             "~ ^/challenges/leaderboard(?:/|$)" =

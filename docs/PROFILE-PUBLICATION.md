@@ -12,7 +12,7 @@ The enabled module has three explicit modes:
 
 Settings are only added to packages that support their contract. Unknown/incomplete capabilities cannot open shared mode. The source checks identify compatible contracts; independent reviews and the combined application acceptance remain required. Capabilities alone do not establish application correctness.
 
-Person endpoints (`/auth/users`, `/skills/xp`, rankings, future `/profiles`) have `Cache-Control: private, no-store` and authentication/origin variance on successes and errors. Proxy caches and conditional reuse are disabled. An upstream 304 becomes an unavailable response. Direct `_internal` requests, including the path without its final slash, return 403 before public proxy locations. Service authentication still protects internal calls over loopback. Existing catalog, lesson module and learning ingress stays independent.
+Person endpoints (`/auth/users`, `/auth/session`, `/auth/sessions`, `/skills/xp`, rankings, future `/profiles`) have `Cache-Control: private, no-store` and authentication/origin variance on successes and errors. Proxy caches and conditional reuse are disabled. An upstream 304 becomes an unavailable response. Direct `_internal` requests, including the path without its final slash, return 403 before public proxy locations. Service authentication still protects internal calls over loopback. Existing catalog, lesson module and learning ingress stays independent.
 
 ## Activation
 
