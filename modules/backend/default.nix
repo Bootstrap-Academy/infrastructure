@@ -8,6 +8,7 @@
     ./nginx.nix
     ./postgresql.nix
     ./private-content.nix
+    ./profile-publication.nix
     ./redis.nix
   ];
 
