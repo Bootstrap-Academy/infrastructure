@@ -15,6 +15,8 @@ If you would like to submit a bug report or feature request, or are looking for 
 ### Deployment
 Follow the [coordinated release and recovery procedure](docs/COMPLIANCE-RELEASE.md) with an explicitly selected release manifest. Verify the exact source pins and keep application writers held until their migration and recovery prerequisites are met. Schema downgrades and arbitrary previous-generation activation are not safe recovery procedures.
 
+For profile publication, use the [ingress and recovery procedure](docs/PROFILE-PUBLICATION.md). Its preparation is disabled by default; an activated privacy policy keeps publication fenced during recovery.
+
 On a system with [Nix](https://nixos.org/) installed, enter a dev shell using `nix develop` (or use [direnv](https://github.com/direnv/direnv)) and run the `deploy` command. For more information, run `deploy --help` or refer to the [readme of deploy-sh](https://radicle.defelo.de/nodes/radicle.defelo.de/rad:z392ZFR7AcScpaQqmTKUDkDj9FWMq).
 
 ### PostgreSQL
