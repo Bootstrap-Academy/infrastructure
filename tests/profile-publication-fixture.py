@@ -52,7 +52,7 @@ def check(mode):
             body = request(path, 503 if mode == "closed" else 200, method)
             if mode == "closed":
                 assert b"fixture" not in body
-    for path in ("/auth/users/me", "/auth/users/me/publication", "/auth/users/me/publication-preview", "/skills/xp/fixture"):
+    for path in ("/auth/session", "/auth/sessions", "/auth/users/me", "/auth/users/me/publication", "/auth/users/me/publication-preview", "/skills/xp/fixture"):
         for status in (200, 401, 403, 404, 503):
             request(path, status, headers={"X-Fixture-Status": str(status)})
         request(path, 200, headers={"If-None-Match": '"legacy-person"', "If-Modified-Since": "Thu, 01 Oct 2026 00:00:00 GMT"})
