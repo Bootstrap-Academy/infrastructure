@@ -10,7 +10,19 @@ let
     let
       cfg =
         (self.nixosConfigurations.test.extendModules {
-          modules = [ { academy.backend.profilePublication = publication; } ] ++ extra;
+          modules = [
+            {
+              academy.backend.profilePublication = lib.mapAttrs (_: value: lib.mkForce value) (
+                {
+                  enable = false;
+                  activated = false;
+                  mode = "prepare";
+                }
+                // publication
+              );
+            }
+          ]
+          ++ extra;
         }).config;
       nginx = cfg.systemd.services.nginx;
     in

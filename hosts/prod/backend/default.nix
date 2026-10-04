@@ -11,6 +11,7 @@ let
 in
 {
   imports = [
+    ../../../modules/backend/llm.nix
     backend.nixosModules.default
 
     ./skills.nix
@@ -37,6 +38,11 @@ in
           ''^https://bootstrap\.academy$''
           ''^https://admin\.bootstrap\.academy$''
         ];
+      };
+
+      learning_policy.mode = "legacy";
+      publication = {
+        enabled = false;
       };
 
       # database.run_migrations = false;
@@ -100,6 +106,8 @@ in
   # old backend
   academy.backend = {
     enable = true;
+    llm.enable = true;
+    learningAccess.enable = false;
     feedback.enable = true;
     codingExecution = {
       enable = true;

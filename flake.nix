@@ -14,17 +14,17 @@
     sandkasten.url = "git+https://radicle.defelo.de/zKBbWZxz73j7BZMbutM7TMMT4v5K.git";
     llm-ms.url = "github:Bootstrap-Academy/llm-ms/1f73fc69903418854e7b91130586ee01306dfe07";
 
-    skills-ms.url = "github:Bootstrap-Academy/skills-ms/0d3a17d69f624f8c38843158ae40c612996b3d7d";
+    skills-ms.url = "github:Bootstrap-Academy/skills-ms/97faa10337690aa9889821d70f1b697a9b129270";
     jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/ea946c12f6f2caaa56e4b2e4edc73ce926ccfa2b";
     events-ms.url = "github:Bootstrap-Academy/events-ms/0e1b3772027ec151268afcfc461d3ca842a9d716";
-    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/5d2928b9482501c8a06c69af5041dd02b3e4961a";
-    backend.url = "github:Bootstrap-Academy/backend/e5e4ef96b341906b3cc89bc2d754c9f6a3f5473b";
+    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/21c8a45f83bee69fab254b7c0709357a07c4031c";
+    backend.url = "github:Bootstrap-Academy/backend/1d9c4d0747ed0c3865c762f28c614d29cf2f510c";
 
-    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/0d3a17d69f624f8c38843158ae40c612996b3d7d";
+    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/97faa10337690aa9889821d70f1b697a9b129270";
     jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/ea946c12f6f2caaa56e4b2e4edc73ce926ccfa2b";
     events-ms-develop.url = "github:Bootstrap-Academy/events-ms/0e1b3772027ec151268afcfc461d3ca842a9d716";
-    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/5d2928b9482501c8a06c69af5041dd02b3e4961a";
-    backend-develop.url = "github:Bootstrap-Academy/backend/e5e4ef96b341906b3cc89bc2d754c9f6a3f5473b";
+    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/21c8a45f83bee69fab254b7c0709357a07c4031c";
+    backend-develop.url = "github:Bootstrap-Academy/backend/1d9c4d0747ed0c3865c762f28c614d29cf2f510c";
   };
 
   outputs =
@@ -100,6 +100,7 @@
         grafana-key-migration-tests = pkgs.callPackage ./tests/grafana-key-migration.nix { inherit self; };
         alerting-rule-tests = import ./tests/alerting-rule-tests.nix { inherit pkgs lib; };
         alerting-tests = pkgs.callPackage ./tests/alerting.nix { inherit self; };
+        private-lesson-header-tests = import ./tests/private-lesson-headers.nix { inherit self; };
         checks =
           let
             hosts = pkgs.linkFarm "checks-hosts" (
@@ -108,6 +109,7 @@
             devShells = pkgs.linkFarm "checks-devShells" self.devShells.${pkgs.stdenv.hostPlatform.system};
           in
           pkgs.linkFarmFromDrvs "checks" [
+            self.packages.${pkgs.stdenv.hostPlatform.system}.private-lesson-header-tests
             hosts
             devShells
             self.checks.${pkgs.stdenv.hostPlatform.system}.sandbox-hardening

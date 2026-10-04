@@ -11,8 +11,8 @@ let
       modules = [
         {
           academy.backend.profilePublication = {
-            enable = true;
-            inherit mode;
+            enable = lib.mkForce true;
+            mode = lib.mkForce mode;
           };
         }
       ]
