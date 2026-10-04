@@ -1,9 +1,4 @@
-{
-  config,
-  challenges-ms-develop,
-  env,
-  ...
-}:
+{ config, challenges-ms-develop, ... }:
 
 let
   # the audiences this service talks to, plus its own for incoming tokens
@@ -96,7 +91,9 @@ in
       };
 
       challenges.coding_challenges = {
-        sandkasten_url = "http://${env.host.sandkasten}:8000/";
+        # Test workers and inline tests use the isolated hardened sandbox on this
+        # host (../sandbox.nix). The shared sandbox host keeps serving Prod.
+        sandkasten_url = "http://${config.services.sandkasten.settings.host}:${toString config.services.sandkasten.settings.port}/";
         max_concurrency = 2;
         timeout = 10; # seconds
         hearts = 2;

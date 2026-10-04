@@ -7,6 +7,6 @@
     port = lib.mkForce 18080;
   };
 
-  # Learning workers keep their existing executor until technical-error
-  # classification is merged and verified. This instance is isolated on Test.
+  # Isolated on Test: loopback only, with the bounded program cache. Test's
+  # learning workers and inline tests use it (backend/challenges.nix).
 }
