@@ -20,11 +20,11 @@
     challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/5d2928b9482501c8a06c69af5041dd02b3e4961a";
     backend.url = "github:Bootstrap-Academy/backend/e5e4ef96b341906b3cc89bc2d754c9f6a3f5473b";
 
-    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/97faa10337690aa9889821d70f1b697a9b129270";
+    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/d23843d4dbb822ee75c10d19265a62dcc0de5043";
     jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/ea946c12f6f2caaa56e4b2e4edc73ce926ccfa2b";
     events-ms-develop.url = "github:Bootstrap-Academy/events-ms/0e1b3772027ec151268afcfc461d3ca842a9d716";
     challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/003f5e83a0c387e54c29f5a526f173c110060c3c";
-    backend-develop.url = "github:Bootstrap-Academy/backend/1d9c4d0747ed0c3865c762f28c614d29cf2f510c";
+    backend-develop.url = "github:Bootstrap-Academy/backend/0aa5fa1785b702c22326bdc01c7b1ecc07c5e856";
   };
 
   outputs =
