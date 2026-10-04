@@ -10,7 +10,11 @@ let
     let
       cfg =
         (self.nixosConfigurations.test.extendModules {
-          modules = [ { academy.backend.profilePublication = publication; } ] ++ extra;
+          # Force the scenario values: a host may already set the module, as Test does.
+          modules = [
+            { academy.backend.profilePublication = lib.mapAttrs (_: lib.mkForce) publication; }
+          ]
+          ++ extra;
         }).config;
       nginx = cfg.systemd.services.nginx;
     in
@@ -54,7 +58,10 @@ let
       enable = true;
       activated = true;
     } [ ];
-    activatedDisabled = describe { activated = true; } [ ];
+    activatedDisabled = describe {
+      enable = false;
+      activated = true;
+    } [ ];
     sharedForeignPackage = describe {
       enable = true;
       mode = "shared";
