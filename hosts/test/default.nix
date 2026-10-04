@@ -4,6 +4,7 @@
   imports = [
     ./backend
     ./firewall.nix
+    ./sandbox.nix
   ];
 
   # Test services and maintenance timers use their normal startup after reboot.
