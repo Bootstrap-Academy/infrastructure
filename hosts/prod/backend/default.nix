@@ -108,8 +108,8 @@ in
     enable = true;
     profilePublication = {
       enable = true;
-      mode = "prepare";
-      activated = false;
+      mode = "closed";
+      activated = true;
     };
     llm.enable = true;
     learningAccess.enable = false;
