@@ -2017,17 +2017,17 @@
         "poetry2nix": "poetry2nix_6"
       },
       "locked": {
-        "lastModified": 1791072309,
-        "narHash": "sha256-uFg335QjdoUm7kpqd0n6nppiCWgjPAs7a32+t7HH8NM=",
+        "lastModified": 1791075584,
+        "narHash": "sha256-1qsvb78PyoJcQcKurOP/qOpsG04L7AHgXof5HGJcDys=",
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "ac69c532664ecdf6c71ab0023767d85705732428",
+        "rev": "97faa10337690aa9889821d70f1b697a9b129270",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "ac69c532664ecdf6c71ab0023767d85705732428",
+        "rev": "97faa10337690aa9889821d70f1b697a9b129270",
         "type": "github"
       }
     },
