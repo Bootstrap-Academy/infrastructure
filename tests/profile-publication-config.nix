@@ -10,9 +10,17 @@ let
     let
       cfg =
         (self.nixosConfigurations.test.extendModules {
-          # Force the scenario values: a host may already set the module, as Test does.
           modules = [
-            { academy.backend.profilePublication = lib.mapAttrs (_: lib.mkForce) publication; }
+            {
+              academy.backend.profilePublication = lib.mapAttrs (_: value: lib.mkForce value) (
+                {
+                  enable = false;
+                  activated = false;
+                  mode = "prepare";
+                }
+                // publication
+              );
+            }
           ]
           ++ extra;
         }).config;
@@ -58,10 +66,7 @@ let
       enable = true;
       activated = true;
     } [ ];
-    activatedDisabled = describe {
-      enable = false;
-      activated = true;
-    } [ ];
+    activatedDisabled = describe { activated = true; } [ ];
     sharedForeignPackage = describe {
       enable = true;
       mode = "shared";
