@@ -145,6 +145,15 @@ pkgs.testers.runNixOSTest {
     machine.succeed(f"test ! -e {marker}")
     check("open")
 
+    # Recreate the runtime directory with Nginx search rights under umask 077.
+    machine.succeed("systemctl stop academy-profile-publication-guard.timer")
+    machine.succeed(f"rm -rf {runtime}")
+    machine.succeed(f"systemctl start {guard}")
+    machine.succeed(f"test $(stat -c %a {runtime}) = 711")
+    machine.succeed(f"test $(stat -c %a {runtime}/released-prepare) = 600")
+    check("open")
+    machine.succeed("systemctl start academy-profile-publication-guard.timer")
+
     # Before activation an outage closes legacy rankings only until the timer rerun.
     nginx_restart_during_outage()
     machine.succeed(f"test ! -e {marker}")
