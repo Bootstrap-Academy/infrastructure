@@ -10,10 +10,9 @@ let
     (self.nixosConfigurations.test.extendModules {
       modules = [
         {
-          # Forced, so a host that already sets the module (Test) cannot conflict.
-          academy.backend.profilePublication = lib.mapAttrs (_: lib.mkForce) {
-            enable = true;
-            inherit mode;
+          academy.backend.profilePublication = {
+            enable = lib.mkForce true;
+            mode = lib.mkForce mode;
           };
         }
       ]
