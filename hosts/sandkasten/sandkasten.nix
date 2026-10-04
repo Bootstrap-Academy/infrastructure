@@ -1,8 +1,4 @@
-{ sandkasten, ... }:
-
 {
-  imports = [ sandkasten.nixosModules.default ];
-
   services.sandkasten = {
     enable = true;
 

@@ -106,8 +106,16 @@
           pkgs.linkFarmFromDrvs "checks" [
             hosts
             devShells
+            self.checks.${pkgs.stdenv.hostPlatform.system}.sandbox-hardening
             self.packages.${pkgs.stdenv.hostPlatform.system}.grafana-key-migration-tests
           ];
+      });
+
+      checks = eachSystem (pkgs: {
+        sandbox-hardening = import ./tests/sandbox-hardening.nix {
+          inherit pkgs;
+          inherit (inputs) sandkasten;
+        };
       });
 
       nixosConfigurations = lib.pipe ./hosts [
