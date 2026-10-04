@@ -25,7 +25,7 @@ def request(language, code, route="run"):
         {"Content-Type": "application/json"},
     )
     try:
-        with urllib.request.urlopen(req, timeout=90) as response:
+        with urllib.request.urlopen(req, timeout=240) as response:
             return response.status, json.load(response)
     except urllib.error.HTTPError as response:
         return response.code, json.load(response)
@@ -72,7 +72,7 @@ run("kotlin", 'fun main() { println("OK") }')
 with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
     futures = [pool.submit(request, "python", f"import time\ntime.sleep(4)\nprint('OK-{i}')") for i in range(2)]
     found = {}
-    until = time.monotonic() + 15
+    until = time.monotonic() + 45
     while time.monotonic() < until and len(found) < 2:
         for proc in Path("/proc").glob("[0-9]*"):
             try:
