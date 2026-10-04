@@ -14,17 +14,17 @@
     sandkasten.url = "git+https://radicle.defelo.de/zKBbWZxz73j7BZMbutM7TMMT4v5K.git";
     llm-ms.url = "github:Bootstrap-Academy/llm-ms/1f73fc69903418854e7b91130586ee01306dfe07";
 
-    skills-ms.url = "github:Bootstrap-Academy/skills-ms/97faa10337690aa9889821d70f1b697a9b129270";
+    skills-ms.url = "github:Bootstrap-Academy/skills-ms/d23843d4dbb822ee75c10d19265a62dcc0de5043";
     jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/ea946c12f6f2caaa56e4b2e4edc73ce926ccfa2b";
     events-ms.url = "github:Bootstrap-Academy/events-ms/0e1b3772027ec151268afcfc461d3ca842a9d716";
-    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/21c8a45f83bee69fab254b7c0709357a07c4031c";
-    backend.url = "github:Bootstrap-Academy/backend/1d9c4d0747ed0c3865c762f28c614d29cf2f510c";
+    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/003f5e83a0c387e54c29f5a526f173c110060c3c";
+    backend.url = "github:Bootstrap-Academy/backend/0aa5fa1785b702c22326bdc01c7b1ecc07c5e856";
 
-    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/97faa10337690aa9889821d70f1b697a9b129270";
+    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/d23843d4dbb822ee75c10d19265a62dcc0de5043";
     jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/ea946c12f6f2caaa56e4b2e4edc73ce926ccfa2b";
     events-ms-develop.url = "github:Bootstrap-Academy/events-ms/0e1b3772027ec151268afcfc461d3ca842a9d716";
-    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/21c8a45f83bee69fab254b7c0709357a07c4031c";
-    backend-develop.url = "github:Bootstrap-Academy/backend/1d9c4d0747ed0c3865c762f28c614d29cf2f510c";
+    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/003f5e83a0c387e54c29f5a526f173c110060c3c";
+    backend-develop.url = "github:Bootstrap-Academy/backend/0aa5fa1785b702c22326bdc01c7b1ecc07c5e856";
   };
 
   outputs =

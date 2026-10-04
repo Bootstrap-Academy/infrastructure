@@ -56,6 +56,7 @@ def fence(marker):
 def release(directory, mode):
     """Keep only the flag of a successfully checked mode; None closes all."""
     directory.mkdir(mode=0o711, parents=True, exist_ok=True)
+    directory.chmod(0o711)
     for name in RELEASING:
         if name != mode:
             (directory / ("released-" + name)).unlink(missing_ok=True)

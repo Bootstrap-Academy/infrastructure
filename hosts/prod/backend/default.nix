@@ -106,6 +106,11 @@ in
   # old backend
   academy.backend = {
     enable = true;
+    profilePublication = {
+      enable = true;
+      mode = "prepare";
+      activated = false;
+    };
     llm.enable = true;
     learningAccess.enable = false;
     feedback.enable = true;
