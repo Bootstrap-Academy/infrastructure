@@ -18,6 +18,7 @@
     ./postgres.nix
     ./qemu.nix
     ./release-hold.nix
+    ./sandbox-hardening.nix
     ./sops.nix
     ./ssh.nix
     ./sshfs.nix
