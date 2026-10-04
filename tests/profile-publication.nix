@@ -12,6 +12,7 @@ let
         {
           academy.backend.profilePublication = {
             enable = lib.mkForce true;
+            activated = lib.mkForce false;
             mode = lib.mkForce mode;
           };
         }
