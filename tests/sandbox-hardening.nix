@@ -68,6 +68,10 @@ pkgs.testers.runNixOSTest {
         ];
         program_ttl = lib.mkForce 2;
         prune_programs_interval = lib.mkForce 1;
+        # Emulated/contended CI guests need wall-clock slack. Host budgets remain
+        # the existing 30-second compilation and 5-second execution limits.
+        compile_limits.time = lib.mkForce 120;
+        run_limits.time = lib.mkForce 30;
       };
     };
     environment.systemPackages = [
@@ -81,6 +85,7 @@ pkgs.testers.runNixOSTest {
     machine.start()
     machine.wait_for_unit("sandkasten.service")
     machine.wait_for_open_port(8000)
+    machine.wait_for_unit("multi-user.target")
     print(machine.succeed("python /etc/sandbox-hardening-probe.py"))
     machine.succeed("systemctl is-active sandkasten.service")
   '';
