@@ -24,7 +24,8 @@ in
   # new backend
   academy.backend.profilePublication = {
     enable = true;
-    mode = "prepare";
+    mode = "shared";
+    activated = true;
   };
 
   services.academy.backend = {
