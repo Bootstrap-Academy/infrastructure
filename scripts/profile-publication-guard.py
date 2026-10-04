@@ -1,7 +1,11 @@
-"""Read only the durable policy; retain a sticky ingress marker across recovery.
+"""Read only the durable policy; open ingress through a runtime release flag.
 
 No account data, credentials, SQL bodies or database errors are logged.
-The reviewed activation procedure creates the marker before changing policy.
+Nginx serves rankings and profile projections only while the release flag of
+its own mode exists. Every failed run removes the flags, so an unavailable
+database closes these surfaces without stopping Nginx. The persistent marker
+records an activated policy; the reviewed activation procedure creates it in
+closed mode before changing policy.
 """
 import argparse
 import os
@@ -9,11 +13,13 @@ from pathlib import Path
 import subprocess
 import sys
 
+RELEASING = ("prepare", "shared")
 
-def check_policy(psql, runuser):
+
+def check_policy(psql, runuser, database):
     def query(sql):
         result = subprocess.run(
-            [runuser, "-u", "postgres", "--", psql, "-X", "-qAt", "-v", "ON_ERROR_STOP=1", "-d", "academy", "-c", sql],
+            [runuser, "-u", "postgres", "--", psql, "-X", "-qAt", "-v", "ON_ERROR_STOP=1", "-d", database, "-c", sql],
             capture_output=True, text=True, timeout=15,
             env={"PATH": os.environ.get("PATH", ""), "PGCONNECT_TIMEOUT": "5"},
         )
@@ -34,40 +40,64 @@ def check_policy(psql, runuser):
     return True, True
 
 
+def fence(marker):
+    marker.parent.mkdir(mode=0o711, parents=True, exist_ok=True)
+    marker.parent.chmod(0o711)
+    with marker.open("a") as stream:
+        stream.flush()
+        os.fsync(stream.fileno())
+    directory = os.open(marker.parent, os.O_DIRECTORY)
+    try:
+        os.fsync(directory)
+    finally:
+        os.close(directory)
+
+
+def release(directory, mode):
+    """Keep only the flag of a successfully checked mode; None closes all."""
+    directory.mkdir(mode=0o711, parents=True, exist_ok=True)
+    for name in RELEASING:
+        if name != mode:
+            (directory / ("released-" + name)).unlink(missing_ok=True)
+    if mode is not None:
+        (directory / ("released-" + mode)).touch(mode=0o600)
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=("prepare", "closed", "shared"), required=True)
+    parser.add_argument("--mode", choices=("prepare", "closed", "shared", "recovery"), required=True)
+    parser.add_argument("--activated", action="store_true")
     parser.add_argument("--marker", type=Path, required=True)
+    parser.add_argument("--release-dir", type=Path, required=True)
+    parser.add_argument("--database", required=True)
     parser.add_argument("--psql", required=True)
     parser.add_argument("--runuser", required=True)
     args = parser.parse_args()
     os.umask(0o077)
-    def fence():
-        args.marker.parent.mkdir(mode=0o711, parents=True, exist_ok=True)
-        args.marker.parent.chmod(0o711)
-        with args.marker.open("a") as stream:
-            stream.flush()
-            os.fsync(stream.fileno())
-        directory = os.open(args.marker.parent, os.O_DIRECTORY)
-        try:
-            os.fsync(directory)
-        finally:
-            os.close(directory)
-
+    # Before activation, prepare and recovery fence only on an active policy, so
+    # a database outage or recovery closes legacy rankings just until the next run.
+    always_fence = args.mode in ("closed", "shared") or args.activated
     try:
-        if args.mode in ("closed", "shared"):
-            fence()
-        active, migrated = check_policy(args.psql, args.runuser)
+        if always_fence:
+            fence(args.marker)
+        active, migrated = check_policy(args.psql, args.runuser, args.database)
         if active:
-            fence()
+            fence(args.marker)
         if args.mode == "shared" and not (active and migrated):
             raise ValueError("shared mode needs activated policy")
-    except (OSError, ValueError, subprocess.SubprocessError):
-        # An uncertain restored/missing state cannot justify legacy visibility.
+        opened = args.mode == "shared" or (args.mode == "prepare" and not active and not args.marker.exists())
+        release(args.release_dir, args.mode if opened else None)
+    except Exception:
+        # An uncertain restored/missing state cannot justify any visibility.
         try:
-            fence()
+            release(args.release_dir, None)
         except OSError:
             pass
+        if always_fence:
+            try:
+                fence(args.marker)
+            except OSError:
+                pass
         print("PRIV-01 ingress policy check failed; keep publication closed.", file=sys.stderr)
         return 1
     return 0
