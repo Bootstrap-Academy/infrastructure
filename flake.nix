@@ -23,7 +23,7 @@
     skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/97faa10337690aa9889821d70f1b697a9b129270";
     jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/ea946c12f6f2caaa56e4b2e4edc73ce926ccfa2b";
     events-ms-develop.url = "github:Bootstrap-Academy/events-ms/0e1b3772027ec151268afcfc461d3ca842a9d716";
-    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/21c8a45f83bee69fab254b7c0709357a07c4031c";
+    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/003f5e83a0c387e54c29f5a526f173c110060c3c";
     backend-develop.url = "github:Bootstrap-Academy/backend/1d9c4d0747ed0c3865c762f28c614d29cf2f510c";
   };
 
@@ -86,6 +86,9 @@
     {
       packages = eachSystem (pkgs: {
         profile-publication-tests = pkgs.callPackage ./tests/profile-publication.nix { inherit self; };
+        profile-publication-config-tests = pkgs.callPackage ./tests/profile-publication-config.nix {
+          inherit self;
+        };
         grafana-key-activation =
           (self.nixosConfigurations.prod.extendModules {
             modules = [
@@ -109,9 +112,18 @@
             self.packages.${pkgs.stdenv.hostPlatform.system}.private-lesson-header-tests
             hosts
             devShells
+            self.checks.${pkgs.stdenv.hostPlatform.system}.sandbox-hardening
             self.packages.${pkgs.stdenv.hostPlatform.system}.grafana-key-migration-tests
             self.packages.${pkgs.stdenv.hostPlatform.system}.profile-publication-tests
+            self.packages.${pkgs.stdenv.hostPlatform.system}.profile-publication-config-tests
           ];
+      });
+
+      checks = eachSystem (pkgs: {
+        sandbox-hardening = import ./tests/sandbox-hardening.nix {
+          inherit pkgs;
+          inherit (inputs) sandkasten;
+        };
       });
 
       nixosConfigurations = lib.pipe ./hosts [
