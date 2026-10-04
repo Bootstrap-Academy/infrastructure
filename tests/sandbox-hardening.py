@@ -45,6 +45,14 @@ def run(language, code, expected="OK"):
     return data
 
 
+def set_last_run(program, timestamp):
+    # The real pruner treats an empty/invalid timestamp as expired. Keep the old
+    # value readable until the complete replacement is ready.
+    temporary = program / ".last_run-probe"
+    temporary.write_text(str(timestamp))
+    temporary.replace(program / "last_run")
+
+
 assert UID != 0
 assert ROOT.is_mount()
 stat = os.statvfs(ROOT)
@@ -108,10 +116,18 @@ passed("network-disabled")
 # the shared budget. This is an integration gate: callers must keep it cost-free.
 valid_java = 'class AMain { public static void main(String[] a) { System.out.println("OK"); } }\n'
 valid_java += "\n".join(f"class Z{i} {{}}" for i in range(80))
+# Earlier Kotlin/Java requests can leave expired artifacts while their real
+# asynchronous pruner is still removing individual files. Wait for that work
+# to finish before measuring a deliberately retained, shared-capacity fixture.
+until = time.monotonic() + 30
+while any(ROOT.iterdir()) and time.monotonic() < until:
+    time.sleep(0.1)
+assert not any(ROOT.iterdir()), list(ROOT.iterdir())
+passed("prior-artifacts-fully-pruned-before-capacity-control")
 run("java", valid_java + "\n// empty-cache control")
 frozen = [p for p in ROOT.iterdir() if (p / "last_run").is_file()]
 for p in frozen:
-    (p / "last_run").write_text(str(int(time.time()) + 3600))
+    set_last_run(p, int(time.time()) + 3600)
 fill = """import os
 from pathlib import Path
 i=0
@@ -127,7 +143,7 @@ assert status == 201, (status, data)
 occupied = ROOT / data["program_id"]
 # Keep only this VM fixture through the independent compiler request; then let
 # the real pruner remove it. No live cache or learner data is changed here.
-(occupied / "last_run").write_text(str(int(time.time()) + 3600))
+set_last_run(occupied, int(time.time()) + 3600)
 available = os.statvfs(ROOT).f_bavail * os.statvfs(ROOT).f_frsize
 assert available < 98304, available
 passed("unrelated-artifacts-occupy-shared-cache", {"available_bytes": available})
@@ -137,7 +153,7 @@ assert "No space left on device" in data["details"]["stderr"], data
 passed("valid-compile-when-cache-occupied-needs-cost-free-caller", {"status": status, "error": data["error"]})
 for p in [occupied, *frozen]:
     if (p / "last_run").is_file():
-        (p / "last_run").write_text("0")
+        set_last_run(p, 0)
 until = time.monotonic() + 15
 while occupied.exists() and time.monotonic() < until:
     time.sleep(0.1)
