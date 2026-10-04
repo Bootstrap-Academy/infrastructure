@@ -15,6 +15,7 @@
     "hosts/*/secrets.yml"
     "scripts/grafana-key-migration.py"
     "tests/grafana-key-fixture.py"
+    "tests/sandbox-hardening.py"
     "hosts/prod/grafana-runtime-key.yml"
     "scripts/release-preflight.py"
     "scripts/alertmanager-config.py"
