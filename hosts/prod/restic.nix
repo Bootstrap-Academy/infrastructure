@@ -26,26 +26,19 @@ let
   };
 in
 {
-  services.restic.backups =
-    builtins.listToAttrs (
-      map (repo: {
-        name = "box-${repo}";
-        value = prune // {
-          repository = "sftp://u381435@u381435.your-storagebox.de:23/backups/${repo}";
-          passwordFile = config.sops.secrets."restic/${repo}".path;
-          extraOptions = [ "sftp.args='-i ${config.sops.secrets."ssh/private-key".path}'" ];
+  services.restic.backups = builtins.listToAttrs (
+    map (repo: {
+      name = "box-${repo}";
+      value = prune // {
+        repository = "sftp://u381435@u381435.your-storagebox.de:23/backups/${repo}";
+        passwordFile = config.sops.secrets."restic/${repo}".path;
+        extraOptions = [ "sftp.args='-i ${config.sops.secrets."ssh/private-key".path}'" ];
 
-          runCheck = true;
-          checkOpts = [ "--read-data-subset=4G" ];
-        };
-      }) repos
-    )
-    // {
-      defelo-prod = prune // {
-        inherit (config.backup.targets.defelo) repository environmentFile;
-        passwordFile = config.backup.targets.defelo.repositoryPasswordFile;
+        runCheck = true;
+        checkOpts = [ "--read-data-subset=4G" ];
       };
-    };
+    }) repos
+  );
 
   sops.secrets = builtins.listToAttrs (map (repo: lib.nameValuePair "restic/${repo}" { }) repos);
 }

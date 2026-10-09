@@ -33,8 +33,8 @@ It keeps journald entries for 30 days (`MaxRetentionSec=30day`, capped at `Syste
 The nginx error log is written to stderr and ends up in the journal, so it is covered by the journald setting.
 
 ### Backups
-`hosts/prod/restic.nix` defines the jobs that apply the retention policy to the three repositories the `prod` host is responsible for: `box-prod` and `box-test` on the Storage Box and `defelo-prod` on the REST target.
-All three run daily at 04:20 and use the same policy:
+`hosts/prod/restic.nix` defines the jobs that apply the retention policy to the two repositories the `prod` host is responsible for: `box-prod` and `box-test` on the Storage Box.
+Both run daily at 04:20 and use the same policy:
 
 ```
 --keep-hourly 48 --keep-daily 14 --keep-weekly 8 --keep-monthly 12
