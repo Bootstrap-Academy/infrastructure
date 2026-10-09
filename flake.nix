@@ -3,15 +3,18 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-glitchtip.url = "github:NixOS/nixpkgs";
-    deploy-sh.url = "git+https://radicle.defelo.de/z392ZFR7AcScpaQqmTKUDkDj9FWMq.git";
+    deploy-sh.url = "github:Bootstrap-Academy/deploy-sh/5c9c65ffbb689c2f193edc628c2e6d95ca386d4f";
     sops-nix.url = "github:Mic92/sops-nix";
     nfnix = {
-      url = "git+https://radicle.defelo.de/z38ibAcVXcV86bVdfdMY9JXJcX5ZN.git";
+      url = "github:Bootstrap-Academy/nfnix/cc52fbfc6e7510a628e7cf34fc2f1e3809ae13f5";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
-    sandkasten.url = "git+https://radicle.defelo.de/zKBbWZxz73j7BZMbutM7TMMT4v5K.git";
+    sandkasten = {
+      url = "github:Bootstrap-Academy/sandkasten/97de259259d33b6fb7bbbf0d6db94b037d189b53";
+      inputs.radicle-update.url = "github:Bootstrap-Academy/radicle-update/52d7120369f13918076855823fd042f540e8f97b";
+    };
     llm-ms.url = "github:Bootstrap-Academy/llm-ms/1f73fc69903418854e7b91130586ee01306dfe07";
 
     skills-ms.url = "github:Bootstrap-Academy/skills-ms/a3f716b3d08d62a17a718895299d22b8153c3447";

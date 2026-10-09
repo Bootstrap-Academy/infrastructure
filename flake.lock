@@ -212,15 +212,16 @@
       "locked": {
         "lastModified": 1785659933,
         "narHash": "sha256-yyL7G7ZCDY4trkECw68GjihRvds49CAHVJH/yyGqJP4=",
-        "ref": "refs/heads/develop",
+        "owner": "Bootstrap-Academy",
+        "repo": "deploy-sh",
         "rev": "5c9c65ffbb689c2f193edc628c2e6d95ca386d4f",
-        "revCount": 47,
-        "type": "git",
-        "url": "https://radicle.defelo.de/z392ZFR7AcScpaQqmTKUDkDj9FWMq.git"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://radicle.defelo.de/z392ZFR7AcScpaQqmTKUDkDj9FWMq.git"
+        "owner": "Bootstrap-Academy",
+        "repo": "deploy-sh",
+        "rev": "5c9c65ffbb689c2f193edc628c2e6d95ca386d4f",
+        "type": "github"
       }
     },
     "devenv": {
@@ -863,15 +864,16 @@
       "locked": {
         "lastModified": 1776872112,
         "narHash": "sha256-NYVSfUuLDiFeSwQ175IcVcffPIbO69v2OlXDzTVl94g=",
-        "ref": "refs/heads/main",
+        "owner": "Bootstrap-Academy",
+        "repo": "nfnix",
         "rev": "cc52fbfc6e7510a628e7cf34fc2f1e3809ae13f5",
-        "revCount": 15,
-        "type": "git",
-        "url": "https://radicle.defelo.de/z38ibAcVXcV86bVdfdMY9JXJcX5ZN.git"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://radicle.defelo.de/z38ibAcVXcV86bVdfdMY9JXJcX5ZN.git"
+        "owner": "Bootstrap-Academy",
+        "repo": "nfnix",
+        "rev": "cc52fbfc6e7510a628e7cf34fc2f1e3809ae13f5",
+        "type": "github"
       }
     },
     "nix": {
@@ -1801,15 +1803,16 @@
       "locked": {
         "lastModified": 1779817822,
         "narHash": "sha256-dLOae5N4UhXNvPpJcRMs4Ee1t3mMiNDVoLPRkJWDk10=",
-        "ref": "refs/heads/main",
+        "owner": "Bootstrap-Academy",
+        "repo": "radicle-update",
         "rev": "52d7120369f13918076855823fd042f540e8f97b",
-        "revCount": 10,
-        "type": "git",
-        "url": "https://radicle.defelo.de/zPrhdopkKmKWdeEJJHx6TvKM832X.git"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://radicle.defelo.de/zPrhdopkKmKWdeEJJHx6TvKM832X.git"
+        "owner": "Bootstrap-Academy",
+        "repo": "radicle-update",
+        "rev": "52d7120369f13918076855823fd042f540e8f97b",
+        "type": "github"
       }
     },
     "root": {
@@ -1980,15 +1983,16 @@
       "locked": {
         "lastModified": 1788474730,
         "narHash": "sha256-B6YjJys1ts9MFojDR/yTHXcxPAnaYysLIwYrC6L+w6E=",
-        "ref": "refs/heads/develop",
+        "owner": "Bootstrap-Academy",
+        "repo": "sandkasten",
         "rev": "97de259259d33b6fb7bbbf0d6db94b037d189b53",
-        "revCount": 901,
-        "type": "git",
-        "url": "https://radicle.defelo.de/zKBbWZxz73j7BZMbutM7TMMT4v5K.git"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://radicle.defelo.de/zKBbWZxz73j7BZMbutM7TMMT4v5K.git"
+        "owner": "Bootstrap-Academy",
+        "repo": "sandkasten",
+        "rev": "97de259259d33b6fb7bbbf0d6db94b037d189b53",
+        "type": "github"
       }
     },
     "skills-ms": {
