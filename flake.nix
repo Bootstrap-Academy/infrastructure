@@ -14,17 +14,17 @@
     sandkasten.url = "git+https://radicle.defelo.de/zKBbWZxz73j7BZMbutM7TMMT4v5K.git";
     llm-ms.url = "github:Bootstrap-Academy/llm-ms/1f73fc69903418854e7b91130586ee01306dfe07";
 
-    skills-ms.url = "github:Bootstrap-Academy/skills-ms/0d3a17d69f624f8c38843158ae40c612996b3d7d";
-    jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/ea946c12f6f2caaa56e4b2e4edc73ce926ccfa2b";
-    events-ms.url = "github:Bootstrap-Academy/events-ms/0e1b3772027ec151268afcfc461d3ca842a9d716";
-    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/5d2928b9482501c8a06c69af5041dd02b3e4961a";
-    backend.url = "github:Bootstrap-Academy/backend/e5e4ef96b341906b3cc89bc2d754c9f6a3f5473b";
+    skills-ms.url = "github:Bootstrap-Academy/skills-ms/a3f716b3d08d62a17a718895299d22b8153c3447";
+    jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/9901fa3a54a6f340104e15bb527e8ac988cbb904";
+    events-ms.url = "github:Bootstrap-Academy/events-ms/e04605e85caaf5c5c1f3566f647c19d01f008c9b";
+    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/18b528437eb700f678419674b816ec83e30281cd";
+    backend.url = "github:Bootstrap-Academy/backend/e2c6c1f26c08ff9f48bcaec11805bdaf0108dbfd";
 
-    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/0d3a17d69f624f8c38843158ae40c612996b3d7d";
-    jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/ea946c12f6f2caaa56e4b2e4edc73ce926ccfa2b";
-    events-ms-develop.url = "github:Bootstrap-Academy/events-ms/0e1b3772027ec151268afcfc461d3ca842a9d716";
-    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/5d2928b9482501c8a06c69af5041dd02b3e4961a";
-    backend-develop.url = "github:Bootstrap-Academy/backend/e5e4ef96b341906b3cc89bc2d754c9f6a3f5473b";
+    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/a3f716b3d08d62a17a718895299d22b8153c3447";
+    jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/9901fa3a54a6f340104e15bb527e8ac988cbb904";
+    events-ms-develop.url = "github:Bootstrap-Academy/events-ms/e04605e85caaf5c5c1f3566f647c19d01f008c9b";
+    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/18b528437eb700f678419674b816ec83e30281cd";
+    backend-develop.url = "github:Bootstrap-Academy/backend/e2c6c1f26c08ff9f48bcaec11805bdaf0108dbfd";
   };
 
   outputs =
@@ -100,6 +100,7 @@
         grafana-key-migration-tests = pkgs.callPackage ./tests/grafana-key-migration.nix { inherit self; };
         alerting-rule-tests = import ./tests/alerting-rule-tests.nix { inherit pkgs lib; };
         alerting-tests = pkgs.callPackage ./tests/alerting.nix { inherit self; };
+        private-lesson-header-tests = import ./tests/private-lesson-headers.nix { inherit self; };
         checks =
           let
             hosts = pkgs.linkFarm "checks-hosts" (
@@ -108,6 +109,7 @@
             devShells = pkgs.linkFarm "checks-devShells" self.devShells.${pkgs.stdenv.hostPlatform.system};
           in
           pkgs.linkFarmFromDrvs "checks" [
+            self.packages.${pkgs.stdenv.hostPlatform.system}.private-lesson-header-tests
             hosts
             devShells
             self.checks.${pkgs.stdenv.hostPlatform.system}.sandbox-hardening

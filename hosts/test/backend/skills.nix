@@ -59,6 +59,7 @@ in
       COURSES = "${skills-ms-develop.packages.${system}.courses}";
 
       ROOMS_ENABLED = "true";
+      DAILY_LIMIT_POLICY_ENABLED = "false";
       CHALLENGES_URL = "http://127.0.0.1:8005";
       LEARNING_ROOMS_EXERCISE_REFS = builtins.toJSON {
         itf-binary-range = {

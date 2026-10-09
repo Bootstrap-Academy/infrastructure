@@ -22,6 +22,11 @@ in
   ];
 
   # new backend
+  academy.backend.profilePublication = {
+    enable = true;
+    mode = "prepare";
+  };
+
   services.academy.backend = {
     enable = true;
 
@@ -31,6 +36,7 @@ in
 
     extraConfigFiles = [ config.sops.templates."academy-backend/config".path ];
     settings = {
+      learning_policy.mode = "legacy";
       http = {
         address = "127.0.0.1:8000";
         real_ip.header = "X-Real-Ip";
@@ -106,6 +112,7 @@ in
   # old backend
   academy.backend = {
     enable = true;
+    learningAccess.enable = false;
     llm.enable = true;
     feedback.enable = true;
     codingExecution = {
