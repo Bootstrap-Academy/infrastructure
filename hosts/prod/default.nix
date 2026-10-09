@@ -37,14 +37,7 @@
       repositoryPasswordFile = config.sops.secrets."backup/box/repository-password".path;
       sshKeyFile = config.sops.secrets."ssh/private-key".path;
     };
-    defelo = {
-      repository = "rest:https://backup.defelo.de/academy-prod";
-      repositoryPasswordFile = config.sops.secrets."backup/defelo/repository-password".path;
-      environmentFile = config.sops.templates."backup/defelo".path;
-    };
   };
-
-  networking.hosts.${env.wg.defelo} = [ "backup.defelo.de" ];
 
   programs.ssh.knownHosts = {
     ${env.host.sandkasten}.publicKey =
@@ -53,18 +46,8 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEvpmCYjNbdJ+TsrwagVGfu6pTNQrlvg9vZuKh9Xr/J8";
   };
 
-  sops = {
-    secrets = {
-      "ssh/private-key".path = "/root/.ssh/id_ed25519";
-      "backup/box/repository-password" = { };
-      "backup/defelo/repository-password" = { };
-      "backup/defelo/rest-password" = { };
-    };
-    templates = {
-      "backup/defelo".content = ''
-        RESTIC_REST_USERNAME=academy-prod
-        RESTIC_REST_PASSWORD=${config.sops.placeholder."backup/defelo/rest-password"}
-      '';
-    };
+  sops.secrets = {
+    "ssh/private-key".path = "/root/.ssh/id_ed25519";
+    "backup/box/repository-password" = { };
   };
 }
