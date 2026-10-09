@@ -12,6 +12,7 @@
     ./nginx.nix
     ./restic.nix
     ./wireguard.nix
+    ./youtube-downloads.nix
   ];
 
   # Normal production operation after the coordinated release is admitted.
