@@ -23,7 +23,8 @@ in
       enable = true;
       interval = "03:40";
     };
-    RUST_LOG = "info";
+    # sqlx logs every statement at info; slow statements and errors still arrive at warn
+    RUST_LOG = "info,sqlx=warn";
     environmentFiles = [
       config.sops.templates."academy-backend/common".path
       config.sops.templates."academy-backend/challenges-ms".path

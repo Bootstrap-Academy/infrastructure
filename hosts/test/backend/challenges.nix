@@ -25,7 +25,8 @@ in
       enable = true;
       interval = "03:40";
     };
-    RUST_LOG = "info,poem_ext,lib,entity,migration,challenges=trace";
+    # sqlx logs every statement at info; slow statements and errors still arrive at warn
+    RUST_LOG = "info,sqlx=warn,poem_ext,lib,entity,migration,challenges=trace";
     environmentFiles = [
       config.sops.templates."academy-backend/common".path
       config.sops.templates."academy-backend/challenges-ms".path
