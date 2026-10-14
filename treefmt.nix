@@ -7,6 +7,7 @@
   excludes = [
     "**/__pycache__/**"
     ".envrc"
+    "LICENSE"
     "*.md"
     "*.patch"
     ".gitignore"
