@@ -62,3 +62,9 @@ The backend has its own timers (`services.academy.backend.tasks.<task>.schedule`
 `sandkasten.bootstrap.academy` (`hosts/prod/nginx.nix`) proxies the code execution service, which is only meant to be called by challenges-ms over the internal network.
 The vhost is therefore restricted with `allow = env.wg.admins ++ [ env.net.hosts ]`; every other client gets a `403`, including on `/docs`.
 Requests that do not come from the WireGuard network are additionally rate limited to 20 requests per minute with a burst of 5 (`429` beyond that), and `/metrics` returns `403` for everyone.
+
+## License
+
+Copyright (C) 2023–2026 Cedric Mössner
+
+This project is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. See [`LICENSE`](LICENSE) for the full license text.
