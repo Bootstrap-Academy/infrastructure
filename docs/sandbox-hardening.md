@@ -49,8 +49,9 @@ calls it yet; the coding workers keep the shared sandbox. The hosts `prod` and
 Because Test is an application host, the supervisor runs in its own network
 namespace and cannot reach Redis or any other service there; the socket unit
 `sandkasten-proxy.socket` on `127.0.0.1:18080` carries the API into it through
-`systemd-socket-proxyd`. `/persistent` and `/var/lib/academy` are hidden from
-the supervisor and the proxy.
+`systemd-socket-proxyd`. `/persistent`, `/var/lib/academy` and the socket of
+the Nix daemon, whose fixed-output builds run in the host's network, are hidden
+from the supervisor and the proxy.
 
 A time measured on this instance is a lower bound for the shared sandbox, which
 differs in CPU, runs two jobs at a time under the load of Prod and Test, and

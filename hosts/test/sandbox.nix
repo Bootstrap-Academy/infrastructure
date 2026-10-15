@@ -7,9 +7,11 @@
 let
   port = 18080;
   # Test keeps its data there, readable by local accounts; the supervisor needs none of it.
+  # The Nix daemon builds fixed-output derivations in the host's network, so its socket goes too.
   hidden = [
     "/persistent"
     "/var/lib/academy"
+    "/nix/var/nix/daemon-socket"
   ];
 in
 {
