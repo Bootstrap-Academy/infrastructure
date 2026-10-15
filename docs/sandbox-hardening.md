@@ -40,16 +40,26 @@ existing executor until the caller fix is merged and accepted.
 
 `hosts/test/sandbox.nix` runs such an executor on Test at `127.0.0.1:18080`,
 as the unit `sandkasten.service` of that host. It imports the run and compile
-limits of the shared sandbox (`hosts/sandkasten/sandkasten.nix`), so a
-measurement of the runner on it applies to the shared sandbox apart from the
-CPU. Its own limits fit the Test host: only the `javascript` environment, one
-job at a time, a 128 MiB cache and a 1 GiB service memory limit. No service on
-Test calls it yet; the coding workers keep the shared sandbox. The hosts
-`prod` and `sandkasten` are unchanged by it.
+limits of the shared sandbox (`hosts/sandkasten/sandkasten.nix`). Its own
+limits fit the Test host: only the `javascript` environment, one job at a
+time, a 128 MiB cache and a 1 GiB service memory limit. No service on Test
+calls it yet; the coding workers keep the shared sandbox. The hosts `prod` and
+`sandkasten` are unchanged by it.
+
+Because Test is an application host, the supervisor runs in its own network
+namespace and cannot reach Redis or any other service there; the socket unit
+`sandkasten-proxy.socket` on `127.0.0.1:18080` carries the API into it through
+`systemd-socket-proxyd`. `/persistent`, `/var/lib/academy` and the socket of
+the Nix daemon, whose fixed-output builds run in the host's network, are hidden
+from the supervisor and the proxy.
+
+A time measured on this instance is a lower bound for the shared sandbox, which
+differs in CPU, runs two jobs at a time under the load of Prod and Test, and
+runs NsJail as root without the hardening.
 
 To stop it until the next boot without a new generation, run
-`systemctl stop sandkasten.service var-lib-sandkasten-programs.mount` on Test.
-Activating the previous system generation removes it.
+`systemctl stop sandkasten-proxy.socket sandkasten-proxy.service sandkasten.service var-lib-sandkasten-programs.mount`
+on Test. Activating the previous system generation removes it.
 
 ## Verification
 
