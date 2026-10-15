@@ -36,6 +36,21 @@ sandbox configuration must use an isolated Test executor, bound to loopback on
 a separate port, before changing production. Keep the Test worker URL on its
 existing executor until the caller fix is merged and accepted.
 
+## Test instance for the lesson engine runner
+
+`hosts/test/sandbox.nix` runs such an executor on Test at `127.0.0.1:18080`,
+as the unit `sandkasten.service` of that host. It imports the run and compile
+limits of the shared sandbox (`hosts/sandkasten/sandkasten.nix`), so a
+measurement of the runner on it applies to the shared sandbox apart from the
+CPU. Its own limits fit the Test host: only the `javascript` environment, one
+job at a time, a 128 MiB cache and a 1 GiB service memory limit. No service on
+Test calls it yet; the coding workers keep the shared sandbox. The hosts
+`prod` and `sandkasten` are unchanged by it.
+
+To stop it until the next boot without a new generation, run
+`systemctl stop sandkasten.service var-lib-sandkasten-programs.mount` on Test.
+Activating the previous system generation removes it.
+
 ## Verification
 
 `nix build .#checks.x86_64-linux.sandbox-hardening` runs real Python, Java and
