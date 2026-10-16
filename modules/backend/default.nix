@@ -3,6 +3,7 @@
     ./coding-execution.nix
     ./feedback.nix
     ./internal-jwt-secrets.nix
+    ./lesson-content.nix
     ./lesson-modules.nix
     ./learning-access.nix
     ./nginx.nix
