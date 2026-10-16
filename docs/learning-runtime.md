@@ -109,9 +109,49 @@ create a Cloudflare cache rule, switch DNS proxying or prove CDN cache hits.
 Those existing-provider settings must be checked separately at release time if
 edge caching is desired; no new paid service is required for this preparation.
 
+## Lesson engine packages (API 2)
+
+`academy.backend.lessonContent` (only Test enables it) serves packages of the
+lesson engine from a session-free origin outside `bootstrap.academy`, as the
+frontend requires (`lesson-protocol/browser.ts`). On Test the host is the
+public IPv4 address of the machine: the NixOS acme module orders a Let's
+Encrypt certificate for this IP identifier with the `shortlived` profile and
+renews it once half of its lifetime is left; the vhost is the default server on
+port 443 because browsers send no SNI for an address. The module sets Skills'
+`ENGINE_CONTENT_ORIGIN` to `https://<host>`.
+
+A package is the directory `<package_hash>` with the protocol manifest as
+`manifest.json` and exactly its assets; `package_hash` is SHA-256 of the
+canonical JSON of `manifest.assets`. The module installs the helper
+`academy-publish-lesson-package` (`scripts/publish-lesson-package.mjs`; the API 1
+publisher stays unchanged on every host). Install a package below
+`/var/lib/academy-lesson-content/packages`:
+
+```sh
+academy-publish-lesson-package --api 2 --package /staging/<package_hash> \
+  --root /var/lib/academy-lesson-content/packages --check
+academy-publish-lesson-package --api 2 --package /staging/<package_hash> \
+  --root /var/lib/academy-lesson-content/packages
+```
+
+The publisher checks the directory name, the manifest (at most 65,536 bytes),
+paths and media types of the protocol, an HTML entry, the complete inventory,
+every size and hash, and at most 1,572,864 bytes in total; it installs
+atomically with `0555`/`0444` and reuses identical bytes. Nginx serves only
+GET/HEAD of `/packages/<hash>/…` without query, listing, symlinks or redirect,
+with the media types of the protocol, the content security policy the frontend
+requires of the entry (`frame-ancestors` is the frontend of the host),
+`Access-Control-Allow-Origin: *`, `Access-Control-Expose-Headers:
+Content-Security-Policy`, `nosniff`, `no-referrer` and immutable caching, and
+without the global `X-Frame-Options`. These are public bytes; the hidden cases,
+the evaluator and the probe plans stay in the server document of Skills.
+
 ## Verification and release
 
-`node --test tests/publish-learning-module.test.mjs` checks immutable reuse,
+`node --test tests/publish-lesson-package.test.mjs` checks the API 2 helper:
+the package hash against a vector of the frontend's canonical JSON, sealed
+installation and reuse, and refusal of every package that is not exactly its
+manifest. `node --test tests/publish-learning-module.test.mjs` checks immutable reuse,
 tampering, unexpected files, origin mismatches, symbolic links, Unicode assets,
 public traversal under `umask 077` and preservation of existing private roots.
 `tests/learning-runtime.nix` evaluates disabled host parity, enabled roles,

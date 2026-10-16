@@ -121,6 +121,11 @@ in
       instances = 1;
     };
     lessonModules.enable = true;
+    # API 2 packages of the lesson engine, on Test only, from the public address of this host.
+    lessonContent = {
+      enable = true;
+      host = config.networking.networks.public.ip4;
+    };
     privateContent.enable = true;
     name = "Bootstrap Academy Test Instance";
     domain = "api.test.bootstrap.academy";
