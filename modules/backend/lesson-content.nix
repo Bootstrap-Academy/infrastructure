@@ -92,6 +92,18 @@ in
             # Let's Encrypt issues certificates for IP addresses only with this profile (about 160 hours);
             # the module renews them dynamically once half of the lifetime is left.
             profile = "shortlived";
+            # lego puts the first identifier into the common name; Let's Encrypt refuses an IP address there
+            # ("badCSR: CSR contains IP address in Common Name", seen on Test on 16.10.2026). The SAN keeps it.
+            extraLegoFlags = [ "--disable-cn" ];
+          };
+
+          # Expiry and reachability of the origin (AcademyServiceDown, and the short-lived certificate rule).
+          monitoring.alerting.probes = lib.mkIf config.monitoring.alerting.enable {
+            lesson-content = {
+              url = "${cfg.host}:443";
+              module = "tls";
+              shortLivedCertificate = isIPv4;
+            };
           };
 
           services.nginx.virtualHosts.${cfg.host} = {

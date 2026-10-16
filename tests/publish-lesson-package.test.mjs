@@ -20,6 +20,7 @@ import { fileURLToPath } from "node:url";
 import test from "node:test";
 import {
   canonicalJson,
+  MEDIA_BY_EXTENSION,
   publishLessonPackage,
 } from "../scripts/publish-lesson-package.mjs";
 
@@ -231,9 +232,9 @@ test("API 2: a package that is not exactly its manifest fails before publishing"
       /duplicate asset references/,
     ],
     [
-      "an entry that is no HTML",
+      "an entry that is not among the assets",
       ({ manifest }) => {
-        manifest.entry = "main.js";
+        manifest.entry = "missing/index.html";
       },
       null,
       /no HTML entry/,
@@ -261,6 +262,47 @@ test("API 2: a package that is not exactly its manifest fails before publishing"
       },
       null,
       /Invalid protocol manifest/,
+    ],
+    [
+      "an entry that the origin does not serve under its address",
+      ({ manifest, files }) => {
+        files["lesson.html"] = files["index.html"];
+        delete files["index.html"];
+        manifest.assets.find((asset) => asset.path === "index.html").path =
+          "lesson.html";
+        manifest.entry = "lesson.html";
+      },
+      null,
+      /entry must be index.html/,
+    ],
+    [
+      "a media type that is not the one of the extension",
+      ({ manifest }) => {
+        manifest.assets.find((asset) => asset.path === "main.js").mediaType =
+          "text/css";
+      },
+      null,
+      /Invalid asset inventory/,
+    ],
+    [
+      "a known extension declared as octet-stream",
+      ({ manifest }) => {
+        manifest.assets.find((asset) => asset.path === "style.css").mediaType =
+          "application/octet-stream";
+      },
+      null,
+      /Invalid asset inventory/,
+    ],
+    [
+      "an extension in capitals",
+      ({ manifest, files }) => {
+        files["style.CSS"] = files["style.css"];
+        delete files["style.css"];
+        manifest.assets.find((asset) => asset.path === "style.css").path =
+          "style.CSS";
+      },
+      null,
+      /Invalid asset inventory/,
     ],
     [
       "a manifest that is no UTF-8",
@@ -343,4 +385,47 @@ test("API 2: the CLI checks without writing and refuses the options of API 1", a
   } finally {
     await value.cleanup();
   }
+});
+
+test("API 2: an entry in a folder and an unknown extension as octet-stream are published", async () => {
+  const value = await lessonFixture(({ manifest, files }) => {
+    files["app/index.html"] = files["index.html"];
+    delete files["index.html"];
+    manifest.assets.find((asset) => asset.path === "index.html").path =
+      "app/index.html";
+    manifest.entry = "app/index.html";
+    files["data.bin"] = "binary";
+    manifest.assets.push({
+      path: "data.bin",
+      sha256: hash("binary"),
+      mediaType: "application/octet-stream",
+      bytes: 6,
+      loading: "lazy",
+    });
+  });
+  try {
+    assert.equal((await publishLessonPackage(value)).published, true);
+  } finally {
+    await value.cleanup();
+  }
+});
+
+test("API 2: the media types are the ones nginx sends from the content origin", async () => {
+  const nix = await readFile(
+    fileURLToPath(
+      new URL("../modules/backend/lesson-content.nix", import.meta.url),
+    ),
+    "utf8",
+  );
+  const block = nix.match(/\n\s*types \{\n([^}]*)\n\s*\}/);
+  assert.ok(block, "types block");
+  const served = {};
+  for (const line of block[1].split("\n")) {
+    const match = line.trim().match(/^(\S+)((?:\s+[a-z0-9]+)+);$/);
+    assert.ok(match, line);
+    for (const extension of match[2].trim().split(/\s+/))
+      served[extension] = match[1];
+  }
+  assert.deepEqual(served, MEDIA_BY_EXTENSION);
+  assert.match(nix, /default_type application\/octet-stream;/);
 });

@@ -119,9 +119,60 @@ let
       }
     ];
   };
+  # With a short-lived certificate (lesson content origin on Test): own rule in hours, the 14 days rule skips it.
+  shortRules = import ../modules/alerting-rules.nix {
+    holdFor = "2m";
+    backupMaxAge = 10800;
+    certificateDays = 14;
+    shortLivedCertificates = true;
+    shortLivedCertificateHours = 48;
+    link = "https://runbook.example.test/";
+  };
+  short = ''probe_ssl_earliest_cert_expiry{job="academy-http",host="test",service="lesson-content",certificate="shortlived"}'';
+  shortInput = {
+    rule_files = [ (json.generate "short-rules.json" shortRules) ];
+    evaluation_interval = "1m";
+    tests = [
+      (test "AcademyShortLivedCertificateExpiring" [ (series short "86400x5") ] {
+        job = "academy-http";
+        host = "test";
+        service = "lesson-content";
+        certificate = "shortlived";
+      })
+      (test "AcademyCertificateExpiring"
+        [
+          (series ''probe_ssl_earliest_cert_expiry{job="academy-http",host="test",service="frontend"}'' "1123200x5")
+        ]
+        {
+          job = "academy-http";
+          host = "test";
+          service = "frontend";
+        }
+      )
+      {
+        # A fresh short-lived certificate (about 100 hours left) raises neither rule.
+        interval = "1m";
+        input_series = [ (series short "360000x5") ];
+        alert_rule_test = [
+          {
+            eval_time = "4m";
+            alertname = "AcademyShortLivedCertificateExpiring";
+            exp_alerts = [ ];
+          }
+          {
+            eval_time = "4m";
+            alertname = "AcademyCertificateExpiring";
+            exp_alerts = [ ];
+          }
+        ];
+      }
+    ];
+  };
 in
 pkgs.runCommand "academy-alerting-rules-tested" { nativeBuildInputs = [ pkgs.prometheus.cli ]; } ''
   promtool check rules ${json.generate "rules.json" rules}
   promtool test rules ${json.generate "rule-tests.json" input}
+  promtool check rules ${json.generate "short-rules.json" shortRules}
+  promtool test rules ${json.generate "short-rule-tests.json" shortInput}
   touch $out
 ''

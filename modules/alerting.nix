@@ -26,8 +26,11 @@ let
     };
     receivers = [ { name = "n8n"; } ];
   };
+  probes = lib.attrValues cfg.probes;
   rules = import ./alerting-rules.nix {
     inherit (cfg) holdFor backupMaxAge certificateDays;
+    shortLivedCertificates = lib.any (probe: probe.shortLivedCertificate) probes;
+    shortLivedCertificateHours = cfg.shortLivedCertificateHours;
     link = cfg.runbookUrl;
   };
 in
@@ -63,6 +66,11 @@ in
       type = lib.types.ints.positive;
       default = 14;
     };
+    shortLivedCertificateHours = lib.mkOption {
+      type = lib.types.ints.positive;
+      default = 48;
+      description = "Remaining hours below which a probe with a short-lived certificate (about 160 hours) alerts.";
+    };
     runbookUrl = lib.mkOption {
       type = lib.types.str;
       default = "https://github.com/Bootstrap-Academy/infrastructure/blob/main/docs/alerting.md";
@@ -75,6 +83,11 @@ in
             module = lib.mkOption {
               type = lib.types.str;
               default = "http";
+            };
+            shortLivedCertificate = lib.mkOption {
+              type = lib.types.bool;
+              default = false;
+              description = "The target has a short-lived certificate; it gets its own expiry rule.";
             };
           };
         }
@@ -136,7 +149,8 @@ in
             labels = {
               host = config.networking.hostName;
               inherit service;
-            };
+            }
+            // lib.optionalAttrs probe.shortLivedCertificate { certificate = "shortlived"; };
           }
         ];
         relabel_configs = [
@@ -183,6 +197,18 @@ in
                     ''"database"\s*:\s*true''
                     ''"cache"\s*:\s*true''
                   ];
+                };
+              };
+            }
+            # A TLS handshake with verification against the system roots, for targets without a 2xx page.
+            // lib.optionalAttrs (lib.any (probe: probe.module == "tls") probes) {
+              tls = {
+                prober = "tcp";
+                timeout = "10s";
+                tcp = {
+                  tls = true;
+                  preferred_ip_protocol = "ip4";
+                  ip_protocol_fallback = false;
                 };
               };
             };

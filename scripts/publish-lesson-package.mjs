@@ -35,10 +35,38 @@ const MEDIA = new Set([
   "audio/mp4",
   "application/octet-stream",
 ]);
+// The media type nginx sends for each extension: exactly the types block of modules/backend/lesson-content.nix
+// (tests/publish-lesson-package.test.mjs compares both); other extensions get its default_type.
+export const MEDIA_BY_EXTENSION = {
+  html: "text/html",
+  js: "text/javascript",
+  mjs: "text/javascript",
+  css: "text/css",
+  json: "application/json",
+  svg: "image/svg+xml",
+  png: "image/png",
+  webp: "image/webp",
+  avif: "image/avif",
+  ogg: "audio/ogg",
+  mp3: "audio/mpeg",
+  m4a: "audio/mp4",
+};
+const DEFAULT_MEDIA = "application/octet-stream";
+// The frontend loads the entry at base + entry without "(index)?.html"; nginx answers a directory with index.html.
+const ENTRY = /^(?:[A-Za-z0-9_-]+\/)*index\.html$/;
 const PACKAGE_BYTES = 1572864;
 const MANIFEST_BYTES = 65536;
 
 const digest = (bytes) => createHash("sha256").update(bytes).digest("hex");
+
+/** What nginx sends for a path; an extension in capitals is refused, so no case rule of nginx matters. */
+function mediaOf(path) {
+  const extension = path.slice(path.lastIndexOf(".") + 1);
+  if (extension !== extension.toLowerCase()) return null;
+  return Object.hasOwn(MEDIA_BY_EXTENSION, extension)
+    ? MEDIA_BY_EXTENSION[extension]
+    : DEFAULT_MEDIA;
+}
 
 /** The canonical JSON of the frontend (lesson-protocol/schema.ts): keys sorted by code point, no spaces. */
 export function canonicalJson(value) {
@@ -109,10 +137,13 @@ export async function validateLessonPackage(directory, requireName = true) {
     typeof manifest.id !== "string" ||
     !ID.test(manifest.id) ||
     typeof manifest.entry !== "string" ||
+    !ENTRY.test(manifest.entry) ||
     !Array.isArray(manifest.assets) ||
     manifest.assets.length === 0
   )
-    throw new Error("Invalid protocol manifest");
+    throw new Error(
+      "Invalid protocol manifest (the entry must be index.html or …/index.html)",
+    );
   let total = 0;
   for (const asset of manifest.assets) {
     if (
@@ -124,6 +155,7 @@ export async function validateLessonPackage(directory, requireName = true) {
       asset.path === "manifest.json" ||
       !HASH.test(asset.sha256) ||
       !MEDIA.has(asset.mediaType) ||
+      asset.mediaType !== mediaOf(asset.path) ||
       !["initial", "lazy"].includes(asset.loading) ||
       !Number.isSafeInteger(asset.bytes) ||
       asset.bytes < 0 ||
