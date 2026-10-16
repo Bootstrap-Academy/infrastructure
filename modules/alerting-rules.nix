@@ -3,6 +3,9 @@
   backupMaxAge,
   certificateDays,
   link,
+  # Probes labelled certificate="shortlived" (about 160 hours) get their own threshold in hours.
+  shortLivedCertificates ? false,
+  shortLivedCertificateHours ? 48,
 }:
 let
   rule = alert: expr: service: {
@@ -36,17 +39,27 @@ in
           ''min by (host) (node_filesystem_avail_bytes{mountpoint="/persistent/data"} / node_filesystem_size_bytes{mountpoint="/persistent/data"}) < 0.1 or min by (host) (node_filesystem_avail_bytes{mountpoint="/persistent/data"}) < 2147483648''
           "disk"
         )
-        (rule "AcademyCertificateExpiring"
-          ''probe_ssl_earliest_cert_expiry{job="academy-http"} - time() < ${
-            toString (certificateDays * 86400)
-          }''
-          "{{ $labels.service }}"
-        )
+        (rule "AcademyCertificateExpiring" ''probe_ssl_earliest_cert_expiry{job="academy-http"${
+          if shortLivedCertificates then '',certificate!="shortlived"'' else ""
+        }} - time() < ${toString (certificateDays * 86400)}'' "{{ $labels.service }}")
         (rule "AcademyBackupMetricsMissing"
           ''up{job="academy-node"} == 1 unless on(host) academy_backup_observed_since_seconds''
           "backup"
         )
-      ];
+      ]
+      ++ (
+        if shortLivedCertificates then
+          [
+            (rule "AcademyShortLivedCertificateExpiring"
+              ''probe_ssl_earliest_cert_expiry{job="academy-http",certificate="shortlived"} - time() < ${
+                toString (shortLivedCertificateHours * 3600)
+              }''
+              "{{ $labels.service }}"
+            )
+          ]
+        else
+          [ ]
+      );
     }
   ];
 }
