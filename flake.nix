@@ -17,17 +17,17 @@
     };
     llm-ms.url = "github:Bootstrap-Academy/llm-ms/1f73fc69903418854e7b91130586ee01306dfe07";
 
-    skills-ms.url = "github:Bootstrap-Academy/skills-ms/a3f716b3d08d62a17a718895299d22b8153c3447";
+    skills-ms.url = "github:Bootstrap-Academy/skills-ms/1ac01ef3dbf4276a5e3e0bf6c1127e581f7065cb";
     jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/9901fa3a54a6f340104e15bb527e8ac988cbb904";
     events-ms.url = "github:Bootstrap-Academy/events-ms/e04605e85caaf5c5c1f3566f647c19d01f008c9b";
-    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/18b528437eb700f678419674b816ec83e30281cd";
-    backend.url = "github:Bootstrap-Academy/backend/953623c0c6dde52226b618c0cf846d68394860c1";
+    challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/822e22e67faca08b6d5ef8526a6e2b3f487ee0c8";
+    backend.url = "github:Bootstrap-Academy/backend/1c1f66dd399e91a4afcae198ad77cc091649b53e";
 
-    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/9c9730d09b2f9d97e13b0c12827b219b47092d81";
+    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/e6d014bfe8a531cc9c33acaaaf757140237756b1";
     jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/9901fa3a54a6f340104e15bb527e8ac988cbb904";
     events-ms-develop.url = "github:Bootstrap-Academy/events-ms/e04605e85caaf5c5c1f3566f647c19d01f008c9b";
-    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/18b528437eb700f678419674b816ec83e30281cd";
-    backend-develop.url = "github:Bootstrap-Academy/backend/953623c0c6dde52226b618c0cf846d68394860c1";
+    challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/822e22e67faca08b6d5ef8526a6e2b3f487ee0c8";
+    backend-develop.url = "github:Bootstrap-Academy/backend/1c1f66dd399e91a4afcae198ad77cc091649b53e";
   };
 
   outputs =
