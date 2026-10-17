@@ -62,9 +62,10 @@ in
       DAILY_LIMIT_POLICY_ENABLED = "false";
       CHALLENGES_URL = "http://127.0.0.1:8005";
       # Lesson engine: evaluation in the isolated sandbox of Test (hosts/test/sandbox.nix); the content origin
-      # comes from academy.backend.lessonContent. Off until the first package is published (step S7).
+      # comes from academy.backend.lessonContent. On since the first package is installed; "false" hides
+      # engine units and their routes again without touching their data.
       SANDKASTEN_URL = "http://127.0.0.1:${toString config.services.sandkasten.settings.port}";
-      ENGINE_ENABLED = "false";
+      ENGINE_ENABLED = "true";
       LEARNING_ROOMS_EXERCISE_REFS = builtins.toJSON {
         itf-binary-range = {
           type = "multiple_choice";
