@@ -28,17 +28,17 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1792233973,
-        "narHash": "sha256-dXyHxAv3TKytCYjl2CrHYxp/tSIjwXDDYM2/4W1Z4jQ=",
+        "lastModified": 1792265165,
+        "narHash": "sha256-QsnLmEo7nS80QhI5wEnRTej5P9ZC3EbVQOVb2UF+9Rs=",
         "owner": "Bootstrap-Academy",
         "repo": "backend",
-        "rev": "b505e4d05127f301c6ebac4626fd7a7fb163cbc8",
+        "rev": "ebe279836467852b3225af2edae6c3e37fbb2468",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "backend",
-        "rev": "b505e4d05127f301c6ebac4626fd7a7fb163cbc8",
+        "rev": "ebe279836467852b3225af2edae6c3e37fbb2468",
         "type": "github"
       }
     },

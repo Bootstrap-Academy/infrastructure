@@ -27,7 +27,7 @@
     jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/9901fa3a54a6f340104e15bb527e8ac988cbb904";
     events-ms-develop.url = "github:Bootstrap-Academy/events-ms/e04605e85caaf5c5c1f3566f647c19d01f008c9b";
     challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/6ef631ca7b94d5077140f8573f1671825573aefb";
-    backend-develop.url = "github:Bootstrap-Academy/backend/b505e4d05127f301c6ebac4626fd7a7fb163cbc8";
+    backend-develop.url = "github:Bootstrap-Academy/backend/ebe279836467852b3225af2edae6c3e37fbb2468";
   };
 
   outputs =
