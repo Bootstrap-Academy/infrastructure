@@ -75,6 +75,21 @@ in
         name_change_rate_limit = "1d";
         verification_redirect_url = "https://test.bootstrap.academy/auth/verify-account";
         password_reset_redirect_url = "https://test.bootstrap.academy/auth/reset-password";
+        # Terms 2026-10 for new accounts from the provisional start of the Test acceptance,
+        # the same moment as `effective_from` in the manifest below and as
+        # NUXT_PUBLIC_TERMS_2026_10_FROM of the Test frontend (backend
+        # docs/legal-documents-2026-10.md).
+        registration_terms_version = "2026-10";
+        registration_terms_from = "2026-10-19T00:00:00+02:00";
+      };
+
+      # Stage 2 of the order dialog: start, terms version and both PDFs come from this
+      # manifest, rendered for Test only with scripts/render-purchase-documents.py
+      # --release 2026-10 --effective-date 2026-10-19T00:00:00+02:00 from frontend
+      # ab34495. The three files lie on the persistent state volume of the service.
+      purchase.stage2 = {
+        manifest_path = "/var/lib/academy/legal-2026-10/purchase-document-manifest-2026-10.json";
+        manifest_sha256 = "ea365b50612e96a5f29546f6d82e0f8dea541c2adec234513f49ef83b22242b0";
       };
 
       contact = {
