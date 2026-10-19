@@ -8,7 +8,7 @@ let
       (
         host:
         let
-          # Lesson packages on the backend's own host, which no host serves yet.
+          # Lesson packages on the backend's own host: Test serves them so, Prod gets the same when switched on.
           cfg =
             (self.nixosConfigurations.${host}.extendModules {
               modules = [
