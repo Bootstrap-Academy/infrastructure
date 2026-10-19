@@ -34,11 +34,7 @@ in
   };
 
   sops = {
-    secrets = {
-      "academy-backend/jobs-ms/sentry-dsn" = { };
-    };
     templates."academy-backend/jobs-ms".content = ''
-      SENTRY_DSN=${config.sops.placeholder."academy-backend/jobs-ms/sentry-dsn"}
       INTERNAL_JWT_SECRET_AUTH=${internalJwtSecrets.auth}
       INTERNAL_JWT_SECRET_SKILLS=${internalJwtSecrets.skills}
       INTERNAL_JWT_SECRET_JOBS=${internalJwtSecrets.jobs}

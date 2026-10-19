@@ -177,6 +177,9 @@ in
         MAX_OVERFLOW = "100";
         SQL_SHOW_STATEMENTS = "False";
 
+        # No service on Test gets a Sentry DSN, because GlitchTip mails an
+        # alert for every new issue. Errors on Test stay in the journal of
+        # each unit.
         SENTRY_ENVIRONMENT = "test";
       }
       // (lib.mapAttrs' (ms: { port, ... }: {
@@ -213,7 +216,6 @@ in
       "academy-backend/jwt-secret" = { };
       "academy-backend/recaptcha-secret" = { };
       "academy-backend/smtp-password" = { };
-      "academy-backend/sentry-dsn" = { };
 
       "academy-backend/auth-ms/oauth/github-secret" = { };
       "academy-backend/auth-ms/oauth/discord-secret" = { };
@@ -233,7 +235,6 @@ in
           internal.secrets.events = "${internalJwtSecrets.events}"
           recaptcha.secret = "${config.sops.placeholder."academy-backend/recaptcha-secret"}"
           paypal.client_secret = "${config.sops.placeholder."academy-backend/shop-ms/paypal-secret"}"
-          sentry.dsn = "${config.sops.placeholder."academy-backend/sentry-dsn"}"
           oauth2.providers.github.client_secret = "${
             config.sops.placeholder."academy-backend/auth-ms/oauth/github-secret"
           }"
