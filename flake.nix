@@ -104,6 +104,7 @@
         alerting-rule-tests = import ./tests/alerting-rule-tests.nix { inherit pkgs lib; };
         alerting-tests = pkgs.callPackage ./tests/alerting.nix { inherit self; };
         private-lesson-header-tests = import ./tests/private-lesson-headers.nix { inherit self; };
+        lesson-package-header-tests = import ./tests/lesson-package-headers.nix { inherit self; };
         checks =
           let
             hosts = pkgs.linkFarm "checks-hosts" (
@@ -113,6 +114,7 @@
           in
           pkgs.linkFarmFromDrvs "checks" [
             self.packages.${pkgs.stdenv.hostPlatform.system}.private-lesson-header-tests
+            self.packages.${pkgs.stdenv.hostPlatform.system}.lesson-package-header-tests
             hosts
             devShells
             self.checks.${pkgs.stdenv.hostPlatform.system}.sandbox-hardening
