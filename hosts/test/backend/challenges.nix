@@ -115,11 +115,7 @@ in
   };
 
   sops = {
-    secrets = {
-      "academy-backend/challenges-ms/sentry-dsn" = { };
-    };
     templates."academy-backend/challenges-ms".content = ''
-      CHALLENGES__SENTRY__DSN=${config.sops.placeholder."academy-backend/challenges-ms/sentry-dsn"}
       INTERNAL_JWT_SECRETS__AUTH=${internalJwtSecrets.auth}
       INTERNAL_JWT_SECRETS__SHOP=${internalJwtSecrets.shop}
       INTERNAL_JWT_SECRETS__SKILLS=${internalJwtSecrets.skills}

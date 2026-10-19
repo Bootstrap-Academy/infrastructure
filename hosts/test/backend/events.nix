@@ -45,11 +45,7 @@ in
   };
 
   sops = {
-    secrets = {
-      "academy-backend/events-ms/sentry-dsn" = { };
-    };
     templates."academy-backend/events-ms".content = ''
-      SENTRY_DSN=${config.sops.placeholder."academy-backend/events-ms/sentry-dsn"}
       INTERNAL_JWT_SECRET_AUTH=${internalJwtSecrets.auth}
       INTERNAL_JWT_SECRET_SHOP=${internalJwtSecrets.shop}
       INTERNAL_JWT_SECRET_SKILLS=${internalJwtSecrets.skills}
