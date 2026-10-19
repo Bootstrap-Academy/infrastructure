@@ -7,17 +7,17 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1792163046,
-        "narHash": "sha256-QcAYI9WbveyJeZuvqXrtWFNDlABebFnl7G0pdKSETp0=",
+        "lastModified": 1792265165,
+        "narHash": "sha256-QsnLmEo7nS80QhI5wEnRTej5P9ZC3EbVQOVb2UF+9Rs=",
         "owner": "Bootstrap-Academy",
         "repo": "backend",
-        "rev": "1c1f66dd399e91a4afcae198ad77cc091649b53e",
+        "rev": "ebe279836467852b3225af2edae6c3e37fbb2468",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "backend",
-        "rev": "1c1f66dd399e91a4afcae198ad77cc091649b53e",
+        "rev": "ebe279836467852b3225af2edae6c3e37fbb2468",
         "type": "github"
       }
     },
@@ -122,17 +122,17 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1792149797,
-        "narHash": "sha256-M9OeL8FYo8noUM54ZLXrhh/kFnBUv3F5Nqrpb2MLk+s=",
+        "lastModified": 1792239229,
+        "narHash": "sha256-nGFbhlT8HIDxshwKbMBh3940yXnZOIg9k/m1/lVAvFc=",
         "owner": "Bootstrap-Academy",
         "repo": "challenges-ms",
-        "rev": "822e22e67faca08b6d5ef8526a6e2b3f487ee0c8",
+        "rev": "6ef631ca7b94d5077140f8573f1671825573aefb",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "challenges-ms",
-        "rev": "822e22e67faca08b6d5ef8526a6e2b3f487ee0c8",
+        "rev": "6ef631ca7b94d5077140f8573f1671825573aefb",
         "type": "github"
       }
     },
@@ -2001,17 +2001,17 @@
         "poetry2nix": "poetry2nix_5"
       },
       "locked": {
-        "lastModified": 1792150013,
-        "narHash": "sha256-AVm62YoP0eXdDaLXroNhpgD+dYEFXNhlsuDTTBJK+H4=",
+        "lastModified": 1792230430,
+        "narHash": "sha256-Bu+PmsupKnBgTirScqFPCOY2VJ+O2fx2sfmg/jKTXog=",
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "1ac01ef3dbf4276a5e3e0bf6c1127e581f7065cb",
+        "rev": "79113e9e0fd5b87a09f17a4731b6134bfaa5208c",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "1ac01ef3dbf4276a5e3e0bf6c1127e581f7065cb",
+        "rev": "79113e9e0fd5b87a09f17a4731b6134bfaa5208c",
         "type": "github"
       }
     },
