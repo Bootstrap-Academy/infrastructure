@@ -25,6 +25,7 @@
     "scripts/test-backup-preparation.py"
     "scripts/test-postgres-startup-crash.py"
     "scripts/test-private-lesson-headers.py"
+    "scripts/test-lesson-package-headers.py"
     "scripts/profile-publication-guard.py"
     "tests/profile-publication-fixture.py"
   ];
