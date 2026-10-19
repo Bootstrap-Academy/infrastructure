@@ -136,10 +136,11 @@ in
       instances = 1;
     };
     lessonModules.enable = true;
-    # API 2 packages of the lesson engine, on Test only, from the public address of this host.
+    # API 2 packages of the lesson engine below /packages/ of the API host, as Prod will serve them. Needs
+    # skills-ms with #443 (skills-ms-develop) and the frontend with #852 loading from this host.
     lessonContent = {
       enable = true;
-      host = config.networking.networks.public.ip4;
+      host = config.academy.backend.domain;
     };
     privateContent.enable = true;
     name = "Bootstrap Academy Test Instance";

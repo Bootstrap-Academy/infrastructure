@@ -173,6 +173,8 @@ def run(args):
                 actual, fields, body = request(path, method)
                 assert actual in status, (label, actual)
                 assert body != BACKEND, (label, "reached the backend")
+                # An error of the location keeps the package policy, so no later error_page can drop it unnoticed.
+                assert fields.get_all("Content-Security-Policy") == [policy], (label, fields.get_all("Content-Security-Policy"))
                 assert fields.get_all("Cache-Control") is None, (label, fields.get_all("Cache-Control"))
                 assert fields.get_all("Location") is None, label
                 results.append({"case": label, "status": actual})

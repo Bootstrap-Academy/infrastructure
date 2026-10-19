@@ -112,13 +112,20 @@ edge caching is desired; no new paid service is required for this preparation.
 ## Lesson engine packages (API 2)
 
 `academy.backend.lessonContent` (only Test enables it) serves packages of the
-lesson engine from a session-free origin outside `bootstrap.academy`, as the
-frontend requires (`lesson-protocol/browser.ts`). On Test the host is the
-public IPv4 address of the machine: the NixOS acme module orders a Let's
-Encrypt certificate for this IP identifier with the `shortlived` profile and
-renews it once half of its lifetime is left; the vhost is the default server on
-port 443 because browsers send no SNI for an address. The module sets Skills'
-`ENGINE_CONTENT_ORIGIN` to `https://<host>`.
+lesson engine. The frontend (`lesson-protocol/browser.ts`) runs a package in a
+frame with an opaque origin and accepts two kinds of host:
+
+- the backend's own host (Test: `api.test.bootstrap.academy`): the packages are
+  the location `/packages/` of the API vhost, and their policy also carries
+  `sandbox allow-scripts`, which the frontend demands of a host inside
+  `bootstrap.academy`;
+- a host outside `bootstrap.academy` with a vhost of its own. For an IPv4
+  address the NixOS acme module orders a Let's Encrypt certificate with the
+  `shortlived` profile, and the vhost is the default server on port 443
+  because browsers send no SNI for an address.
+
+The module sets Skills' `ENGINE_CONTENT_ORIGIN` to `https://<host>`; the
+frontend's `lessonContentOrigin` must name the same origin.
 
 A package is the directory `<package_hash>` with the protocol manifest as
 `manifest.json` and exactly its assets; `package_hash` is SHA-256 of the
