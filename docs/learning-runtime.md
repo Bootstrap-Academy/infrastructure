@@ -111,11 +111,11 @@ edge caching is desired; no new paid service is required for this preparation.
 
 ## Lesson engine packages (API 2)
 
-`academy.backend.lessonContent` (only Test enables it) serves packages of the
+`academy.backend.lessonContent` (Test and Prod, both on their API host) serves packages of the
 lesson engine. The frontend (`lesson-protocol/browser.ts`) runs a package in a
 frame with an opaque origin and accepts two kinds of host:
 
-- the backend's own host (Test: `api.test.bootstrap.academy`): the packages are
+- the backend's own host (`api.bootstrap.academy`, `api.test.bootstrap.academy`): the packages are
   the location `/packages/` of the API vhost, and their policy also carries
   `sandbox allow-scripts`, which the frontend demands of a host inside
   `bootstrap.academy`;

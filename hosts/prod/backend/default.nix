@@ -119,6 +119,11 @@ in
       instances = 1;
     };
     lessonModules.enable = true;
+    # API 2 packages of the lesson engine below /packages/ of the API host, opaque through `sandbox allow-scripts`.
+    lessonContent = {
+      enable = true;
+      host = config.academy.backend.domain;
+    };
     privateContent.enable = true;
     name = "Bootstrap Academy Production Instance";
     domain = "api.bootstrap.academy";
