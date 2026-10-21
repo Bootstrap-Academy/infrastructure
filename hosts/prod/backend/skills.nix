@@ -3,6 +3,7 @@
   lib,
   skills-ms,
   system,
+  env,
   ...
 }:
 
@@ -62,6 +63,11 @@ in
       DAILY_LIMIT_POLICY_ENABLED = "false";
       PROFILE_PUBLICATIONS_ENABLED = "false";
       CHALLENGES_URL = "http://127.0.0.1:8005";
+      # Lesson engine: submissions are evaluated in the shared sandbox, as coding exercises are (the runner of the
+      # Load Balancer lesson took at most 245 ms of 5 s there); the content origin comes from
+      # academy.backend.lessonContent. "false" hides engine units and their routes again without touching their data.
+      SANDKASTEN_URL = "http://${env.host.sandkasten}:8000";
+      ENGINE_ENABLED = "true";
       LEARNING_ROOMS_EXERCISE_REFS = builtins.toJSON {
         itf-binary-range = {
           subtask_id = "39e59e0c-d2dd-40d0-b4dd-77e9d76e792c";

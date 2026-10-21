@@ -2001,17 +2001,17 @@
         "poetry2nix": "poetry2nix_5"
       },
       "locked": {
-        "lastModified": 1792230430,
-        "narHash": "sha256-Bu+PmsupKnBgTirScqFPCOY2VJ+O2fx2sfmg/jKTXog=",
+        "lastModified": 1792392583,
+        "narHash": "sha256-21rDdrVZq37zSBaTKZPDgQOLhPF93qrVYSrmejOHvJk=",
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "79113e9e0fd5b87a09f17a4731b6134bfaa5208c",
+        "rev": "bae63037fa7347d15a2e682bc6f41623e7b2aa03",
         "type": "github"
       },
       "original": {
         "owner": "Bootstrap-Academy",
         "repo": "skills-ms",
-        "rev": "79113e9e0fd5b87a09f17a4731b6134bfaa5208c",
+        "rev": "bae63037fa7347d15a2e682bc6f41623e7b2aa03",
         "type": "github"
       }
     },
