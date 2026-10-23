@@ -153,15 +153,18 @@ financial/consent/declaration/moderation/deletion state, same-order payment and 
 Events response-loss recovery, and snapshot restoration. Compare full rows/ledger/access/
 file hashes. A health endpoint or an OpenAPI string alone cannot prove these invariants.
 
-Both prod/test host configurations set `academy.releaseHold = true;`. Review the exact
-final commit, manifest and selected closures before activation. The
+Both prod/test host configurations currently set `academy.releaseHold = false;`, so the
+writers start normally. A coordinated release that needs explicit admission enables the
+hold for its activation; review the exact final commit, manifest and selected closures
+before activation. The
 [release-hold module](../modules/release-hold.nix) adds `ConditionPathExists` to all eleven
 application writer services above. Admission files live in root-owned mode-0700
 `/run/academy-release-allow`. The module creates **no admission files**. Timers may fire but
 cannot start a held service. This prevents Events pre-start/recovery racing the backend.
 Removing a file does **not** stop an existing process. The hold does not cover manual CLI,
 other-host processes or ingress. Reboot clears admission files and holds all writers again.
-Keep the hold until normal automatic startup is separately reviewed/rehearsed.
+Keep the hold until normal automatic startup is separately reviewed/rehearsed, then disable
+it again.
 
 Inspect all eleven generated service conditions in the actual held closure. Record help
 from pinned deploy-sh `5c9c65ffbb689c2f193edc628c2e6d95ca386d4f`: `--dry-activate` builds,
