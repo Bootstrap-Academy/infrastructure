@@ -157,8 +157,9 @@ Both prod/test host configurations currently set `academy.releaseHold = false;`,
 writers start normally. A coordinated release that needs explicit admission enables the
 hold for its activation; review the exact final commit, manifest and selected closures
 before activation. The
-[release-hold module](../modules/release-hold.nix) adds `ConditionPathExists` to all eleven
-application writer services above. Admission files live in root-owned mode-0700
+[release-hold module](../modules/release-hold.nix) adds `ConditionPathExists` to the eleven
+application writer services above and to every coding worker unit `academy-challenges-worker-<n>`
+(one per configured instance; prod and test run one, so twelve units). Admission files live in root-owned mode-0700
 `/run/academy-release-allow`. The module creates **no admission files**. Timers may fire but
 cannot start a held service. This prevents Events pre-start/recovery racing the backend.
 Removing a file does **not** stop an existing process. The hold does not cover manual CLI,
@@ -166,7 +167,7 @@ other-host processes or ingress. Reboot clears admission files and holds all wri
 Keep the hold until normal automatic startup is separately reviewed/rehearsed, then disable
 it again.
 
-Inspect all eleven generated service conditions in the actual held closure. Record help
+Inspect all twelve generated service conditions in the actual held closure. Record help
 from pinned deploy-sh `5c9c65ffbb689c2f193edc628c2e6d95ca386d4f`: `--dry-activate` builds,
 contacts/copies to hosts and runs remote dry activation; it is **not offline rehearsal**.
 `--test` activates services; `--boot` changes boot default; default `--switch` activates
@@ -181,7 +182,7 @@ During an authorized maintenance window, after quiescence and verified snapshots
    process disappearance. Ensure admission files from any previous held release are
    absent; remove only those admission files, never application data. Activate the reviewed
    **held** closure, for example the pinned `deploy --switch test` from its exact checkout.
-   Inspect all eleven services: each must be inactive with unsatisfied admission conditions.
+   Inspect all twelve units: each must be inactive with unsatisfied admission conditions.
    One Nix closure does not establish service startup order. Stop on partial activation.
 2. While all services remain held, run the **new recorded system wrapper**
    `/run/current-system/sw/bin/academy migrate up`. This changes the database without
