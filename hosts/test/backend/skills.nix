@@ -14,6 +14,9 @@ let
   coursesPath = config.academy.backend.skills.settings.COURSES;
   coursesContext = builtins.getContext coursesPath;
   courseFiles = if builtins.pathExists coursesPath then builtins.readDir coursesPath else { };
+  tracksPath = config.academy.backend.skills.settings.TRACKS;
+  tracksContext = builtins.getContext tracksPath;
+  trackFiles = if builtins.pathExists tracksPath then builtins.readDir tracksPath else { };
 in
 
 {
@@ -31,6 +34,18 @@ in
         builtins.attrNames courseFiles
       );
       message = "Skills COURSES must contain course YAML definitions.";
+    }
+    {
+      assertion = lib.any (path: path == tracksPath && (tracksContext.${path}.path or false)) (
+        builtins.attrNames tracksContext
+      );
+      message = "Skills TRACKS must retain its store-path reference in the deployment closure.";
+    }
+    {
+      assertion = lib.any (name: lib.hasSuffix ".yml" name && trackFiles.${name} == "regular") (
+        builtins.attrNames trackFiles
+      );
+      message = "Skills TRACKS must contain track YAML definitions.";
     }
   ];
 
@@ -57,6 +72,7 @@ in
       DATABASE_URL = "postgresql+asyncpg://academy-${ms}@/academy-${ms}?host=/run/postgresql";
 
       COURSES = "${skills-ms-develop.packages.${system}.courses}";
+      TRACKS = "${skills-ms-develop.packages.${system}.tracks}";
 
       ROOMS_ENABLED = "true";
       DAILY_LIMIT_POLICY_ENABLED = "false";
