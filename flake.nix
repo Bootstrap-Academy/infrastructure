@@ -3,6 +3,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-glitchtip.url = "github:NixOS/nixpkgs";
+    # kernel package set only, newer than nixpkgs (see modules/boot.nix)
+    nixpkgs-kernel.url = "github:NixOS/nixpkgs/6f06d204d8f2d8761d9da78778745974a3216381";
     deploy-sh.url = "github:Bootstrap-Academy/deploy-sh/5c9c65ffbb689c2f193edc628c2e6d95ca386d4f";
     sops-nix.url = "github:Mic92/sops-nix";
     nfnix = {
