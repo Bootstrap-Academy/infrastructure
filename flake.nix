@@ -17,7 +17,7 @@
     };
     llm-ms.url = "github:Bootstrap-Academy/llm-ms/1f73fc69903418854e7b91130586ee01306dfe07";
 
-    skills-ms.url = "github:Bootstrap-Academy/skills-ms/bae63037fa7347d15a2e682bc6f41623e7b2aa03";
+    skills-ms.url = "github:Bootstrap-Academy/skills-ms/c9394e69d6d15f7dcf85f476b2982d28500fb30b";
     jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/9901fa3a54a6f340104e15bb527e8ac988cbb904";
     events-ms.url = "github:Bootstrap-Academy/events-ms/e04605e85caaf5c5c1f3566f647c19d01f008c9b";
     challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/6ef631ca7b94d5077140f8573f1671825573aefb";
