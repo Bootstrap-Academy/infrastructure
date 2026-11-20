@@ -23,7 +23,7 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = config.services.grafana.package.version == "13.0.7";
+        assertion = config.services.grafana.package.version == "13.0.13";
         message = "Repeat the Grafana key migration VM test before changing Grafana version.";
       }
       {
