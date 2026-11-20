@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.services.nginx.virtualHosts = lib.mkOption {
@@ -28,6 +33,20 @@
 
   config = lib.mkIf config.services.nginx.enable {
     services.nginx = {
+      # nginx 1.30.7 fixes CVE-2026-123007, CVE-2026-118899, CVE-2026-123633 and CVE-2026-121810
+      # (nginx.org security advisories of 2026-11-18). Version and hash as in nixos-26.05;
+      # this override drops out once the pinned nixpkgs ships 1.30.7 or newer.
+      package = lib.mkIf (lib.versionOlder pkgs.nginxStable.version "1.30.7") (
+        pkgs.nginxStable.overrideAttrs {
+          version = "1.30.7";
+          nginxVersion = "1.30.7";
+          src = pkgs.fetchurl {
+            url = "https://nginx.org/download/nginx-1.30.7.tar.gz";
+            hash = "sha256-JWW1yDcFDpWPcPsPc8SOK8pFQq00n9NW9G+wxyYQvG4=";
+          };
+        }
+      );
+
       enableReload = true;
       statusPage = true;
       recommendedProxySettings = true;
