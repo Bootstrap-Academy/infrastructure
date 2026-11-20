@@ -17,17 +17,17 @@
       url = "github:Bootstrap-Academy/sandkasten/97de259259d33b6fb7bbbf0d6db94b037d189b53";
       inputs.radicle-update.url = "github:Bootstrap-Academy/radicle-update/52d7120369f13918076855823fd042f540e8f97b";
     };
-    llm-ms.url = "github:Bootstrap-Academy/llm-ms/1f73fc69903418854e7b91130586ee01306dfe07";
+    llm-ms.url = "github:Bootstrap-Academy/llm-ms/ed5e739fddb00e62d87b3105768a95a55bc8b40f";
 
-    skills-ms.url = "github:Bootstrap-Academy/skills-ms/c9394e69d6d15f7dcf85f476b2982d28500fb30b";
-    jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/9901fa3a54a6f340104e15bb527e8ac988cbb904";
-    events-ms.url = "github:Bootstrap-Academy/events-ms/e04605e85caaf5c5c1f3566f647c19d01f008c9b";
+    skills-ms.url = "github:Bootstrap-Academy/skills-ms/5edd6e338792469e9ed071150a279a59ae5153d1";
+    jobs-ms.url = "github:Bootstrap-Academy/jobs-ms/939b8eabc749f0a2565f1b3399f9c8de2348cf52";
+    events-ms.url = "github:Bootstrap-Academy/events-ms/76c4d9a2b7cf7a90786c0a6c7395b85fb899e975";
     challenges-ms.url = "github:Bootstrap-Academy/challenges-ms/6ef631ca7b94d5077140f8573f1671825573aefb";
     backend.url = "github:Bootstrap-Academy/backend/0699cf7ac7001941b4d7034a04bc10d3039897a3";
 
-    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/c9394e69d6d15f7dcf85f476b2982d28500fb30b";
-    jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/9901fa3a54a6f340104e15bb527e8ac988cbb904";
-    events-ms-develop.url = "github:Bootstrap-Academy/events-ms/e04605e85caaf5c5c1f3566f647c19d01f008c9b";
+    skills-ms-develop.url = "github:Bootstrap-Academy/skills-ms/5edd6e338792469e9ed071150a279a59ae5153d1";
+    jobs-ms-develop.url = "github:Bootstrap-Academy/jobs-ms/939b8eabc749f0a2565f1b3399f9c8de2348cf52";
+    events-ms-develop.url = "github:Bootstrap-Academy/events-ms/76c4d9a2b7cf7a90786c0a6c7395b85fb899e975";
     challenges-ms-develop.url = "github:Bootstrap-Academy/challenges-ms/6ef631ca7b94d5077140f8573f1671825573aefb";
     backend-develop.url = "github:Bootstrap-Academy/backend/0699cf7ac7001941b4d7034a04bc10d3039897a3";
   };
