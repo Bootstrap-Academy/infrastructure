@@ -1,4 +1,4 @@
-"""Offline, copy-only migration of Grafana 13.0.7 OSS SQLite encryption.
+"""Offline, copy-only migration of Grafana 13.0.13 OSS SQLite encryption.
 
 Wire format follows pkg/services/encryption/{service,provider} and secrets/manager.
 The source is never modified; the operator must stop Grafana before taking its snapshot.
@@ -78,7 +78,7 @@ def columns(db, table):
 
 def migrate(db, old_key, new_key):
     if not {"name", "provider", "encrypted_data", "label", "scope"} <= columns(db, "data_keys"):
-        raise MigrationError("unexpected data_keys schema; requires Grafana 13.0.7 OSS")
+        raise MigrationError("unexpected data_keys schema; requires Grafana 13.0.13 OSS")
     for table in ("secret_data_key", "secret_encrypted_value"):
         if columns(db, table) and db.execute(f'SELECT count(*) FROM "{table}"').fetchone()[0]:
             raise MigrationError("unified secret stores require a separate migration review")
@@ -201,7 +201,7 @@ def main():
                 if db.execute("PRAGMA integrity_check").fetchall() != [("ok",)]:
                     raise MigrationError("output integrity check failed")
         result = {
-            "grafana_version": "13.0.7",
+            "grafana_version": "13.0.13",
             "key_sha256": hashlib.sha256(new_key).hexdigest(),
             "database_sha256": hashlib.sha256(args.output.read_bytes()).hexdigest(),
             "counts": counts,

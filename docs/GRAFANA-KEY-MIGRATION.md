@@ -7,9 +7,10 @@ bisherigen Wert. Die Produktionsdatenbank wurde für diese Vorbereitung nicht ge
 
 ## Vertrag und Grenzen
 
-Geprüft ist Grafana **13.0.7 OSS**, SQLite, Provider `secretKey.v1` und der bekannte
-öffentliche Altdefault. Der neue Schlüssel besteht aus 32 zufälligen Bytes als 64
-Hexzeichen. Er liegt ausschließlich SOPS-verschlüsselt in
+Geprüft ist Grafana **13.0.13 OSS** (Encryption-, KMS-, Secrets- und Migrationscode
+bytegleich mit 13.0.7, gegen den die Migration geschrieben wurde), SQLite, Provider
+`secretKey.v1` und der bekannte öffentliche Altdefault. Der neue Schlüssel besteht aus
+32 zufälligen Bytes als 64 Hexzeichen. Er liegt ausschließlich SOPS-verschlüsselt in
 `hosts/prod/grafana-runtime-key.yml`, mit derselben Age-/PGP-Empfängergruppe wie die
 bisherige Prod-Secretdatei. Die eigene Datei verändert die bisherige SOPS-Hostdatei nicht.
 Bei Aktivierung installiert SOPS ihn als `grafana/secret_key`, Eigentümer `grafana`,
@@ -136,8 +137,8 @@ Löschung oder Umverschlüsselung ist ein eigener Auftrag. Temporäre unverschl�
 Keydateien nach erfolgreicher Sicherung/Abnahme entfernen. Das verschlüsselte Original
 und seinen Restorebezug erhalten.
 
-Primärquellen: [Grafana 13.0.7 Encryption-Service](https://github.com/grafana/grafana/blob/v13.0.7/pkg/services/encryption/service/service.go),
-[CFB-Provider](https://github.com/grafana/grafana/blob/v13.0.7/pkg/services/encryption/provider/cipher_aescfb.go),
-[OSS-Defaultprovider](https://github.com/grafana/grafana/blob/v13.0.7/pkg/services/kmsproviders/defaultprovider/grafana_provider.go),
-[DEK-Speicher](https://github.com/grafana/grafana/blob/v13.0.7/pkg/services/secrets/database/database.go),
-[Secretmigrationen](https://github.com/grafana/grafana/blob/v13.0.7/pkg/services/secrets/migrator/migrator.go).
+Primärquellen: [Grafana 13.0.13 Encryption-Service](https://github.com/grafana/grafana/blob/v13.0.13/pkg/services/encryption/service/service.go),
+[CFB-Provider](https://github.com/grafana/grafana/blob/v13.0.13/pkg/services/encryption/provider/cipher_aescfb.go),
+[OSS-Defaultprovider](https://github.com/grafana/grafana/blob/v13.0.13/pkg/services/kmsproviders/defaultprovider/grafana_provider.go),
+[DEK-Speicher](https://github.com/grafana/grafana/blob/v13.0.13/pkg/services/secrets/database/database.go),
+[Secretmigrationen](https://github.com/grafana/grafana/blob/v13.0.13/pkg/services/secrets/migrator/migrator.go).
